@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.IO;
+using SM64DSe.sources.forms;
 
 namespace SM64DSe.SM64DSFormats
 {

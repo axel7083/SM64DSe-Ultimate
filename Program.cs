@@ -22,6 +22,7 @@ using System.Linq;
 using System.Windows.Forms;
 using OpenTK.Graphics.OpenGL;
 using System.IO;
+using SM64DSe.sources.forms;
 
 namespace SM64DSe
 {
@@ -79,7 +80,7 @@ namespace SM64DSe
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new MainForm(args));
+            Application.Run(new sources.forms.MainForm(args));
         }
     }
 }

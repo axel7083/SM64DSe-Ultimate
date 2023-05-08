@@ -10,6 +10,7 @@ using System.Xml;
 using System.IO;
 using System.Globalization;
 using SM64DSe.ImportExport.Loaders;
+using SM64DSe.sources;
 
 namespace SM64DSe.ImportExport
 {

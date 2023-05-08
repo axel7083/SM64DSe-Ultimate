@@ -20,6 +20,7 @@ using OpenTK;
 using OpenTK.Graphics.OpenGL;
 using System.Security.Cryptography;
 using SM64DSe.ImportExport.Loaders;
+using SM64DSe.sources;
 
 namespace SM64DSe.ImportExport.Loaders.ExternalLoaders
 {

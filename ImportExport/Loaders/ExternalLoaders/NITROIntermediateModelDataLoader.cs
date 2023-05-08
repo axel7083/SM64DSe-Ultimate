@@ -24,6 +24,7 @@ using System.Text;
 using System.Xml;
 using System.Drawing;
 using OpenTK;
+using SM64DSe.sources;
 
 namespace SM64DSe.ImportExport.Loaders.ExternalLoaders
 {

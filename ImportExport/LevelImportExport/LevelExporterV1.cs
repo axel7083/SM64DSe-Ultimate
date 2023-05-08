@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.IO;
 using System.Xml;
+using SM64DSe.sources;
 
 namespace SM64DSe.ImportExport.LevelImportExport
 {

@@ -25,6 +25,7 @@ using System.Drawing;
 using OpenTK;
 using OpenTK.Graphics.OpenGL;
 using SM64DSe.SM64DSFormats;
+using SM64DSe.sources;
 
 namespace SM64DSe
 {

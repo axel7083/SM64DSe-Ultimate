@@ -48,6 +48,7 @@ using SM64DSe.ImportExport.Writers.InternalWriters;
 using SM64DSe.ImportExport.Writers;
 using SM64DSe.ImportExport.Loaders.ExternalLoaders;
 using SM64DSe.ImportExport.Loaders.InternalLoaders;
+using SM64DSe.sources;
 
 namespace SM64DSe.ImportExport
 {

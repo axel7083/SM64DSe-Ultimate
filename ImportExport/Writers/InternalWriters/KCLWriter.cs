@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Globalization;
+using SM64DSe.sources;
 
 namespace SM64DSe.ImportExport.Writers.InternalWriters
 {

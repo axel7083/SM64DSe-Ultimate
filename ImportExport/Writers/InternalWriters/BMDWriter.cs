@@ -14,6 +14,7 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.Runtime.InteropServices;
 using SM64DSe.SM64DSFormats;
+using SM64DSe.sources;
 
 namespace SM64DSe.ImportExport.Writers.InternalWriters
 {

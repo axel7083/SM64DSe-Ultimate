@@ -6,6 +6,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
+using SM64DSe.sources;
 
 namespace SM64DSe.Templates
 {

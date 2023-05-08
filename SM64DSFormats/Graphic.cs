@@ -5,6 +5,7 @@ using System.Drawing.Imaging;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
+using SM64DSe.sources;
 
 namespace SM64DSe.SM64DSFormats {
 

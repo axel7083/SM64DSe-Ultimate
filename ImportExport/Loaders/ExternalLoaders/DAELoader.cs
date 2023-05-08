@@ -34,6 +34,7 @@ using System.Xml;
 using Collada141;
 using System.Windows.Forms;
 using System.IO;
+using SM64DSe.sources;
 
 namespace SM64DSe.ImportExport.Loaders.ExternalLoaders
 {

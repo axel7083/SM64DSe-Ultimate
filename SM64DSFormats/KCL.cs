@@ -22,6 +22,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using OpenTK;
+using SM64DSe.sources;
 
 namespace SM64DSe
 {

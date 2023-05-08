@@ -7,6 +7,7 @@ using System.Windows.Forms;
 using System.Xml;
 using OpenTK;
 using System.IO;
+using SM64DSe.sources;
 
 namespace SM64DSe.ImportExport.LevelImportExport
 {

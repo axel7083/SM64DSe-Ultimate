@@ -6,6 +6,7 @@ using System.Drawing;
 using OpenTK;
 using OpenTK.Graphics.OpenGL;
 using System.Windows.Forms;
+using SM64DSe.sources;
 
 namespace SM64DSe.FormControls
 {

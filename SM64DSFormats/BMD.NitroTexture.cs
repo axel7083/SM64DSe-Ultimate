@@ -6,6 +6,7 @@ using System.Drawing.Imaging;
 using System.Runtime.InteropServices;
 using System.Drawing;
 using QuickGraph;
+using SM64DSe.sources;
 
 namespace SM64DSe.SM64DSFormats
 {

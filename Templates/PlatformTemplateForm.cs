@@ -10,6 +10,8 @@ using System.Windows.Forms;
 using System.IO;
 using System.Text.RegularExpressions;
 using SM64DSe.SM64DSFormats;
+using SM64DSe.sources;
+using SM64DSe.sources.forms;
 
 namespace SM64DSe.Templates
 {

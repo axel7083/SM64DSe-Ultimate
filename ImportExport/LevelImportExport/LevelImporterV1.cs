@@ -5,6 +5,7 @@ using System.Text;
 using System.IO;
 using System.Xml;
 using OpenTK;
+using SM64DSe.sources;
 
 namespace SM64DSe.ImportExport.LevelImportExport
 {

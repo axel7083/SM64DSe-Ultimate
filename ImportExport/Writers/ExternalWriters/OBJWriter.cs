@@ -17,6 +17,7 @@ using System.Drawing;
 using System.IO;
 using System.Globalization;
 using OpenTK;
+using SM64DSe.sources;
 
 namespace SM64DSe.ImportExport.Writers.ExternalWriters
 {
