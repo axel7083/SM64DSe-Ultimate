@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -12,6 +12,7 @@ namespace SM64DSe.sources.forms
         private BMD m_Model;
         private BTP m_BTP;
         private string m_ModelName;
+        private string m_BtpName;
 
         private ROMFileSelect m_ROMFileSelect = new ROMFileSelect();
         private FolderBrowserDialog m_FolderBrowserDialogue = new FolderBrowserDialog();
@@ -19,15 +20,16 @@ namespace SM64DSe.sources.forms
         private System.Windows.Forms.Timer m_BTPTimer;
         private int timerCount = 0;
 
-        public TextureEditorForm(string fileName)
+        public TextureEditorForm(string btpFileName, string bmdFileName)
         {
             InitializeComponent();
 
-            m_ModelName = fileName;
+            m_ModelName = bmdFileName;
+            m_BtpName = btpFileName;
         }
 
         public TextureEditorForm()
-            : this(null) { }
+            : this(null, null) { }
 
         private void TextureEditorForm_Load(object sender, System.EventArgs e)
         {
@@ -47,6 +49,12 @@ namespace SM64DSe.sources.forms
 
             LoadTextures();
             InitTimer();
+
+            if (!string.IsNullOrWhiteSpace(m_BtpName))
+            {
+                ClearBTPTextBoxes();
+                LoadBTP(m_BtpName);
+            }
         }
 
         private void LoadTextures()
