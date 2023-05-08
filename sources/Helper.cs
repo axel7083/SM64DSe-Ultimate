@@ -446,13 +446,13 @@ namespace SM64DSe.sources
             switch (Program.m_ROM.m_Version)
             {
                 default:
-                case NitroROM.Version.EUR:
+                case nitro.NitroROM.Version.EUR:
                     return 0x75298;
-                case NitroROM.Version.USA_v1:
+                case nitro.NitroROM.Version.USA_v1:
                     return 0x731F0;
-                case NitroROM.Version.USA_v2:
+                case nitro.NitroROM.Version.USA_v2:
                     return 0x73F10;
-                case NitroROM.Version.JAP:
+                case nitro.NitroROM.Version.JAP:
                     return 0x73744;
             }
         }
@@ -487,7 +487,7 @@ namespace SM64DSe.sources
         public static bool CheckOverlayCompressed(uint id)
         {
             if (Program.m_IsROMFolder) {
-                List<Ndst.Overlay> overlays = JsonConvert.DeserializeObject<List<Ndst.Overlay>>(NitroROM.GetExtractedLines("__ROM__/arm9Overlays.json"));
+                List<Ndst.Overlay> overlays = JsonConvert.DeserializeObject<List<Ndst.Overlay>>(nitro.NitroROM.GetExtractedLines("__ROM__/arm9Overlays.json"));
                 Ndst.Overlay o = overlays.Where(x => x.Id == id).ElementAt(0);
                 return (o.Flags & 0x01000000) > 0;
             }

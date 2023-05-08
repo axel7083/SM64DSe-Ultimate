@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
 using OpenTK;
+using SM64DSe.sources.nitro;
 
 namespace SM64DSe.sources.forms
 {

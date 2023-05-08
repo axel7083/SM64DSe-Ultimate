@@ -22,22 +22,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using SM64DSe.sources;
+using SM64DSe.sources.nitro;
 
 namespace SM64DSe
 {
     public class NitroOverlay : INitroROMBlock
     {
-        public NitroOverlay(NitroROM rom, uint id)
+        public NitroOverlay(sources.nitro.NitroROM rom, uint id)
         {
             m_ROM = rom;
             m_ID = id;
 
             if (Program.m_IsROMFolder) {
-                List<Ndst.Overlay> overlays = JsonConvert.DeserializeObject<List<Ndst.Overlay>>(NitroROM.GetExtractedLines("__ROM__/arm9Overlays.json"));
+                List<Ndst.Overlay> overlays = JsonConvert.DeserializeObject<List<Ndst.Overlay>>(sources.nitro.NitroROM.GetExtractedLines("__ROM__/arm9Overlays.json"));
                 Ndst.Overlay o = overlays.Where(x => x.Id == id).ElementAt(0);
                 m_FileID = o.FileId;
                 m_RAMAddr = o.RAMAddress;
-                m_Data = NitroROM.GetExtractedBytes("__ROM__/Arm9/" + id + ".bin");
+                m_Data = sources.nitro.NitroROM.GetExtractedBytes("__ROM__/Arm9/" + id + ".bin");
                 if ((o.Flags & 0x01000000) > 0) {
                     Jap77.Decompress(ref m_Data);
                 }
@@ -83,13 +84,13 @@ namespace SM64DSe
                 if (m_Data.Length % 4 != 0) {
                     SetSize((uint)((m_Data.Length + 3) & ~3));
                 }
-                List<Ndst.Overlay> overlays = JsonConvert.DeserializeObject<List<Ndst.Overlay>>(NitroROM.GetExtractedLines("__ROM__/arm9Overlays.json"));
+                List<Ndst.Overlay> overlays = JsonConvert.DeserializeObject<List<Ndst.Overlay>>(sources.nitro.NitroROM.GetExtractedLines("__ROM__/arm9Overlays.json"));
                 Ndst.Overlay o = overlays.Where(x => x.Id == m_ID).ElementAt(0);
                 o.RAMSize = (uint)m_Data.Length;
                 o.Flags &= 0xFFFFFFFE;
-                NitroROM.WriteExtractedBytes("__ROM__/Arm9/" + m_ID + ".bin", m_Data);
+                sources.nitro.NitroROM.WriteExtractedBytes("__ROM__/Arm9/" + m_ID + ".bin", m_Data);
                 string toWrite = JsonConvert.SerializeObject(overlays, Formatting.Indented);
-                NitroROM.WriteExtractedLines("__ROM__/arm9Overlays.json", toWrite);
+                sources.nitro.NitroROM.WriteExtractedLines("__ROM__/arm9Overlays.json", toWrite);
                 return;
             }
 
@@ -125,18 +126,18 @@ namespace SM64DSe
                 this.SetSize((uint)(this.m_Data.Length + 3 & -4));
 
             if (Program.m_IsROMFolder) {
-                List<Ndst.Overlay> overlays = JsonConvert.DeserializeObject<List<Ndst.Overlay>>(NitroROM.GetExtractedLines("__ROM__/arm9Overlays.json"));
+                List<Ndst.Overlay> overlays = JsonConvert.DeserializeObject<List<Ndst.Overlay>>(sources.nitro.NitroROM.GetExtractedLines("__ROM__/arm9Overlays.json"));
                 Ndst.Overlay o = overlays.Where(x => x.Id == m_ID).ElementAt(0);
                 o.RAMSize = (uint)m_Data.Length;
                 o.Flags &= 0xFFFFFFFE;
-                NitroROM.WriteExtractedBytes("__ROM__/Arm9/" + m_ID + ".bin", m_Data);
+                sources.nitro.NitroROM.WriteExtractedBytes("__ROM__/Arm9/" + m_ID + ".bin", m_Data);
                 string toWrite = JsonConvert.SerializeObject(overlays, Formatting.Indented);
-                NitroROM.WriteExtractedLines("__ROM__/arm9Overlays.json", toWrite);
+                sources.nitro.NitroROM.WriteExtractedLines("__ROM__/arm9Overlays.json", toWrite);
                 return;
             }
 
-            NitroROM.OverlayEntry[] overlayEntries = this.m_ROM.GetOverlayEntries();
-            NitroROM.OverlayEntry overlayEntry = overlayEntries[(int)this.m_ID];
+            sources.nitro.NitroROM.OverlayEntry[] overlayEntries = this.m_ROM.GetOverlayEntries();
+            sources.nitro.NitroROM.OverlayEntry overlayEntry = overlayEntries[(int)this.m_ID];
             overlayEntry.RAMSize = (uint)this.m_Data.Length;
             overlayEntries[(int)this.m_ID] = overlayEntry;
             this.m_ROM.ReinsertFile(this.m_FileID, this.m_Data);
@@ -165,12 +166,12 @@ namespace SM64DSe
         {
 
             if (Program.m_IsROMFolder) {
-                List<Ndst.Overlay> overlays = JsonConvert.DeserializeObject<List<Ndst.Overlay>>(NitroROM.GetExtractedLines("__ROM__/arm9Overlays.json"));
+                List<Ndst.Overlay> overlays = JsonConvert.DeserializeObject<List<Ndst.Overlay>>(sources.nitro.NitroROM.GetExtractedLines("__ROM__/arm9Overlays.json"));
                 Ndst.Overlay o = overlays.Where(x => x.Id == m_ID).ElementAt(0);
                 o.StaticInitStart = address;
                 o.StaticInitEnd = address + size;
                 string toWrite = JsonConvert.SerializeObject(overlays, Formatting.Indented);
-                NitroROM.WriteExtractedLines("__ROM__/arm9Overlays.json", toWrite);
+                sources.nitro.NitroROM.WriteExtractedLines("__ROM__/arm9Overlays.json", toWrite);
                 return;
             }
 

@@ -40,7 +40,7 @@ namespace SM64DSe.sources.forms
 
         public static void LoadFileList(TreeView tvFileList, String[] filters = null, String startFolder = "", bool mergeArcs = false)
         {
-            NitroROM.FileEntry[] files = Program.m_ROM.GetFileEntries();
+            nitro.NitroROM.FileEntry[] files = Program.m_ROM.GetFileEntries();
             TreeNode node = tvFileList.Nodes.Add("root", "ROM File System");
 
             EnsureAllDirsExist(tvFileList); //just in case a directory doesn't have files
@@ -51,13 +51,13 @@ namespace SM64DSe.sources.forms
 
         public static void EnsureAllDirsExist(TreeView tvFileList)
         {
-            NitroROM.DirEntry[] dirs = Program.m_ROM.GetDirEntries();
+            nitro.NitroROM.DirEntry[] dirs = Program.m_ROM.GetDirEntries();
 
             for (int i = 1; i < dirs.Length; ++i)
                 EnsureDirExists(dirs[i].FullName, dirs[i].FullName, tvFileList.Nodes["root"]);
         }
 
-        private static void LoadFiles(TreeView tvFileList, TreeNode node, NitroROM.FileEntry[] files, NARC.FileEntry[] filesNARC, String[] filters = null, String startFolder = "", bool mergeArcs = false)
+        private static void LoadFiles(TreeView tvFileList, TreeNode node, nitro.NitroROM.FileEntry[] files, NARC.FileEntry[] filesNARC, String[] filters = null, String startFolder = "", bool mergeArcs = false)
         {
             TreeNode parent = node;
             String[] names = new String[0];
@@ -134,7 +134,7 @@ namespace SM64DSe.sources.forms
                                 rootNode = tvFileList.Nodes["root"];
                             else
                                 rootNode = node;
-                            LoadFiles(tvFileList, rootNode, new NitroROM.FileEntry[] { }, 
+                            LoadFiles(tvFileList, rootNode, new nitro.NitroROM.FileEntry[] { }, 
                                 new NARC(Program.m_ROM, Program.m_ROM.GetFileIDFromName(files[i].FullName)).GetFileEntries(),filters,startFolder,mergeArcs);
                         }
                     }
@@ -144,10 +144,10 @@ namespace SM64DSe.sources.forms
 
         public static void LoadOverlayList(TreeView tvFileList)
         {
-            NitroROM.FileEntry[] files = Program.m_ROM.GetFileEntries();
+            nitro.NitroROM.FileEntry[] files = Program.m_ROM.GetFileEntries();
             TreeNode ovlNode = tvFileList.Nodes.Add("root", "ARM 9 Overlays");
 
-            NitroROM.OverlayEntry[] ovls = Program.m_ROM.GetOverlayEntries();
+            nitro.NitroROM.OverlayEntry[] ovls = Program.m_ROM.GetOverlayEntries();
             for (int i = 0; i < ovls.Length; i++)
             {
                 string ind = String.Format("{0:D3}", i);

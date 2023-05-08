@@ -25,7 +25,7 @@ namespace SM64DSe.sources
 {
     public class NARC : NitroFile
     {
-        public NARC(NitroROM rom, ushort id) : base(rom, id)
+        public NARC(nitro.NitroROM rom, ushort id) : base(rom, id)
         {
             if (Program.m_IsROMFolder) {
                 string[] files = Ndst.Helper.ReadROMLines("__ROM__/files.txt", Program.m_ROMBasePath, Program.m_ROMPatchPath);

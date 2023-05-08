@@ -14,7 +14,7 @@ namespace SM64DSe.sources.forms {
     /// </summary>
     public class FilesystemEditorForm : Form {
         private string m_SelectedFile = "";
-        private NitroROM m_ROM;
+        private nitro.NitroROM m_ROM;
         private bool promptOnClose;
         private IContainer components;
         private TreeView tvFiles;

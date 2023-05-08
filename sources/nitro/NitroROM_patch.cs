@@ -17,18 +17,9 @@
 */
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.IO;
-using System.Globalization;
-using System.Resources;
-using System.Windows.Forms;
 using System.ComponentModel;
-using SM64DSe.sources;
 
-namespace SM64DSe
+namespace SM64DSe.sources.nitro
 {
     public partial class NitroROM
     {
@@ -44,13 +35,13 @@ namespace SM64DSe
                 switch (m_Version)
                 {
                     default:
-                    case NitroROM.Version.EUR:
+                    case sources.nitro.NitroROM.Version.EUR:
                         return 0x214EAA0; // 34925216
-                    case NitroROM.Version.USA_v1:
+                    case sources.nitro.NitroROM.Version.USA_v1:
                         return 0x2143BA0; // 34880416
-                    case NitroROM.Version.USA_v2:
+                    case sources.nitro.NitroROM.Version.USA_v2:
                         return 0x2145720; // 34887456
-                    case NitroROM.Version.JAP:
+                    case sources.nitro.NitroROM.Version.JAP:
                         return 0x2143480; // 34878592
                 }
             }

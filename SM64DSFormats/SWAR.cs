@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.IO;
 using NAudio.Wave;
 using NAudio.Wave.SampleProviders;
+using SM64DSe.sources.nitro;
 
 namespace SM64DSe.SM64DSFormats
 {

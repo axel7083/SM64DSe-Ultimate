@@ -35,7 +35,7 @@ namespace SM64DSe
         public static string ServerURL = "http://kuribo64.net/";
 
         public static string m_ROMPath;
-        public static NitroROM m_ROM;
+        public static sources.nitro.NitroROM m_ROM;
         public static bool m_IsROMFolder;
         public static string m_ROMBasePath;
         public static string m_ROMPatchPath;

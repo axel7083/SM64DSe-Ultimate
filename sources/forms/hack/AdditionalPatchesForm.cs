@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using System.Xml;
+using SM64DSe.sources.nitro;
 
 namespace SM64DSe.sources.forms
 {
@@ -317,16 +318,16 @@ namespace SM64DSe.sources.forms
 
             switch (Program.m_ROM.m_Version)
             {
-                case NitroROM.Version.EUR:
+                case nitro.NitroROM.Version.EUR:
                     eurRestoreData = Patch.GenerateRestoreData(eurPatch);
                     break;
-                case NitroROM.Version.USA_v1:
+                case nitro.NitroROM.Version.USA_v1:
                     usv1RestoreData = Patch.GenerateRestoreData(usv1Patch);
                     break;
-                case NitroROM.Version.USA_v2:
+                case nitro.NitroROM.Version.USA_v2:
                     usv2RestoreData = Patch.GenerateRestoreData(usv2Patch);
                     break;
-                case NitroROM.Version.JAP:
+                case nitro.NitroROM.Version.JAP:
                     japRestoreData = Patch.GenerateRestoreData(japPatch);
                     break;
             }
@@ -424,7 +425,7 @@ namespace SM64DSe.sources.forms
          * ROM match the values of the patch - if they match the patch is already applied. This doesn't test 
          * all values to speed things up.
          */ 
-        public bool CheckIsApplied(NitroROM rom)
+        public bool CheckIsApplied(nitro.NitroROM rom)
         {
             if (m_DecompressAllOverlays && Helper.CheckAllOverlaysDecompressed() == false)
             {
@@ -442,16 +443,16 @@ namespace SM64DSe.sources.forms
 
             switch (rom.m_Version)
             {
-                case NitroROM.Version.EUR:
+                case nitro.NitroROM.Version.EUR:
                     testAddressDataPair = (m_EURPatch.Count == 0) ? null : m_EURPatch.ElementAt(0);
                     break;
-                case NitroROM.Version.USA_v1:
+                case nitro.NitroROM.Version.USA_v1:
                     testAddressDataPair = (m_USv1Patch.Count == 0) ? null : m_USv1Patch.ElementAt(0);
                     break;
-                case NitroROM.Version.USA_v2:
+                case nitro.NitroROM.Version.USA_v2:
                     testAddressDataPair = (m_USv2Patch.Count == 0) ? null : m_USv2Patch.ElementAt(0);
                     break;
-                case NitroROM.Version.JAP:
+                case nitro.NitroROM.Version.JAP:
                     testAddressDataPair = (m_JAPPatch.Count == 0) ? null : m_JAPPatch.ElementAt(0);
                     break;
             }
@@ -492,26 +493,26 @@ namespace SM64DSe.sources.forms
             return true;
         }
 
-        public void ApplyPatch(NitroROM rom)
+        public void ApplyPatch(nitro.NitroROM rom)
         {
             Program.m_ROM.BeginRW();
             List<AddressDataPair> addressDataPairs = null;
 
             switch (rom.m_Version)
             {
-                case NitroROM.Version.EUR:
+                case nitro.NitroROM.Version.EUR:
                     addressDataPairs = m_EURPatch;
                     m_EURRestoreData = GenerateRestoreData(m_EURPatch);
                     break;
-                case NitroROM.Version.USA_v1:
+                case nitro.NitroROM.Version.USA_v1:
                     addressDataPairs = m_USv1Patch;
                     m_USv1RestoreData = GenerateRestoreData(m_USv1Patch);
                     break;
-                case NitroROM.Version.USA_v2:
+                case nitro.NitroROM.Version.USA_v2:
                     addressDataPairs = m_USv2Patch;
                     m_USv2RestoreData = GenerateRestoreData(m_USv2Patch);
                     break;
-                case NitroROM.Version.JAP:
+                case nitro.NitroROM.Version.JAP:
                     addressDataPairs = m_JAPPatch;
                     m_JAPRestoreData = GenerateRestoreData(m_JAPPatch);
                     break;
@@ -572,22 +573,22 @@ namespace SM64DSe.sources.forms
                 fileToPatch.SaveChanges();
         }
 
-        public void RemovePatch(NitroROM rom)
+        public void RemovePatch(nitro.NitroROM rom)
         {
             List<AddressDataPair> addressDataPairs = null;
 
             switch (rom.m_Version)
             {
-                case NitroROM.Version.EUR:
+                case nitro.NitroROM.Version.EUR:
                     addressDataPairs = m_EURRestoreData;
                     break;
-                case NitroROM.Version.USA_v1:
+                case nitro.NitroROM.Version.USA_v1:
                     addressDataPairs = m_USv1RestoreData;
                     break;
-                case NitroROM.Version.USA_v2:
+                case nitro.NitroROM.Version.USA_v2:
                     addressDataPairs = m_USv2RestoreData;
                     break;
-                case NitroROM.Version.JAP:
+                case nitro.NitroROM.Version.JAP:
                     addressDataPairs = m_JAPRestoreData;
                     break;
             }

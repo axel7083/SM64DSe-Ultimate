@@ -24,6 +24,7 @@ using System.Windows.Forms;
 using OpenTK;
 using OpenTK.Graphics.OpenGL;
 using SM64DSe.sources.forms;
+using SM64DSe.sources.nitro;
 
 namespace SM64DSe.sources
 {

@@ -1,54 +1,62 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Xml;
 
 namespace SM64DSe.sources.editors
 {
+    public struct MessagesDetails
+    {
+        public string message;
+        public string shortMessage;
+        public int width;
+        public int height;
+        public MessagesDetails(string message, string shortMessage, int width, int height)
+        {
+            this.message = message;
+            this.shortMessage = shortMessage;
+            this.width = width;
+            this.height = height;
+        }
+    }
+    
     public class TextEditor
     {
-        private NitroROM rom;
+        private nitro.NitroROM rom;
+        private int LIMIT = 45;
         
-        private static BiDictionaryOneToOne<byte, string> BASIC_EUR_US_CHARS = new BiDictionaryOneToOne<byte,string>();
-        private static BiDictionaryOneToOne<byte, string> EXTENDED_ASCII_CHARS = new BiDictionaryOneToOne<byte,string>();
-        private static BiDictionaryOneToOne<byte, string> JAP_CHARS = new BiDictionaryOneToOne<byte, string>();
-
-        private static Dictionary<string, uint> BASIC_EUR_US_SIZES = new Dictionary<string, uint>();
-        private static Dictionary<string, uint> EXTENDED_ASCII_SIZES = new Dictionary<string, uint>();
-        private static Dictionary<string, uint> JAP_SIZES = new Dictionary<string, uint>();
-        
-        public TextEditor(NitroROM rom)
+        public TextEditor(nitro.NitroROM rom)
         {
             this.rom = rom;
-            TextUtils.LoadCharList("extended_ascii.txt", EXTENDED_ASCII_CHARS, EXTENDED_ASCII_SIZES);
-            TextUtils.LoadCharList("basic_eur_us_chars.txt", BASIC_EUR_US_CHARS, BASIC_EUR_US_SIZES);
-            TextUtils.LoadCharList("jap_chars.txt", JAP_CHARS, JAP_SIZES);
+            TextUtils.InitDictionaries();
         }
 
-        private NitroROM.Version GetRomVersion()
+        private nitro.NitroROM.Version GetRomVersion()
         {
             return rom.m_Version;
         }
 
-        public KeyValuePair<string, string>[] GetLanguages()
+        public Dictionary<string, string> GetLanguages()
         {
             switch (GetRomVersion())
             {
-                case NitroROM.Version.USA_v1:
-                case NitroROM.Version.USA_v2:
-                case NitroROM.Version.JAP:
-                    return new[]
+                case nitro.NitroROM.Version.USA_v1:
+                case nitro.NitroROM.Version.USA_v2:
+                case nitro.NitroROM.Version.JAP:
+                    return new Dictionary<string, string>()
                     {
-                        new KeyValuePair<string, string>("English", "nes"), 
-                        new KeyValuePair<string, string>("Japanese", "jpn")
+                        {"English", "nes"},
+                        {"Japanese", "jpn"},
                     };
-                case NitroROM.Version.EUR:
-                    return new[]
+                case nitro.NitroROM.Version.EUR:
+                    return new Dictionary<string, string>()
                     {
-                        new KeyValuePair<string, string>("English", "eng"), 
-                        new KeyValuePair<string, string>("Français", "frc"),
-                        new KeyValuePair<string, string>("Deutsch", "gmn"),
-                        new KeyValuePair<string, string>("Italiano", "itl"),
-                        new KeyValuePair<string, string>("Español", "spn"),
+                        {"English", "eng"}, 
+                        {"Français", "frn"},
+                        {"Deutsch", "gmn"},
+                        {"Italiano", "itl"},
+                        {"Español", "spn"},
                     };
                 default:
                     throw new NotSupportedException("Unsupported ROM version");
@@ -139,28 +147,28 @@ namespace SM64DSe.sources.editors
                         thechar = (char)(0x30 + cur);*/
                     // Some characters are two bytes long, can skip the second
 
-                    if (GetRomVersion() == NitroROM.Version.JAP)
+                    if (GetRomVersion() == nitro.NitroROM.Version.JAP)
                     {
-                        if (JAP_CHARS.GetFirstToSecond().ContainsKey(cur))
+                        if (TextUtils.JAP_CHARS.GetFirstToSecond().ContainsKey(cur))
                         {
-                            thetext += JAP_CHARS.GetByFirst(cur);
-                            straddr += (JAP_SIZES[JAP_CHARS.GetByFirst(cur)] - 1);
-                            length += (int)(JAP_SIZES[JAP_CHARS.GetByFirst(cur)] - 1);
+                            thetext += TextUtils.JAP_CHARS.GetByFirst(cur);
+                            straddr += (TextUtils.JAP_SIZES[TextUtils.JAP_CHARS.GetByFirst(cur)] - 1);
+                            length += (int)(TextUtils.JAP_SIZES[TextUtils.JAP_CHARS.GetByFirst(cur)] - 1);
                         }
                     }
                     else
                     {
                         if ((cur >= 0x00 && cur <= 0x4F) || (cur >= 0xEE && cur <= 0xFB))
                         {
-                            thetext += BASIC_EUR_US_CHARS.GetByFirst(cur);
-                            straddr += (BASIC_EUR_US_SIZES[BASIC_EUR_US_CHARS.GetByFirst(cur)] - 1);
-                            length += (int)(BASIC_EUR_US_SIZES[BASIC_EUR_US_CHARS.GetByFirst(cur)] - 1);
+                            thetext += TextUtils.BASIC_EUR_US_CHARS.GetByFirst(cur);
+                            straddr += (TextUtils.BASIC_EUR_US_SIZES[TextUtils.BASIC_EUR_US_CHARS.GetByFirst(cur)] - 1);
+                            length += (int)(TextUtils.BASIC_EUR_US_SIZES[TextUtils.BASIC_EUR_US_CHARS.GetByFirst(cur)] - 1);
                         }
                         else if (cur >= 0x50 && cur <= 0xCF)
                         {
-                            thetext += EXTENDED_ASCII_CHARS.GetByFirst(cur);
-                            straddr += (EXTENDED_ASCII_SIZES[EXTENDED_ASCII_CHARS.GetByFirst(cur)] - 1);
-                            length += (int)(EXTENDED_ASCII_SIZES[EXTENDED_ASCII_CHARS.GetByFirst(cur)] - 1);
+                            thetext += TextUtils.EXTENDED_ASCII_CHARS.GetByFirst(cur);
+                            straddr += (TextUtils.EXTENDED_ASCII_SIZES[TextUtils.EXTENDED_ASCII_CHARS.GetByFirst(cur)] - 1);
+                            length += (int)(TextUtils.EXTENDED_ASCII_SIZES[TextUtils.EXTENDED_ASCII_CHARS.GetByFirst(cur)] - 1);
                         }
                     }
 
@@ -189,5 +197,220 @@ namespace SM64DSe.sources.editors
                 m_ShortVersions[i] = TextUtils.ShortVersion(m_MsgData[i], i);
             }
         }
+        
+        ushort[] MSG_ID_CHAR_MAP;
+
+        private ushort GetMessageIdByParameterValue(ushort id)
+        {
+            if (MSG_ID_CHAR_MAP == null || MSG_ID_CHAR_MAP.Length == 0)
+            {
+                rom.BeginRW();
+                
+                // Read the block of bytes from the given address
+                byte[] block = rom.ReadBlock(0x0008EEEC, 196 * 2);
+
+                // Convert the bytes into an array of shorts
+                MSG_ID_CHAR_MAP = new ushort[196];
+                for (var i = 0; i < 196; i++)
+                {
+                    MSG_ID_CHAR_MAP[i] = (ushort)(block[2*i] | (block[2*i+1] << 8));
+                }
+            
+                rom.EndRW();
+            }
+
+            // The structure of the mapping is an array of 96 ushort 
+            for (int i = 0; i < 98; i+=2)
+            {
+                if (MSG_ID_CHAR_MAP[i] == id)
+                    return MSG_ID_CHAR_MAP[i + 1];
+            }
+
+            throw new ArgumentOutOfRangeException("");
+        }
+
+        public string[] GetAllMessages()
+        {
+            if (m_MsgData == null || m_MsgData.Length == 0)
+                throw new Exception("The messages have not been loaded. You need to select a language first.");
+            
+            return m_MsgData;
+        }
+        
+        public string[] GetAllShortMessages()
+        {
+            if (m_ShortVersions == null || m_ShortVersions.Length == 0)
+                throw new Exception("The messages have not been loaded. You need to select a language first.");
+            
+            return m_ShortVersions;
+        }
+
+        public MessagesDetails getMessageDetails(int index)
+        {
+            if (index >= m_MsgData.Length)
+                throw new IndexOutOfRangeException("The Message index is out of range.");
+
+            return new MessagesDetails(m_MsgData[index], m_ShortVersions[index], m_StringWidth[index], m_StringHeight[index]);
+        }
+
+
+        public string getMessageByParameterValue(ushort parameter)
+        {
+            var index = GetMessageIdByParameterValue(parameter);
+            if (index >= m_MsgData.Length)
+                throw new IndexOutOfRangeException("The Message index is out of range.");
+
+            return GetAllMessages()[index];
+        }
+
+        public string getShortMessageByParameterValue(ushort parameter)
+        {
+            var index = GetMessageIdByParameterValue(parameter);
+            if (index >= m_ShortVersions.Length)
+                throw new IndexOutOfRangeException("The Message index is out of range.");
+
+            if (m_ShortVersions == null || m_ShortVersions.Length == 0)
+                throw new Exception("The messages have not been loaded. You need to select a language first.");
+            
+            return m_ShortVersions[index];
+        }
+        
+        public void UpdateEntries(String msg, int index)
+        {
+            m_MsgData[index] = msg;
+            m_ShortVersions[index] = TextUtils.ShortVersion(msg, index);
+            int lengthDif = TextUtils.EncodeString(msg, GetRomVersion()).Count - m_StringLengths[index];
+            m_StringLengths[index] += lengthDif;
+
+            //Make or remove room for the new string if needed (don't need to for last entry)
+            if (lengthDif > 0 && index != m_MsgData.Length - 1)
+            {
+                uint curStringStart = m_StringHeaderData[index] + m_DAT1Start;
+                uint nextStringStart = m_StringHeaderData[index + 1] + m_DAT1Start;
+                byte[] followingData = file.ReadBlock(nextStringStart, (uint)(file.m_Data.Length - nextStringStart));
+                for (int i = (int)curStringStart; i < (int)nextStringStart + lengthDif; i++)
+                {
+                    file.Write8((uint)i, 0);// Fill the gap with zeroes
+                }
+                file.WriteBlock((uint)(nextStringStart + lengthDif), followingData);
+            }
+            else if (lengthDif < 0 && index != m_MsgData.Length - 1)
+            {
+                // lengthDif is negative, -- +
+                uint nextStringStart = m_StringHeaderData[index + 1] + m_DAT1Start;
+                byte[] followingData = file.ReadBlock(nextStringStart, (uint)(file.m_Data.Length - nextStringStart));
+                file.WriteBlock((uint)(nextStringStart + lengthDif), followingData);
+                int oldSize = file.m_Data.Length;
+                Array.Resize(ref file.m_Data, oldSize + lengthDif);// Remove duplicate data at end of file
+            }
+
+            // Update pointers to string entry data
+            if (lengthDif != 0)
+            {
+                for (int i = index + 1; i < m_MsgData.Length; i++)
+                {
+                    if (lengthDif > 0)
+                        m_StringHeaderData[i] += (uint)lengthDif;
+                    else if (lengthDif < 0)
+                        m_StringHeaderData[i] = (uint)(m_StringHeaderData[i] + lengthDif);
+
+                    file.Write32(m_StringHeaderAddr[i], m_StringHeaderData[i]);
+                    file.Write16(m_StringWidthAddr[i], m_StringWidth[i]);
+                    file.Write16(m_StringHeightAddr[i], m_StringHeight[i]);
+                }
+            }
+            // Update total file size
+            file.Write32(0x08, (uint)(int)(file.Read32(0x08) + lengthDif));
+            // Update DAT1 size
+            file.Write32(m_DAT1Start - 0x04, (uint)(int)(file.Read32(m_DAT1Start - 0x04) + lengthDif));
+
+            // Keep track of the modified entries
+            m_EditedEntries.Add(index);
+        }
+
+        public void updateWidth(ushort value, int index)
+        {
+            m_StringWidth[index] = value;
+        }
+        
+        public void updateHeight(ushort value, int index)
+        {
+            m_StringHeight[index] = value;
+        }
+        
+        
+        public void WriteData()
+        {
+            // Encode and write all edited string entries
+            foreach (int index in m_EditedEntries)
+            {
+                List<byte> entry = TextUtils.EncodeString(m_MsgData[index], GetRomVersion());
+                file.WriteBlock(m_StringHeaderData[index] + m_DAT1Start, entry.ToArray());
+            }
+
+            for (int i = 0; i < file.Read16(0x28); i++)
+            {
+                file.Write32(m_StringHeaderAddr[i], m_StringHeaderData[i]);
+                file.Write16(m_StringWidthAddr[i], m_StringWidth[i]);
+                file.Write16(m_StringHeightAddr[i], m_StringHeight[i]);
+            }
+
+            // Save changes
+            file.SaveChanges();
+        }
+        
+        public void ImportXML(XmlReader reader)
+        {
+            reader.MoveToContent();
+
+            int i = 0;
+            while (reader.Read())
+            {
+                if (reader.NodeType.Equals(XmlNodeType.Element))
+                {
+                    switch (reader.LocalName)
+                    {
+                        case "Text":
+                            if (i < m_MsgData.Length)
+                            {
+                                String temp = reader.ReadElementContentAsString();
+                                temp = temp.Replace("\n", "\r\n");
+                                temp = temp.Replace("[\\r]", "\r");
+                                m_MsgData[i] = temp;
+                            }
+                            i++;
+                            break;
+                    }
+                }
+            }
+
+            for (int j = 0; j < m_MsgData.Length; j++)
+            {
+                UpdateEntries(m_MsgData[j], j);
+                List<byte> entry = TextUtils.EncodeString(m_MsgData[j], GetRomVersion());
+                file.WriteBlock(m_StringHeaderData[j] + m_DAT1Start, entry.ToArray());
+            }
+
+            file.SaveChanges();
+        }
+        
+        public void ExportXML(XmlWriter writer)
+        {
+            writer.WriteStartDocument();
+            writer.WriteComment(Program.AppTitle + " " + Program.AppVersion + " " + Program.AppDate);
+            writer.WriteStartElement("SM64DS_Texts");
+                
+            for (int i = 0; i < m_MsgData.Length; i++)
+            {
+                writer.WriteStartElement("Text");
+                writer.WriteAttributeString("index", i.ToString());
+                writer.WriteAttributeString("id", String.Format("{0:X4}", i));
+                writer.WriteString(m_MsgData[i]);
+                writer.WriteEndElement();
+            }
+            writer.WriteEndElement();
+            writer.WriteEndDocument();
+        }
+
     }
 }

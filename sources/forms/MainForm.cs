@@ -46,7 +46,7 @@ namespace SM64DSe.sources.forms
 
             Program.m_IsROMFolder = false;
             Program.m_ROMPath = filename;
-            try { Program.m_ROM = new NitroROM(Program.m_ROMPath); }
+            try { Program.m_ROM = new nitro.NitroROM(Program.m_ROMPath); }
             catch (Exception ex)
             {
                 string msg;
@@ -149,7 +149,7 @@ namespace SM64DSe.sources.forms
             Program.m_ROMPatchPath = patchPath;
             Program.m_ROMConversionPath = conversionPath;
             Program.m_ROMBuildPath = buildPath;
-            Program.m_ROM = new NitroROM(basePath, patchPath);
+            Program.m_ROM = new nitro.NitroROM(basePath, patchPath);
             Program.m_ROM.LoadTables();
             btnRefresh.Enabled = true;
             cbLevelListDisplay.Enabled = true;
@@ -178,7 +178,7 @@ namespace SM64DSe.sources.forms
 
         private void EnableOrDisableASMHackingCompilationAndGenerationFeatures()
         {
-            if (Program.m_ROM.m_Version != NitroROM.Version.EUR)
+            if (Program.m_ROM.m_Version != nitro.NitroROM.Version.EUR)
             {
                 btnASMHacking.DropDownItems.Remove(mnitASMHackingCompilation);
                 btnASMHacking.DropDownItems.Remove(mnitASMHackingGeneration);
@@ -374,7 +374,7 @@ namespace SM64DSe.sources.forms
 
         private void btnDumpObjInfo_Click(object sender, EventArgs e)
         {
-            if (Program.m_ROM.m_Version != NitroROM.Version.EUR)
+            if (Program.m_ROM.m_Version != nitro.NitroROM.Version.EUR)
             {
                 MessageBox.Show("Only compatible with EUR ROMs.", Program.AppTitle);
                 return;
@@ -888,7 +888,7 @@ namespace SM64DSe.sources.forms
                 return;
             }
 
-            if (Program.m_ROM.m_Version != NitroROM.Version.EUR)
+            if (Program.m_ROM.m_Version != nitro.NitroROM.Version.EUR)
             {
 
                 MessageBox.Show("This is for EUR roms only!");
@@ -950,7 +950,7 @@ namespace SM64DSe.sources.forms
         }
 
         private void editFileSystemToolStripMenuItem_Click(object sender, EventArgs e) {
-            if (Program.m_ROM.m_Version != NitroROM.Version.EUR) {
+            if (Program.m_ROM.m_Version != nitro.NitroROM.Version.EUR) {
                 MessageBox.Show("This is for EUR ROMs only!");
                 return;
             }
@@ -969,7 +969,7 @@ namespace SM64DSe.sources.forms
                 MessageBox.Show("This feature is not for extracted ROMs!");
                 return;
             }
-            if (Program.m_ROM.m_Version != NitroROM.Version.EUR) {
+            if (Program.m_ROM.m_Version != nitro.NitroROM.Version.EUR) {
                 MessageBox.Show("This is for EUR ROMs only!");
                 return;
             }
@@ -1037,7 +1037,7 @@ namespace SM64DSe.sources.forms
 
                         //Rename file.
                         case "rename":
-                            if (Program.m_ROM.m_Version != NitroROM.Version.EUR) {
+                            if (Program.m_ROM.m_Version != nitro.NitroROM.Version.EUR) {
                                 MessageBox.Show("This is for EUR ROMs only!");
                                 continue;
                             }
@@ -1072,7 +1072,7 @@ namespace SM64DSe.sources.forms
 
                         //Add overlay.
                         case "add_overlay":
-                            if (Program.m_ROM.m_Version != NitroROM.Version.EUR) {
+                            if (Program.m_ROM.m_Version != nitro.NitroROM.Version.EUR) {
                                 MessageBox.Show("This is for EUR ROMs only!");
                                 continue;
                             }
@@ -1101,7 +1101,7 @@ namespace SM64DSe.sources.forms
 
                         //Edit overlay.
                         case "edit_overlay":
-                            if (Program.m_ROM.m_Version != NitroROM.Version.EUR) {
+                            if (Program.m_ROM.m_Version != nitro.NitroROM.Version.EUR) {
                                 MessageBox.Show("This is for EUR ROMs only!");
                                 continue;
                             }
@@ -1118,7 +1118,7 @@ namespace SM64DSe.sources.forms
 
                         //Delete overlay.
                         case "delete_overlay":
-                            if (Program.m_ROM.m_Version != NitroROM.Version.EUR) {
+                            if (Program.m_ROM.m_Version != nitro.NitroROM.Version.EUR) {
                                 MessageBox.Show("This is for EUR ROMs only!");
                                 continue;
                             }
@@ -1171,12 +1171,12 @@ namespace SM64DSe.sources.forms
 
         private void btnBuildROM_Click(object sender, EventArgs e)
         {
-            NitroROM.BuildROM();
+            nitro.NitroROM.BuildROM();
         }
 
         private void btnRunROM_Click(object sender, EventArgs e)
         {
-            NitroROM.RunROM();
+            nitro.NitroROM.RunROM();
         }
 
         private void particleTextureSPTEditorToolStripMenuItem_Click(object sender, EventArgs e)

@@ -158,7 +158,7 @@ namespace SM64DSe.sources.forms
             m_SkyboxModel = null;
         }
 
-        public LevelEditorForm(NitroROM rom, int levelid)
+        public LevelEditorForm(nitro.NitroROM rom, int levelid)
         {
             InitializeComponent();
             InitTimer();
@@ -208,7 +208,7 @@ namespace SM64DSe.sources.forms
             m_ShiftPressed = false;
 
             //btnMakeOverlay.Visible = (Program.m_ROM.m_Version == NitroROM.Version.EUR);
-            btnDls.Visible = (Program.m_ROM.m_Version == NitroROM.Version.EUR);
+            btnDls.Visible = (Program.m_ROM.m_Version == nitro.NitroROM.Version.EUR);
             if (Program.m_IsROMFolder) {
                 romBuildButton.Visible = true;
                 romRunButton.Visible = true;
@@ -846,7 +846,7 @@ namespace SM64DSe.sources.forms
                 ptable["Y rotation"] = m_SelectedObject.YRotation;
         }
         
-        private NitroROM m_ROM;
+        private nitro.NitroROM m_ROM;
         public int m_LevelID;
 
         public struct PointerReference
@@ -3304,12 +3304,12 @@ namespace SM64DSe.sources.forms
 
         private void romBuildButton_Click(object sender, EventArgs e)
         {
-            NitroROM.BuildROM();
+            nitro.NitroROM.BuildROM();
         }
 
         private void romRunButton_Click(object sender, EventArgs e)
         {
-            NitroROM.RunROM();
+            nitro.NitroROM.RunROM();
         }
 
 		private void btnBezierCurve_Click(object sender, EventArgs e)

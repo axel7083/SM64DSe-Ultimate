@@ -10,8 +10,8 @@ using System.Windows.Forms;
 namespace SM64DSe {
     public partial class OverlayEditor : Form {
 
-        public List<NitroROM.OverlayEntry> Overlays = new List<NitroROM.OverlayEntry>();
-        public List<NitroROM.FileEntry> Files = new List<NitroROM.FileEntry>();
+        public List<sources.nitro.NitroROM.OverlayEntry> Overlays = new List<sources.nitro.NitroROM.OverlayEntry>();
+        public List<sources.nitro.NitroROM.FileEntry> Files = new List<sources.nitro.NitroROM.FileEntry>();
 
         public OverlayEditor() {
             InitializeComponent();
@@ -100,7 +100,7 @@ namespace SM64DSe {
         }
 
         public void AddOverlay(int index) {
-            Overlays.Add(new NitroROM.OverlayEntry() {
+            Overlays.Add(new sources.nitro.NitroROM.OverlayEntry() {
                 FileID = (ushort)Files.Count,
                 BSSSize = 0,
                 EntryOffset = 0,
@@ -111,7 +111,7 @@ namespace SM64DSe {
                 StaticInitEnd = 4,
                 StaticInitStart = 0
             });
-            Files.Add(new NitroROM.FileEntry() {
+            Files.Add(new sources.nitro.NitroROM.FileEntry() {
                 FullName = "",
                 Name = "",
                 Data = new byte[0x20],

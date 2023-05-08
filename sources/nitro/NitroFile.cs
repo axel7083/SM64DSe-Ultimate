@@ -17,6 +17,7 @@
 */
 
 using System;
+using SM64DSe.sources.nitro;
 
 namespace SM64DSe.sources
 {
@@ -24,7 +25,7 @@ namespace SM64DSe.sources
     {
         public NitroFile() { }
 
-        public NitroFile(NitroROM rom, ushort id)
+        public NitroFile(nitro.NitroROM rom, ushort id)
         {
             if (id >= 0xF000)
                 throw new Exception("NitroFile: invalid file ID");

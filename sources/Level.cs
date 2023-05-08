@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using SM64DSe.sources.nitro;
 
 namespace SM64DSe.sources
 {
@@ -113,11 +114,11 @@ namespace SM64DSe.sources
             switch (Program.m_ROM.m_Version)
             {
                 default:
-                case NitroROM.Version.EUR:
+                case nitro.NitroROM.Version.EUR:
                     return m_LevelSettings.OverlayInitialiserVersion > 0;
-                case NitroROM.Version.USA_v1:
-                case NitroROM.Version.USA_v2:
-                case NitroROM.Version.JAP:
+                case nitro.NitroROM.Version.USA_v1:
+                case nitro.NitroROM.Version.USA_v2:
+                case nitro.NitroROM.Version.JAP:
                     return false;
             }
         }
@@ -127,11 +128,11 @@ namespace SM64DSe.sources
             switch (Program.m_ROM.m_Version)
             {
                 default:
-                case NitroROM.Version.EUR:
+                case nitro.NitroROM.Version.EUR:
                     return true;
-                case NitroROM.Version.USA_v1:
-                case NitroROM.Version.USA_v2:
-                case NitroROM.Version.JAP:
+                case nitro.NitroROM.Version.USA_v1:
+                case nitro.NitroROM.Version.USA_v2:
+                case nitro.NitroROM.Version.JAP:
                     return false;
             }
         }
@@ -639,17 +640,17 @@ namespace SM64DSe.sources
             byte overlayInitialiserVersion = 0;
             switch (Program.m_ROM.m_Version)
             {
-                case NitroROM.Version.EUR:
+                case nitro.NitroROM.Version.EUR:
                     binWriter.Write(Properties.Resources.level_ovl_init_EUR_001);
                     overlayInitialiserVersion = 1;
                     break;
-                case NitroROM.Version.USA_v1:
+                case nitro.NitroROM.Version.USA_v1:
                     binWriter.Write(Properties.Resources.level_ovl_init_USAv1);
                     break;
-                case NitroROM.Version.USA_v2:
+                case nitro.NitroROM.Version.USA_v2:
                     binWriter.Write(Properties.Resources.level_ovl_init_USAv2);
                     break;
-                case NitroROM.Version.JAP:
+                case nitro.NitroROM.Version.JAP:
                     binWriter.Write(Properties.Resources.level_ovl_init_JAP);
                     break;
                 default:
@@ -690,17 +691,17 @@ namespace SM64DSe.sources
 
             byte overlayInitialiserVersion = 0;
             switch (Program.m_ROM.m_Version) {
-                case NitroROM.Version.EUR:
+                case nitro.NitroROM.Version.EUR:
                     binWriter.Write(Properties.Resources.level_ovl_init_EUR_001);
                     overlayInitialiserVersion = 1;
                     break;
-                case NitroROM.Version.USA_v1:
+                case nitro.NitroROM.Version.USA_v1:
                     binWriter.Write(Properties.Resources.level_ovl_init_USAv1);
                     break;
-                case NitroROM.Version.USA_v2:
+                case nitro.NitroROM.Version.USA_v2:
                     binWriter.Write(Properties.Resources.level_ovl_init_USAv2);
                     break;
-                case NitroROM.Version.JAP:
+                case nitro.NitroROM.Version.JAP:
                     binWriter.Write(Properties.Resources.level_ovl_init_JAP);
                     break;
                 default:

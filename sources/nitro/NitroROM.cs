@@ -18,18 +18,15 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
-using System.Text.RegularExpressions;
-using System.IO;
-using System.Globalization;
 using Newtonsoft.Json;
-using System.Diagnostics;
-using System.Windows.Forms;
-using SM64DSe.sources;
+using SM64DSe.sources.editors;
 using SM64DSe.sources.forms;
 
-namespace SM64DSe
+namespace SM64DSe.sources.nitro
 {
     // NitroROM class
     // made especially for SM64DS, but most of it can be used with any NDS ROM
@@ -43,9 +40,12 @@ namespace SM64DSe
         public BinaryWriter arm9W;
         public uint headerSize = 0x4000;
 
+        public TextEditor textEditor;
+
         public NitroROM(string path)
         {
             LoadROM(path);
+            textEditor = new TextEditor(this);
         }
 
         public NitroROM(string basePath, string patchPath) {
@@ -827,7 +827,7 @@ namespace SM64DSe
             BiDictionaryOneToOne<byte, string> BASIC_EUR_US_CHARS = new BiDictionaryOneToOne<byte, string>();
             Dictionary<string, uint> BASIC_EUR_US_SIZES = new Dictionary<string, uint>();
 
-            TextEditorForm.LoadCharList("basic_eur_us_chars.txt", BASIC_EUR_US_CHARS, BASIC_EUR_US_SIZES);
+            TextUtils.LoadCharList("basic_eur_us_chars.txt", BASIC_EUR_US_CHARS, BASIC_EUR_US_SIZES);
 
             // Most of this is copied from TextEditorForm.ReadStrings()!
 

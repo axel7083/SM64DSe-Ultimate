@@ -4,10 +4,9 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using SM64DSe.sources;
 using SM64DSe.sources.forms;
 
-namespace SM64DSe {
+namespace SM64DSe.sources.nitro {
 
     /// <summary>
     /// Utilities for editing the filesystem. Credits to Josh65536.
@@ -339,20 +338,20 @@ namespace SM64DSe {
                 if (index1 < dirIDs.Count && index2 == dirIDs[index1]) {
                     ++index1;
                 } else {
-                    NitroROM.DirEntry dirEntry = this.m_DirEntries[index2];
+                    sources.nitro.NitroROM.DirEntry dirEntry = this.m_DirEntries[index2];
                     dirEntry.ID -= (ushort)index1;
                     this.m_DirEntries[index2 - index1] = dirEntry;
                 }
             }
-            Array.Resize<NitroROM.DirEntry>(ref this.m_DirEntries, this.m_DirEntries.Length - index1);
+            Array.Resize<sources.nitro.NitroROM.DirEntry>(ref this.m_DirEntries, this.m_DirEntries.Length - index1);
             for (int index2 = 1; index2 < this.m_DirEntries.Length; ++index2) {
-                NitroROM.DirEntry dirEntry = this.m_DirEntries[index2];
+                sources.nitro.NitroROM.DirEntry dirEntry = this.m_DirEntries[index2];
                 dirEntry.ParentID -= (ushort)intList[(int)dirEntry.ParentID - 61440];
                 this.m_DirEntries[index2] = dirEntry;
             }
             for (int index2 = 0; index2 < this.m_FileEntries.Length; ++index2) {
                 if (this.m_FileEntries[index2].ParentID != (ushort)0) {
-                    NitroROM.FileEntry fileEntry = this.m_FileEntries[index2];
+                    sources.nitro.NitroROM.FileEntry fileEntry = this.m_FileEntries[index2];
                     fileEntry.ParentID -= (ushort)intList[(int)fileEntry.ParentID - 61440];
                     this.m_FileEntries[index2] = fileEntry;
                 }
@@ -368,12 +367,12 @@ namespace SM64DSe {
                 if (index < fileIDs.Count && fileId == fileIDs[index]) {
                     ++index;
                 } else {
-                    NitroROM.FileEntry fileEntry = this.m_FileEntries[fileId];
+                    sources.nitro.NitroROM.FileEntry fileEntry = this.m_FileEntries[fileId];
                     fileEntry.ID -= (ushort)index;
                     this.m_FileEntries[fileId - index] = fileEntry;
                 }
             }
-            Array.Resize<NitroROM.FileEntry>(ref this.m_FileEntries, this.m_FileEntries.Length - index);
+            Array.Resize<sources.nitro.NitroROM.FileEntry>(ref this.m_FileEntries, this.m_FileEntries.Length - index);
         }
 
         public void RemoveFile(string filename, TreeNode root) {
@@ -397,8 +396,8 @@ namespace SM64DSe {
                 int num = (int)MessageBox.Show("Manipulation of archives not supported", "Sorry,");
             } else {
                 ushort dirIdFromName = this.GetDirIDFromName(path.TrimEnd('/'));
-                Array.Resize<NitroROM.DirEntry>(ref this.m_DirEntries, this.m_DirEntries.Length + 1);
-                NitroROM.DirEntry dirEntry;
+                Array.Resize<sources.nitro.NitroROM.DirEntry>(ref this.m_DirEntries, this.m_DirEntries.Length + 1);
+                sources.nitro.NitroROM.DirEntry dirEntry;
                 dirEntry.ID = (ushort)(this.m_DirEntries.Length - 1 + 61440);
                 dirEntry.ParentID = dirIdFromName;
                 dirEntry.Name = newName;
@@ -412,7 +411,7 @@ namespace SM64DSe {
         }
 
         private int GetFirstOv0Space() {
-            List<ushort> list = ((IEnumerable<NitroROM.FileEntry>)this.m_FileEntries).Select<NitroROM.FileEntry, ushort>((Func<NitroROM.FileEntry, ushort>)(x => x.InternalID)).ToList<ushort>();
+            List<ushort> list = ((IEnumerable<sources.nitro.NitroROM.FileEntry>)this.m_FileEntries).Select<sources.nitro.NitroROM.FileEntry, ushort>((Func<sources.nitro.NitroROM.FileEntry, ushort>)(x => x.InternalID)).ToList<ushort>();
             list.Sort();
             for (int index = 0; index < list.Count; ++index) {
                 if ((int)list[index] != index)
@@ -427,22 +426,22 @@ namespace SM64DSe {
           List<string> fullNames) {
             string dirname = path.TrimEnd('/');
             uint num1 = (uint)this.GetDirIDFromName(dirname) - 61440U;
-            int num2 = Array.FindLastIndex<NitroROM.FileEntry>(this.m_FileEntries, (Predicate<NitroROM.FileEntry>)(x => x.FullName.StartsWith(dirname))) + 1;
+            int num2 = Array.FindLastIndex<sources.nitro.NitroROM.FileEntry>(this.m_FileEntries, (Predicate<sources.nitro.NitroROM.FileEntry>)(x => x.FullName.StartsWith(dirname))) + 1;
             if (num2 == 0)
                 num2 = this.m_FileEntries.Length;
-            Array.Resize<NitroROM.FileEntry>(ref this.m_FileEntries, this.m_FileEntries.Length + fullNames.Count);
+            Array.Resize<sources.nitro.NitroROM.FileEntry>(ref this.m_FileEntries, this.m_FileEntries.Length + fullNames.Count);
             for (int index = this.m_FileEntries.Length - fullNames.Count - 1; index >= num2; --index) {
-                NitroROM.FileEntry fileEntry = this.m_FileEntries[index];
+                sources.nitro.NitroROM.FileEntry fileEntry = this.m_FileEntries[index];
                 fileEntry.ID += (ushort)fullNames.Count;
                 this.m_FileEntries[index + fullNames.Count] = fileEntry;
             }
             for (int index = num2; index < num2 + fullNames.Count; ++index) {
-                NitroROM.FileEntry fileEntry = this.m_FileEntries[index];
+                sources.nitro.NitroROM.FileEntry fileEntry = this.m_FileEntries[index];
                 fileEntry.InternalID = ushort.MaxValue;
                 this.m_FileEntries[index] = fileEntry;
             }
             for (int index = 0; index < fullNames.Count; ++index) {
-                NitroROM.FileEntry fileEntry;
+                sources.nitro.NitroROM.FileEntry fileEntry;
                 fileEntry.ID = (ushort)(num2 + index);
                 fileEntry.InternalID = (ushort)this.GetFirstOv0Space();
                 fileEntry.Name = filenames[index];
