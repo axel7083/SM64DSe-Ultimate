@@ -325,6 +325,7 @@
     <Compile Include="sources\forms\files\SoundViewForm.designer.cs">
       <DependentUpon>SoundViewForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="sources\forms\files\StringSelectionDialogForm.cs" />
     <Compile Include="sources\forms\files\TextEditorForm.cs">
       <SubType>Form</SubType>
     </Compile>

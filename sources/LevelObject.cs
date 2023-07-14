@@ -1862,11 +1862,9 @@ namespace SM64DSe.sources
                 case 76: // Sign
                     return new ParameterField[]
                     {
-                        new ListField("Parameter 1", 4, 4, new object[]
-                        {
-                            0, "testing"
-                        }) { Name = "text message" }, 
-                        new TextSelectionField(){Name = "buttonName"}
+                        new TextSelectionField("Parameter 1", 0, 16){Name = "1. Message"},
+                        new DefaultField("Parameter 2", 0, 16) {Name = "2. Parameter" },
+                        new DefaultField("Parameter 3", 0, 16) {Name = "3. Parameter" }
                     };
                 default:
                     return new ParameterField[] {
@@ -1964,48 +1962,73 @@ namespace SM64DSe.sources
 
     public class TextSelectionField : ParameterField
     {
+        private Button button;
+        private ToolTip toolTip;
+        private ushort selected = 0;
+
         public override ushort getValue()
         {
-            return base.getValue();
+            ushort bitMask = ((ushort)(Math.Pow(2, m_length) - 1));
+            return (ushort)(selected & bitMask);
         }
 
         public override void setValue(object value)
         {
-            ushort newValue = Convert.ToUInt16(value);
-            base.setValue(value);
+            selected = Convert.ToUInt16(value);
+            refresh();
         }
 
-        public TextSelectionField() : base("pgFieldName", 4, 4)
+        private void refresh()
         {
-            
+            button.Text =  $"({selected.ToString("X")})";
+        }
+
+        public TextSelectionField(string pgFieldName, int offset, int length) : base(pgFieldName, offset, length)
+        {
+            // We need a default language
+            Program.m_ROM.textEditor.LoadEnglish();
         }
 
         public override Control GetControl(LevelEditorForm editorForm)
         {
-            Button button = new Button();
-            button.Text = "hello button";
-            button.Click += (sender, args) =>
+            if (button == null)
             {
-                Program.m_ROM.BeginRW();
+                button = new Button();
                 
-                // Read the block of bytes from the given address
-                byte[] block = Program.m_ROM.ReadBlock(0x0008EEEC, 196);
-
-                // Convert the bytes into an array of shorts
-                short[] shorts = new short[98];
-                for (int i = 0; i < 98; i++)
+                toolTip = new ToolTip();
+                toolTip.SetToolTip(button, "");
+                
+                Action<ushort> onItemSelected = (selectedIndex) => {
+                    selected = selectedIndex;
+                    refresh();
+                    editorForm.ValueChanged(button, EventArgs.Empty);
+                };
+                button.Click += (sender, args) =>
                 {
-                    shorts[i] = (short)(block[2*i] | (block[2*i+1] << 8));
-                }
-                Program.m_ROM.EndRW();
-                MessageBox.Show("Read8:0 " + shorts[0] + "->" + shorts[1]);
-                MessageBox.Show("Read8:2 " + shorts[2] + "->" + shorts[3]);
-                MessageBox.Show("Read8:4 " + shorts[4] + "->" + shorts[5]);
-                MessageBox.Show("Read8:6 " + shorts[6] + "->" + shorts[7]);
+                    new StringSelectionDialogForm(Program.m_ROM.textEditor.GetAllShortMessages(), onItemSelected).ShowDialog();
+                };
+                
+                button.MouseHover += (sender, e) =>
+                {
+                    toolTip.Show(
+                        Program.m_ROM.textEditor.isValidParameterValue(getValue())?
+                            Program.m_ROM.textEditor.getMessageByParameterValue(getValue()):
+                            "Unknown parameter ID.",
+                        button, 
+                        button.Width, 
+                        button.Height
+                        );
+                    
+                };
 
-            };
+                button.MouseLeave += (sender, e) =>
+                {
+                    toolTip.Hide(button);
+                };
+            }
             return button;
         }
+        
     }
 
     public class ListField : ParameterField

@@ -78,9 +78,23 @@ namespace SM64DSe.sources.editors
         private uint[] m_StringHeightAddr;
         private ushort[] m_StringHeight;
         private List<int> m_EditedEntries = new List<int>();// Holds indices of edited entries, needed because of how old and new strings are stored differently
+
+
+        private string currentLanguage = null;
+        
+        public void LoadEnglish()
+        {
+            LoadLanguagesFile(GetLanguages()["English"]);
+        }
         
         public void LoadLanguagesFile(string key)
         {
+            // If we already loaded the current language and no modification has been made.
+            if (currentLanguage == key && m_EditedEntries.Count == 0)
+                return;
+
+            currentLanguage = key;
+            
             var filename = "data/message/msg_data_" + key + ".bin";
             
             // Ensure the file exist
@@ -226,7 +240,7 @@ namespace SM64DSe.sources.editors
                     return MSG_ID_CHAR_MAP[i + 1];
             }
 
-            throw new ArgumentOutOfRangeException("");
+            throw new ArgumentOutOfRangeException("The provided parameter could not be mapped with a known text.");
         }
 
         public string[] GetAllMessages()
@@ -253,6 +267,18 @@ namespace SM64DSe.sources.editors
             return new MessagesDetails(m_MsgData[index], m_ShortVersions[index], m_StringWidth[index], m_StringHeight[index]);
         }
 
+        public bool isValidParameterValue(ushort parameter)
+        {
+            try
+            {
+                GetMessageIdByParameterValue(parameter);
+                return true;
+            } 
+            catch (ArgumentOutOfRangeException e)
+            {
+                return false;
+            }
+        }
 
         public string getMessageByParameterValue(ushort parameter)
         {
@@ -357,6 +383,9 @@ namespace SM64DSe.sources.editors
 
             // Save changes
             file.SaveChanges();
+            
+            // Clean entries
+            m_EditedEntries.Clear();
         }
         
         public void ImportXML(XmlReader reader)
