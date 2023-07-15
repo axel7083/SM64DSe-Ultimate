@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Windows.Forms;
+using SM64DSe.core.Api;
 
 namespace SM64DSe
 {
@@ -40,7 +41,7 @@ namespace SM64DSe
 
         public static void LoadFileList(TreeView tvFileList, String[] filters = null, String startFolder = "", bool mergeArcs = false)
         {
-            NitroROM.FileEntry[] files = Program.m_ROM.GetFileEntries();
+            NitroROM.FileEntry[] files = Program.romEditor.GetManager<FileManager>().GetFileEntries();
             TreeNode node = tvFileList.Nodes.Add("root", "ROM File System");
 
             EnsureAllDirsExist(tvFileList); //just in case a directory doesn't have files
@@ -51,7 +52,7 @@ namespace SM64DSe
 
         public static void EnsureAllDirsExist(TreeView tvFileList)
         {
-            NitroROM.DirEntry[] dirs = Program.m_ROM.GetDirEntries();
+            NitroROM.DirEntry[] dirs = Program.romEditor.GetManager<FileManager>().GetDirEntries();
 
             for (int i = 1; i < dirs.Length; ++i)
                 EnsureDirExists(dirs[i].FullName, dirs[i].FullName, tvFileList.Nodes["root"]);
@@ -134,8 +135,9 @@ namespace SM64DSe
                                 rootNode = tvFileList.Nodes["root"];
                             else
                                 rootNode = node;
-                            LoadFiles(tvFileList, rootNode, new NitroROM.FileEntry[] { }, 
-                                new NARC(Program.m_ROM, Program.m_ROM.GetFileIDFromName(files[i].FullName)).GetFileEntries(),filters,startFolder,mergeArcs);
+                            LoadFiles(
+                                tvFileList, rootNode, new NitroROM.FileEntry[] { }, 
+                                Program.romEditor.GetManager<FileManager>().CreateNarcInstance(Program.romEditor.GetManager<FileManager>().GetFileIDFromName(files[i].FullName)).GetFileEntries(),filters,startFolder,mergeArcs);
                         }
                     }
                 }
@@ -144,10 +146,10 @@ namespace SM64DSe
 
         public static void LoadOverlayList(TreeView tvFileList)
         {
-            NitroROM.FileEntry[] files = Program.m_ROM.GetFileEntries();
+            NitroROM.FileEntry[] files = Program.romEditor.GetManager<FileManager>().GetFileEntries();
             TreeNode ovlNode = tvFileList.Nodes.Add("root", "ARM 9 Overlays");
 
-            NitroROM.OverlayEntry[] ovls = Program.m_ROM.GetOverlayEntries();
+            NitroROM.OverlayEntry[] ovls = Program.romEditor.GetManager<FileManager>().GetOverlayEntries();
             for (int i = 0; i < ovls.Length; i++)
             {
                 string ind = String.Format("{0:D3}", i);
@@ -155,28 +157,6 @@ namespace SM64DSe
             }
 
             ovlNode.Expand();
-        }
-
-        public static void SelectFileOrDirHelper(string fullName, string fullNamePart,
-            TreeNode parent)
-        {
-            int strEnd = fullNamePart.IndexOf('/');
-            string strToMatch = strEnd != -1 ? fullNamePart.Substring(0, strEnd) : fullNamePart;
-
-            foreach (TreeNode node in parent.Nodes)
-            {
-                if (node.Name == strToMatch)
-                {
-                    if (strEnd == -1)
-                    {
-                        node.EnsureVisible();
-                        node.TreeView.SelectedNode = node;
-                        break;
-                    }
-                    else
-                        SelectFileOrDirHelper(fullName, fullNamePart.Substring(strEnd + 1), node);
-                }
-            }
         }
 
         public static void EnsureDirExists(string fullName, string fullNamePart,

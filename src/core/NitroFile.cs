@@ -81,7 +81,6 @@ namespace SM64DSe
                 return;
             }
             // TODO: LZ77 recompression!
-
             m_ROM.ReinsertFile(m_ID, m_Data);
         }
 

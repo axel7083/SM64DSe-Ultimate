@@ -445,7 +445,7 @@ namespace SM64DSe
 
         public static uint GetActSelectorIDTableAddress()
         {
-            switch (Program.m_ROM.m_Version)
+            switch (Program.romEditor.GetRomVersion())
             {
                 default:
                 case NitroROM.Version.EUR:
