@@ -57,7 +57,7 @@ namespace SM64DSe.core.Api
             // Cleanup
             while (Program.m_LevelEditors.Count > 0)
                 Program.m_LevelEditors[0].Close();
-            Program.m_ROM.EndRW();
+            m_ROM.EndRW();
             Program.m_ROMPath = "";
         }
 
@@ -85,12 +85,13 @@ namespace SM64DSe.core.Api
                 null, 
                 filename
                 );
+            Log.Information("Rom version: " + GetRomVersion());
         }
 
         public void LoadTables()
         {
-            this.m_ROM.LoadTables();
-            this.m_ROM.EndRW();
+            m_ROM.LoadTables();
+            m_ROM.EndRW();
         }
 
         public void BackupRom(string destination)

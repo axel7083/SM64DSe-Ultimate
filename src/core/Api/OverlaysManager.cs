@@ -29,16 +29,32 @@ namespace SM64DSe.core.Api
         // Platform specific
         public void Dump(uint ovlId, string filename)
         {
-            File.WriteAllBytes(filename, new NitroOverlay(Program.m_ROM, ovlId).m_Data);
+            File.WriteAllBytes(filename, new NitroOverlay(m_ROM, ovlId).m_Data);
         }
 
         // Platform specific
         public void Replace(uint ovlId, string filename)
         {
-            NitroOverlay ovl = new NitroOverlay(Program.m_ROM, ovlId);
+            NitroOverlay ovl = new NitroOverlay(m_ROM, ovlId);
             ovl.Clear();
             ovl.WriteBlock(0, System.IO.File.ReadAllBytes(filename));
             ovl.SaveChanges();
+        }
+
+        public uint GetLevelOverlayID(int levelId)
+        {
+            return m_ROM.GetLevelOverlayID(levelId);
+        }
+
+        public NitroFile GetCollisionFileID(uint ovlId)
+        {
+            NitroOverlay currentOverlay = new NitroOverlay(m_ROM, ovlId);
+            return m_ROM.GetFileFromInternalID(currentOverlay.GetCollisionFileID());
+        }
+
+        public int GetOverlayCount()
+        {
+            return m_ROM.getOverlayCount();
         }
     }
 }

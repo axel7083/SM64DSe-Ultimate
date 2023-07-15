@@ -60,5 +60,19 @@
             file.Compress();
             file.SaveChanges();
         }
+
+        public ushort GetDirIDFromName(string filename)
+        {
+            return this.m_ROM.GetDirIDFromName(filename);
+        }
+
+        public void Replace(ushort fileId, string filename)
+        {
+            NitroFile file = new NitroFile(m_ROM, fileId);
+
+            file.Clear();
+            file.WriteBlock(0, System.IO.File.ReadAllBytes(filename));
+            file.SaveChanges();
+        }
     }
 }

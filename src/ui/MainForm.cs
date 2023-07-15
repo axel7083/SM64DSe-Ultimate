@@ -25,6 +25,7 @@ using System.Net;
 using System.Web;
 using SM64DSe.ImportExport.LevelImportExport;
 using System.Globalization;
+using Serilog;
 using SM64DSe.core.Api;
 using SM64DSe.Exceptions;
 
@@ -396,9 +397,9 @@ namespace SM64DSe
 
         private void btnEditCollisionMap_Click(object sender, EventArgs e)
         {
-            uint overlayID = Program.m_ROM.GetLevelOverlayID(lbxLevels.SelectedIndex);
-            NitroOverlay currentOverlay = new NitroOverlay(Program.m_ROM, overlayID);
-            NitroFile currentKCL = Program.m_ROM.GetFileFromInternalID(currentOverlay.Read16((uint)(0x6A)));
+            uint overlayID = Program.romEditor.GetManager<OverlaysManager>().GetLevelOverlayID(lbxLevels.SelectedIndex);
+            NitroFile currentKCL = Program.romEditor.GetManager<OverlaysManager>().GetCollisionFileID(overlayID);
+            
             if (!Properties.Settings.Default.UseSimpleModelAndCollisionMapImporters)
             {
                 ModelAndCollisionMapEditor kclForm =
@@ -414,11 +415,9 @@ namespace SM64DSe
 
         private void mnitDecompressOverlaysWithinGame_Click(object sender, EventArgs e)
         {
-            if (Program.m_ROM == null)
+            if (!Program.romEditor.isOpen)
                 return;
-            Program.m_ROM.BeginRW();
             Helper.DecompressOverlaysWithinGame();
-            Program.m_ROM.EndRW();
             slStatusLabel.Text = "All overlays have been decompressed successfully.";
         }
 
@@ -468,10 +467,12 @@ namespace SM64DSe
             string status;
             if (Program.romEditor.GetManager<FileManager>().GetFileIDFromName(this.m_SelectedFile) != ushort.MaxValue)
                 status = m_SelectedFile.Last() == '/' ?
-                    string.Format("Directory, ID = 0x{0:x4}", Program.m_ROM.GetDirIDFromName(m_SelectedFile.TrimEnd('/'))) :
+                    string.Format("Directory, ID = 0x{0:x4}", Program.romEditor.GetManager<FileManager>().GetDirIDFromName(m_SelectedFile.TrimEnd('/'))) :
                     string.Format("File, ID = 0x{0:x4}, Ov0ID = 0x{1:x4}",
                         Program.romEditor.GetManager<FileManager>().GetFileIDFromName(m_SelectedFile),
-                        Program.romEditor.GetManager<FileManager>().GetFileEntries()[Program.m_ROM.GetFileIDFromName(m_SelectedFile)].InternalID);
+                        Program.romEditor.GetManager<FileManager>().GetFileEntries()[
+                            Program.romEditor.GetManager<FileManager>().GetFileIDFromName(m_SelectedFile)
+                        ].InternalID);
             else
                 status = "";
             slStatusLabel.Text = status;
@@ -507,10 +508,8 @@ namespace SM64DSe
             if (ofd.ShowDialog() == DialogResult.Cancel)
                 return;
 
-            NitroFile file = Program.romEditor.GetManager<FileManager>().GetFileFromName(m_SelectedFile);
-            file.Clear();
-            file.WriteBlock(0, System.IO.File.ReadAllBytes(ofd.FileName));
-            file.SaveChanges();
+            ushort fileID = Program.romEditor.GetManager<FileManager>().GetDirIDFromName(m_SelectedFile);
+            Program.romEditor.GetManager<FileManager>().Replace(fileID, ofd.FileName);
         }
 
         private void mnitEditSDATINFOBlockToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1099,7 +1098,7 @@ namespace SM64DSe
         private void btnOpenFile_Click(object sender, EventArgs e)
 		{
             // Console.WriteLine("Trying to open: " + m_SelectedFile);
-
+            Log.Information("Opening file " + m_SelectedFile);
             if (m_SelectedFile.EndsWith(".bmd"))
             {
                 if (string.IsNullOrWhiteSpace(m_SavedFile))

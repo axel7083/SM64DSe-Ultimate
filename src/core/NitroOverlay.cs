@@ -190,5 +190,12 @@ namespace SM64DSe
         private ushort m_FileID;
         private uint m_OVTEntryAddr;
         private uint m_RAMAddr;
+        
+        public ushort GetCollisionFileID()
+        {
+            return Read16((uint)(0x6A));
+        }
     }
+    
+
 }
