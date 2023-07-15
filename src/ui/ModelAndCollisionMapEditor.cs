@@ -15,6 +15,7 @@ using System.Text.RegularExpressions;
 using SM64DSe.ImportExport.Writers.InternalWriters;
 using System.Drawing.Imaging;
 using System.IO;
+using SM64DSe.core.Api;
 
 namespace SM64DSe
 {
@@ -450,7 +451,7 @@ namespace SM64DSe
             string extension = Path.GetExtension(m_ModelSourceName);
             if (extension != null && extension.ToLower().Equals(".kcl"))
             {
-                m_ImportedCollisionMap = new KCL(Program.m_ROM.GetFileFromName(m_ModelSourceName));
+                m_ImportedCollisionMap = new KCL(Program.romEditor.GetManager<FileManager>().GetFileFromName(m_ModelSourceName));
 
                 UpdateKCLMapAndPreview(false);
             }
@@ -2978,7 +2979,7 @@ namespace SM64DSe
                     m_ImportedModel = CallBMDImporter(false);
 
                     CopyNitroFileData(m_ImportedModel.m_File,
-                        Program.m_ROM.GetFileFromName(m_BMDTargetName), true);
+                        Program.romEditor.GetManager<FileManager>().GetFileFromName(m_BMDTargetName), true);
 
                     return true;
                 }
@@ -2999,7 +3000,7 @@ namespace SM64DSe
                 {
                     m_ImportedCollisionMap = CallKCLImporter(true);
 
-                    NitroFile kclTargetFile = Program.m_ROM.GetFileFromName(m_KCLTargetName);
+                    NitroFile kclTargetFile = Program.romEditor.GetManager<FileManager>().GetFileFromName(m_KCLTargetName);
                     if (m_ImportedCollisionMap.m_File.m_ID != kclTargetFile.m_ID)
                     {
                         CopyNitroFileData(m_ImportedCollisionMap.m_File, kclTargetFile, true);

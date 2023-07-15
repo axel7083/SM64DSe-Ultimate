@@ -814,7 +814,6 @@ namespace SM64DSe
                 try
                 {
                     msgFile = GetFileFromName("data/message/msg_data_eng.bin");
-                    Console.WriteLine(" !European!");
                 }
                 catch (Exception)
                 {
@@ -917,6 +916,11 @@ namespace SM64DSe
         public OverlayEntry[] GetOverlayEntries()
         {
             return m_OverlayEntries;
+        }
+
+        public int getOverlayCount()
+        {
+            return m_OverlayEntries.Length;
         }
 
         public byte Read8(uint addr) {
@@ -1128,7 +1132,7 @@ namespace SM64DSe
 
         public void ReinsertFileOld(ushort fileid, byte[] data) {
             if (Program.m_IsROMFolder) {
-                NitroFile f = new NitroFile(Program.m_ROM, fileid);
+                NitroFile f = new NitroFile(this, fileid);
                 f.m_Data = data;
                 f.SaveChanges();
                 return;
@@ -1455,7 +1459,7 @@ namespace SM64DSe
         // To be implemented by subclasses
         public virtual void SaveChanges() { }
 
-	    public NitroROM m_ROM;
+	    protected NitroROM m_ROM;
 	    public byte[] m_Data;
     }
 }

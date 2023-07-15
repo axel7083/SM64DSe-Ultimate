@@ -28,6 +28,7 @@ using System.Xml;
 using System.Windows.Forms;
 using System.Security.Cryptography;
 using Newtonsoft.Json;
+using SM64DSe.core.Api;
 
 namespace SM64DSe
 {
@@ -463,19 +464,15 @@ namespace SM64DSe
         {
             if (CheckAllOverlaysDecompressed())
                 return;
-
-            for (int i = 0; i < 155; i++)
-            {
-                NitroOverlay overlay = new NitroOverlay(Program.m_ROM, (uint)i);
-                // Overlay is decompressed when initialised above automatically if needed, just need to save changes
-                overlay.SaveChanges();
-            }
+            
+            for (uint i = 0; i < Program.romEditor.GetManager<OverlaysManager>().GetOverlayCount(); i++)
+                Program.romEditor.GetManager<OverlaysManager>().Decompress(i);
         }
 
         public static bool CheckAllOverlaysDecompressed()
         {
             bool allDecompressed = true;
-            for (int i = 0; i < 155; i++)
+            for (int i = 0; i < Program.romEditor.GetManager<OverlaysManager>().GetOverlayCount(); i++)
             {
                 if (CheckOverlayCompressed((uint)i) == true)
                 {
