@@ -142,11 +142,13 @@
     <Compile Include="src\core\3DStuff.cs" />
     <Compile Include="src\core\Api\FileManager.cs" />
     <Compile Include="src\core\Api\LevelsManager.cs" />
+    <Compile Include="src\core\Api\Manager.cs" />
     <Compile Include="src\core\Api\OverlaysManager.cs" />
+    <Compile Include="src\core\Api\PatchesManager.cs" />
     <Compile Include="src\core\Api\RomEditor.cs" />
+    <Compile Include="src\core\Api\RomMetadata.cs" />
     <Compile Include="src\core\BasicBigFloat.cs" />
     <Compile Include="src\core\BiDictionaryOneToOne.cs" />
-    <Compile Include="src\core\Compression.cs" />
     <Compile Include="src\core\DataHelper.cs" />
     <Compile Include="src\core\Exceptions\RomEditorException.cs" />
     <Compile Include="src\core\formats\BCA.cs" />
@@ -499,6 +501,7 @@
     <Compile Include="src\ui\UshortEditorForm.Designer.cs">
       <DependentUpon>UshortEditorForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="src\utils\Compression.cs" />
     <Compile Include="src\utils\Templates\CommonTemplate.cs" />
     <Compile Include="src\utils\Templates\PlatformTemplateForm.cs" />
     <Compile Include="src\utils\Templates\PlatformTemplateForm.designer.cs">
@@ -791,9 +794,6 @@
       <ProductName>Windows Installer 3.1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="src\utils" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

@@ -746,7 +746,7 @@ namespace SM64DSe
             }
         }*/
 
-        public String GetInternalLevelNameFromID(int id)
+        public string GetInternalLevelNameFromID(int id)
         {
             ushort actSelectID = GetActSelectorIdByLevelID(id);
             
@@ -1108,7 +1108,7 @@ namespace SM64DSe
                 ReinsertFileOld(fileid, data);
                 return;
             }
-            if (Program.m_ROM.m_Version != Version.EUR) {
+            if (m_Version != Version.EUR) {
                 ReinsertFileOld(fileid, data);
                 return;
             }

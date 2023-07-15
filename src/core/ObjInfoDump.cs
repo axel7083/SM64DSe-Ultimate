@@ -28,7 +28,8 @@ namespace SM64DSe
     {
         public void DumpObjectInfo()
         {
-            uint actorptrtable = 0x8000 + 0x88864;
+            MessageBox.Show("Deprecated", Program.AppTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            /*uint actorptrtable = 0x8000 + 0x88864;
 
             Program.m_ROM.BeginRW();
           
@@ -101,6 +102,7 @@ namespace SM64DSe
 
             fs.Close();
             Program.m_ROM.EndRW();
+            */
         }
     }
 }

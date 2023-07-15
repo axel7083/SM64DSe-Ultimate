@@ -18,68 +18,77 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Windows.Forms;
 using OpenTK.Graphics.OpenGL;
 using System.IO;
+using Serilog;
+using System;
+using System.Runtime.InteropServices;
+using SM64DSe.core.Api;
 
 namespace SM64DSe
 {
     static class Program
     {
+        
+        [DllImport("kernel32.dll")]
+        private static extern bool AllocConsole();
+        [DllImport("kernel32.dll")]
+        private static extern bool FreeConsole();
+        
+        // APPLICATION INFORMATION
         public static string AppTitle = "SM64DS Editor ULTIMATE";
         public static string AppVersion = "v3.0.0";
         public static string AppDate = "Dec 02, 2021";
-
         public static string ServerURL = "http://kuribo64.net/";
 
+        public static RomEditor romEditor;
+        
+        // THE FOLLOWING ELEMENTS ARE DEPRECATED AND SHOULD NOT BE ACCESS DIRECTLY
+        public static NitroROM m_ROM
+        {
+            get => romEditor.DangerousGetRom();
+            set => throw new Exception("Program.m_ROM cannot be changed. Use Program.romEditor");
+        }
         public static string m_ROMPath;
-        public static NitroROM m_ROM;
         public static bool m_IsROMFolder;
         public static string m_ROMBasePath;
         public static string m_ROMPatchPath;
         public static string m_ROMConversionPath;
         public static string m_ROMBuildPath;
-
+        
+        // 
         public static List<LevelEditorForm> m_LevelEditors;
-
-        public static Dictionary<string, int> shaderPrograms = new Dictionary<string, int>();
-
-        //code from https://www.codeproject.com/Articles/1167387/OpenGL-with-OpenTK-in-Csharp-Part-Compiling-Shader
-        private static void LoadShader(string name, string vertShaderName, string fragShaderName)
-        {
-            int vertexShader = GL.CreateShader(ShaderType.VertexShader);
-            GL.ShaderSource(vertexShader,
-            File.ReadAllText(@"Shaders\"+ vertShaderName + ".vert"));
-            GL.CompileShader(vertexShader);
-
-            int fragmentShader = GL.CreateShader(ShaderType.FragmentShader);
-            GL.ShaderSource(fragmentShader,
-            File.ReadAllText(@"Shaders\"+ fragShaderName + ".frag"));
-            GL.CompileShader(fragmentShader);
-
-            int program = GL.CreateProgram();
-            GL.AttachShader(program, vertexShader);
-            GL.AttachShader(program, fragmentShader);
-            GL.LinkProgram(program);
-
-            GL.DetachShader(program, vertexShader);
-            GL.DetachShader(program, fragmentShader);
-            GL.DeleteShader(vertexShader);
-            GL.DeleteShader(fragmentShader);
-
-            if (shaderPrograms.ContainsKey(name))
-                shaderPrograms[name] = program;
-            else
-                shaderPrograms.Add(name, program);
-        }
 
         [STAThread]
         static void Main(string[] args)
         {
+#if DEBUG
+            AllocConsole();
+            Log.Logger = new LoggerConfiguration()
+                .MinimumLevel.Debug()
+                .WriteTo.Console()
+                .CreateLogger();
+#endif
+            Log.Information("SM64DSe-Ultimate");
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new MainForm(args));
+            
+            romEditor = new RomEditor(args);
+            if (romEditor.isOpen) {
+                Application.Run(new MainForm());
+            }
+            else
+            {
+                Application.Run(new MainForm());
+                //TODO: show recent projects
+            }
+#if DEBUG
+            FreeConsole();
+#endif
         }
     }
 }

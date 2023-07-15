@@ -25,53 +25,41 @@ using System.Net;
 using System.Web;
 using SM64DSe.ImportExport.LevelImportExport;
 using System.Globalization;
+using SM64DSe.core.Api;
+using SM64DSe.Exceptions;
 
 namespace SM64DSe
 {
     public partial class MainForm : Form
     {
+        private void showError(string message)
+        {
+            MessageBox.Show(message, Program.AppTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+        
         private void LoadROM(string filename)
         {
-            if (!File.Exists(filename))
+            try
             {
-                MessageBox.Show("The specified file doesn't exist.", Program.AppTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Program.romEditor.LoadRom(filename);
+            }
+            catch (RomEditorException e)
+            {
+                showError(e.Message);
                 return;
             }
-
-            if (Program.m_ROMPath != "" || Program.m_IsROMFolder)
+            catch (IOException)
             {
-                while (Program.m_LevelEditors.Count > 0)
-                    Program.m_LevelEditors[0].Close();
-
-                
-                Program.m_ROM.EndRW();
-            }
-
-            Program.m_IsROMFolder = false;
-            Program.m_ROMPath = filename;
-            try { Program.m_ROM = new NitroROM(Program.m_ROMPath); }
-            catch (Exception ex)
-            {
-                string msg;
-
-                if (ex is IOException)
-                    msg = "The ROM couldn't be opened. Close any program that may be using it and try again.";
-                else
-                    msg = "The following error occured while loading the ROM:\n" + ex.Message + "\n" + ex.StackTrace; 
-                
-
-                MessageBox.Show(msg, Program.AppTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-                if (Program.m_ROM != null)
-                {
-                    Program.m_ROM.EndRW();
-                }
-                Program.m_ROMPath = "";
+                showError("The ROM couldn't be opened. Close any program that may be using it and try again.");
                 return;
             }
-
-            Program.m_ROM.BeginRW();
-            if (Program.m_ROM.NeedsPatch())
+            catch (Exception e)
+            {
+                showError("The following error occured while loading the ROM:\n" + e.Message + "\n" + e.StackTrace);
+                return;
+            }
+            
+            if (Program.romEditor.GetManager<PatchesManager>().NeedsPatch())
             {
                 DialogResult res = MessageBox.Show(
                     "This ROM needs to be patched before the editor can work with it.\n\n" +
@@ -84,22 +72,19 @@ namespace SM64DSe
                     sfdSaveFile.FileName = Program.m_ROMPath.Substring(0, Program.m_ROMPath.Length - 4) + "_bak.nds";
                     if (sfdSaveFile.ShowDialog(this) == DialogResult.OK)
                     {
-                        Program.m_ROM.EndRW();
-                        File.Copy(Program.m_ROMPath, sfdSaveFile.FileName, true);
+                        Program.romEditor.BackupRom(sfdSaveFile.FileName);
                     }
                 }
                 else if (res == DialogResult.Cancel)
                 {
-                    Program.m_ROM.EndRW();
-                    Program.m_ROMPath = "";
+                    Program.romEditor.Cleanup();
                     return;
                 }
 
-                // switch to buffered RW mode (faster for patching)
-                Program.m_ROM.EndRW();
-                Program.m_ROM.BeginRW(true);
-
-                try { Program.m_ROM.Patch(); }
+                try
+                {
+                    Program.romEditor.GetManager<PatchesManager>().Patch();
+                }
                 catch (Exception ex)
                 {
                     MessageBox.Show(
@@ -110,14 +95,12 @@ namespace SM64DSe
                         ex.StackTrace,
                         Program.AppTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
                     Console.WriteLine(ex.StackTrace);
-                    Program.m_ROM.EndRW(false);
-                    Program.m_ROMPath = "";
+                    Program.romEditor.Cleanup();
                     return;
                 }
             }
 
-            Program.m_ROM.LoadTables();
-            Program.m_ROM.EndRW();
+            Program.romEditor.LoadTables();
 
             // Program.m_ShaderCache = new ShaderCache();
 
@@ -146,17 +129,21 @@ namespace SM64DSe
             btnLZForceDecompression.Enabled = true;
             btnEditLevelNames.Enabled = true;
 
-            slStatusLabel.Text = "Loaded ROM Version: " + Program.m_ROM.m_Version.ToString().Replace('_', ' ');
+            slStatusLabel.Text = "Loaded ROM Version: " + Program.romEditor.GetRomVersion().ToString().Replace('_', ' ');
         }
 
         private void LoadROMExtracted(string basePath, string patchPath, string conversionPath, string buildPath) {
+            showError("NOT SUPPORTED AT THE MOMENT");
+            return;
+            
             Program.m_IsROMFolder = true;
             Program.m_ROMBasePath = basePath;
             Program.m_ROMPatchPath = patchPath;
             Program.m_ROMConversionPath = conversionPath;
             Program.m_ROMBuildPath = buildPath;
             Program.m_ROM = new NitroROM(basePath, patchPath);
-            Program.m_ROM.LoadTables();
+            
+            Program.romEditor.LoadTables();
             btnRefresh.Enabled = true;
             cbLevelListDisplay.Enabled = true;
 
@@ -182,46 +169,16 @@ namespace SM64DSe
             btnLZForceDecompression.Enabled = false;
         }
 
-        private void EnableOrDisableASMHackingCompilationAndGenerationFeatures()
-        {
-            if (Program.m_ROM.m_Version != NitroROM.Version.EUR)
-            {
-                btnASMHacking.DropDownItems.Remove(mnitASMHackingCompilation);
-                btnASMHacking.DropDownItems.Remove(mnitASMHackingGeneration);
-                btnASMHacking.DropDownItems.Remove(tssASMHacking001);
-            }
-            else
-            {
-                if (btnASMHacking.DropDownItems.IndexOf(mnitASMHackingCompilation) < 0)
-                {
-                    btnASMHacking.DropDownItems.Insert(0, mnitASMHackingCompilation);
-                    btnASMHacking.DropDownItems.Insert(1, mnitASMHackingGeneration);
-                    btnASMHacking.DropDownItems.Insert(2, tssASMHacking001);
-                }
-            }
-        }
-
-        public MainForm(string[] args)
+        public MainForm()
         {
             InitializeComponent();
             Text = Program.AppTitle + " " + Program.AppVersion + " " + Program.AppDate;
-            Program.m_ROMPath = "";
             Program.m_LevelEditors = new List<LevelEditorForm>();
 
             btnMore.DropDownItems.Add("Dump Object Info", null, btnDumpObjInfo_Click);
 
             slStatusLabel.Text = "Ready";
             ObjectDatabase.Initialize();
-
-            if (args.Length >= 1) {
-                if (args[0].EndsWith(".nds")) { 
-                    LoadROM(args[0]);
-                } else {
-                    string[] inSettings = File.ReadAllLines(args[0]);
-                    Program.m_ROMPath = args[0];
-                    LoadROMExtracted(inSettings[0], inSettings[1], inSettings[2], inSettings[3]);
-                }
-            }
         }
 
         private void MainForm_Shown(object sender, EventArgs e)
@@ -380,7 +337,7 @@ namespace SM64DSe
 
         private void btnDumpObjInfo_Click(object sender, EventArgs e)
         {
-            if (Program.m_ROM.m_Version != NitroROM.Version.EUR)
+            if (Program.romEditor.GetRomVersion() != NitroROM.Version.EUR)
             {
                 MessageBox.Show("Only compatible with EUR ROMs.", Program.AppTitle);
                 return;
@@ -423,7 +380,7 @@ namespace SM64DSe
 
         private void mnitDumpAllOvls_Click(object sender, EventArgs e)
         {
-            if (Program.m_ROM == null)
+            if (!Program.romEditor.isOpen)
                 return;
             for (int i = 0; i < 155; i++)
             {
@@ -509,12 +466,12 @@ namespace SM64DSe
             Console.WriteLine(m_SelectedFile);
 
             string status;
-            if (Program.m_ROM.GetFileIDFromName(this.m_SelectedFile) != ushort.MaxValue)
+            if (Program.romEditor.GetManager<FileManager>().GetFileIDFromName(this.m_SelectedFile) != ushort.MaxValue)
                 status = m_SelectedFile.Last() == '/' ?
                     string.Format("Directory, ID = 0x{0:x4}", Program.m_ROM.GetDirIDFromName(m_SelectedFile.TrimEnd('/'))) :
                     string.Format("File, ID = 0x{0:x4}, Ov0ID = 0x{1:x4}",
-                        Program.m_ROM.GetFileIDFromName(m_SelectedFile),
-                        Program.m_ROM.GetFileEntries()[Program.m_ROM.GetFileIDFromName(m_SelectedFile)].InternalID);
+                        Program.romEditor.GetManager<FileManager>().GetFileIDFromName(m_SelectedFile),
+                        Program.romEditor.GetManager<FileManager>().GetFileEntries()[Program.m_ROM.GetFileIDFromName(m_SelectedFile)].InternalID);
             else
                 status = "";
             slStatusLabel.Text = status;
@@ -538,7 +495,7 @@ namespace SM64DSe
             if (sfd.ShowDialog() == DialogResult.Cancel)
                 return;
 
-            System.IO.File.WriteAllBytes(sfd.FileName, Program.m_ROM.GetFileFromName(m_SelectedFile).m_Data);
+            System.IO.File.WriteAllBytes(sfd.FileName, Program.romEditor.GetManager<FileManager>().GetFileFromName(m_SelectedFile).m_Data);
         }
 
         private void btnReplaceRaw_Click(object sender, EventArgs e)
@@ -550,7 +507,7 @@ namespace SM64DSe
             if (ofd.ShowDialog() == DialogResult.Cancel)
                 return;
 
-            NitroFile file = Program.m_ROM.GetFileFromName(m_SelectedFile);
+            NitroFile file = Program.romEditor.GetManager<FileManager>().GetFileFromName(m_SelectedFile);
             file.Clear();
             file.WriteBlock(0, System.IO.File.ReadAllBytes(ofd.FileName));
             file.SaveChanges();
@@ -564,61 +521,51 @@ namespace SM64DSe
 
         private void btnLZDecompressWithHeader_Click(object sender, EventArgs e)
         {
-            NitroFile file = Program.m_ROM.GetFileFromName(m_SelectedFile);
-            // NitroFile automatically decompresses on load if LZ77 header present
-            file.SaveChanges();
+            Program.romEditor.GetManager<FileManager>().DecompressLz77WithHeader(m_SelectedFile);
         }
 
         private void btnLZForceDecompression_Click(object sender, EventArgs e)
         {
-            NitroFile file = Program.m_ROM.GetFileFromName(m_SelectedFile);
             try
             {
-                file.ForceDecompression();
+                Program.romEditor.GetManager<FileManager>().DecompressLz77(m_SelectedFile);
             }
             catch (Exception ex)
             {
-                MessageBox.Show("There was an error trying to force decompression of \"" + file.m_Name + "\", " +
+                MessageBox.Show("There was an error trying to force decompression. " +
                     "this file may not use LZ77 compression (no header)\n\n" + ex.Message + "\n\n" + ex.StackTrace);
             }
-            file.SaveChanges();
         }
 
         private void btnLZCompressWithHeader_Click(object sender, EventArgs e)
         {
-            NitroFile file = Program.m_ROM.GetFileFromName(m_SelectedFile);
             try
             {
-                file.Compress();
+                Program.romEditor.GetManager<FileManager>().CompressLz77WithHeader(m_SelectedFile);
             }
             catch (Exception ex)
             {
-                MessageBox.Show("There was an error trying to compress the file \"" + file.m_Name + "\" with " +
+                MessageBox.Show("There was an error trying to compress the file with " +
                     "LZ77 compression (with header)\n\n" + ex.Message + "\n\n" + ex.StackTrace);
             }
-            file.SaveChanges();
         }
 
         private void btnLZForceCompression_Click(object sender, EventArgs e)
         {
-            NitroFile file = Program.m_ROM.GetFileFromName(m_SelectedFile);
             try
             {
-                file.ForceCompression();
+                Program.romEditor.GetManager<FileManager>().CompressLz77(m_SelectedFile);
             }
             catch (Exception ex)
             {
-                MessageBox.Show("There was an error trying to compress the file \"" + file.m_Name + "\" with " +
+                MessageBox.Show("There was an error trying to compress the file with " +
                     "LZ77 compression (no header)\n\n" + ex.Message + "\n\n" + ex.StackTrace);
             }
-            file.SaveChanges();
         }
 
         private void btnDecompressOverlay_Click(object sender, EventArgs e)
         {
-            uint ovlID = uint.Parse(m_SelectedOverlay.Substring(8));
-            NitroOverlay ovl = new NitroOverlay(Program.m_ROM, ovlID);
-            ovl.SaveChanges();
+            Program.romEditor.GetManager<OverlaysManager>().Decompress(uint.Parse(m_SelectedOverlay.Substring(8)));
         }
 
         private void btnExtractOverlay_Click(object sender, EventArgs e)
@@ -631,8 +578,9 @@ namespace SM64DSe
             if (sfd.ShowDialog() == DialogResult.Cancel)
                 return;
 
-            uint ovlID = uint.Parse(m_SelectedOverlay.Substring(8));
-            System.IO.File.WriteAllBytes(sfd.FileName, new NitroOverlay(Program.m_ROM, ovlID).m_Data);
+            Program.romEditor.GetManager<OverlaysManager>().Dump(
+                uint.Parse(m_SelectedOverlay.Substring(8)),
+                sfd.FileName);
         }
 
         private void btnReplaceOverlay_Click(object sender, EventArgs e)
@@ -644,11 +592,7 @@ namespace SM64DSe
             if (ofd.ShowDialog() == DialogResult.Cancel)
                 return;
 
-            uint ovlID = uint.Parse(m_SelectedOverlay.Substring(8));
-            NitroOverlay ovl = new NitroOverlay(Program.m_ROM, ovlID);
-            ovl.Clear();
-            ovl.WriteBlock(0, System.IO.File.ReadAllBytes(ofd.FileName));
-            ovl.SaveChanges();
+            Program.romEditor.GetManager<OverlaysManager>().Replace(uint.Parse(m_SelectedOverlay.Substring(8)), ofd.FileName);
         }
 
         private void tvARM9Overlays_AfterSelect(object sender, TreeViewEventArgs e)
@@ -670,28 +614,7 @@ namespace SM64DSe
                 return;
             }
 
-            Program.m_ROM.BeginRW();
-
-            bool suitable = (Program.m_ROM.Read32(0x4AF4) == 0xDEC00621 && Program.m_ROM.Read32(0x4AF8) == 0x2106C0DE) ? true : false;
-            if (!suitable)
-            {
-                Program.m_ROM.Write32(0x4AF4, 0xDEC00621);
-                Program.m_ROM.Write32(0x4AF8, 0x2106C0DE);
-                uint binend = (Program.m_ROM.Read32(0x2C) + 0x4000);
-                Program.m_ROM.Write32(binend, 0xDEC00621);
-                Program.m_ROM.Write32(0x4AEC, 0x00000000);
-            }
-            else
-            {
-                Program.m_ROM.Write32(0x4AF4, 0x00000000);
-                Program.m_ROM.Write32(0x4AF8, 0x00000000);
-                uint binend = (Program.m_ROM.Read32(0x2C) + 0x4000);
-                Program.m_ROM.Write32(binend, 0x00000000);
-                Program.m_ROM.Write32(0x4AEC, 0x02061504);
-            }
-
-            Program.m_ROM.EndRW();
-
+            bool suitable = Program.romEditor.GetManager<PatchesManager>().ToggleSuitabilityForNSMBeASMPatching();
             MessageBox.Show("ROM is " + ((suitable) ? "no longer " : "now ") + "suitable for use with NSMBe's ASM patch insertion feature");
         }
 
@@ -774,7 +697,7 @@ namespace SM64DSe
             foreach (string lvlName in Strings.LevelNames())
             {
                 ids.Add("[" + i + "]");
-                internalNames.Add(Program.m_ROM.GetInternalLevelNameFromID(i));
+                internalNames.Add(Program.romEditor.GetManager<LevelsManager>().GetInternalLevelNameFromId(i));
                 names.Add(lvlName);
                 i++;
             }
@@ -837,11 +760,11 @@ namespace SM64DSe
                 int hubCounter = 1;
                 foreach (string lvlName in Strings.ShortLvlNames())
                 {
-                    ushort selectorId = Program.m_ROM.GetActSelectorIdByLevelID(i);
+                    ushort selectorId = Program.romEditor.GetManager<LevelsManager>().GetActSelectorIdByLevelId(i);
                     string lvlString = "";
                     if (selectorId < 29)
                     {
-                        lvlString = Program.m_ROM.GetInternalLevelNameFromID(i);
+                        lvlString = Program.romEditor.GetManager<LevelsManager>().GetInternalLevelNameFromId(i);
                         while (lvlString.StartsWith(" "))
                             lvlString = lvlString.Remove(0, 1);
 
@@ -894,59 +817,29 @@ namespace SM64DSe
                 return;
             }
 
-            if (Program.m_ROM.m_Version != NitroROM.Version.EUR)
+            if (Program.romEditor.GetRomVersion() != NitroROM.Version.EUR)
             {
-
                 MessageBox.Show("This is for EUR roms only!");
-
+                return;
             }
-            else
+            
+            if (Program.romEditor.GetManager<PatchesManager>().IsDlPatch())
             {
-
-                bool autorw = Program.m_ROM.CanRW();
-                if (!autorw) Program.m_ROM.BeginRW();
-                if (Program.m_ROM.Read32(0x6590) != 0) //the patch makes this not 0
-                {
-                    if (!autorw) Program.m_ROM.EndRW();
-                    MessageBox.Show("Rom has already been patched!");
-                    return;
-                }
-                if (!autorw) Program.m_ROM.EndRW();
-
-                if (MessageBox.Show("This will patch the ROM. " +
-                    "Continue with the patch?", "Table Shifting Patch", MessageBoxButtons.YesNo) == DialogResult.No)
-                    return;
-
-                if (!autorw) Program.m_ROM.BeginRW();
-                NitroOverlay ov2 = new NitroOverlay(Program.m_ROM, 2);
-
-                //Move the ACTOR_SPAWN_TABLE so it can expand
-                Program.m_ROM.WriteBlock(0x6590, Program.m_ROM.ReadBlock(0x90864, 0x61c));
-                Program.m_ROM.WriteBlock(0x90864, new byte[0x61c]);
-
-                //Adjust pointers
-                Program.m_ROM.Write32(0x1a198, 0x02006590);
-
-                //Move the OBJ_TO_ACTOR_TABLE so it can expand
-                Program.m_ROM.WriteBlock(0x4b00, ov2.ReadBlock(0x0210cbf4 - ov2.GetRAMAddr(), 0x28c));
-                ov2.WriteBlock(0x0210cbf4 - ov2.GetRAMAddr(), new byte[0x28c]);
-
-                //Adjust pointers
-                ov2.Write32(0x020fe890 - ov2.GetRAMAddr(), 0x02004b00);
-                ov2.Write32(0x020fe958 - ov2.GetRAMAddr(), 0x02004b00);
-                ov2.Write32(0x020fea44 - ov2.GetRAMAddr(), 0x02004b00);
-
-                //Add the dynamic library loading and cleanup code
-                Program.m_ROM.WriteBlock(0x90864, Properties.Resources.dynamic_library_loader);
-
-                //Add the hooks (by replacing LoadObjBankOverlays())
-                Program.m_ROM.WriteBlock(0x2df70, Properties.Resources.static_overlay_loader);
-
-                if (!autorw) Program.m_ROM.EndRW();
-                ov2.SaveChanges();
-
+                MessageBox.Show("Rom has already been patched!");
+                return;
             }
-
+            
+            if (MessageBox.Show("This will patch the ROM. Continue with the patch?", "Table Shifting Patch", MessageBoxButtons.YesNo) == DialogResult.No)
+                return;
+            
+            try
+            {
+                Program.romEditor.GetManager<PatchesManager>().DlPatch();
+            }
+            catch (RomEditorException exception)
+            {
+                MessageBox.Show(exception.Message);
+            }
         }
 
         private void kuppaScriptEditorToolStripMenuItem_Click(object sender, EventArgs e)
@@ -956,7 +849,7 @@ namespace SM64DSe
         }
 
         private void editFileSystemToolStripMenuItem_Click(object sender, EventArgs e) {
-            if (Program.m_ROM.m_Version != NitroROM.Version.EUR) {
+            if (Program.romEditor.GetRomVersion() != NitroROM.Version.EUR) {
                 MessageBox.Show("This is for EUR ROMs only!");
                 return;
             }
@@ -966,7 +859,7 @@ namespace SM64DSe
             }
             if (new FilesystemEditorForm(this).ShowDialog() != DialogResult.OK)
                 return;
-            this.LoadROM(Program.m_ROMPath);
+            this.LoadROM(Program.m_ROMPath); //TODO: maybe replace with reload everything or something similar.
         }
 
         private void editOverlaysToolStripMenuItem_Click(object sender, EventArgs e) {
