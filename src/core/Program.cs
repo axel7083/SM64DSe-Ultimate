@@ -92,7 +92,6 @@ namespace SM64DSe
             set => throw new Exception("Program.m_ROMBuildPath cannot be changed. Use Program.romEditor");
         }
         
-        
         // 
         public static List<LevelEditorForm> m_LevelEditors;
 
@@ -113,7 +112,7 @@ namespace SM64DSe
             
             romEditor = new RomEditor();
             romEditor.ParseArguments(args);
-
+            
             if (romEditor.isOpen)
             {
                 var hostConfigs = new HostConfiguration { UrlReservations = new UrlReservations() { CreateAutomatically = true } };
@@ -123,8 +122,25 @@ namespace SM64DSe
                     new Uri("http://localhost:8888/")
                 );
                 nancyHost.Start();
-                Application.Run(new MainForm());
+                Log.Information("Exposing http://localhost:8888/");
+
+                if (args.Contains("no-ui"))
+                {
+                    Log.Information("no-ui mode");
+                    Console.ReadKey();
+                }
+                else
+                {
+                    Log.Information("ui mode");
+                    Application.Run(new MainForm());
+                }
+                
                 nancyHost.Stop();
+            }
+            else
+            {
+                Log.Information("no rom loaded");
+                Application.Run(new MainForm());
             }
             
             //TODO: show recent projects
