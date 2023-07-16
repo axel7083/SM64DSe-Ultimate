@@ -93,6 +93,7 @@ namespace SM64DSe.core.Api
 
         public void LoadTables()
         {
+            m_ROM.BeginRW();
             m_ROM.LoadTables();
             m_ROM.EndRW();
         }

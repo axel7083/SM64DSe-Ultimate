@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using SM64DSe.Patcher;
 
 namespace SM64DSe
 {
@@ -24,27 +25,34 @@ namespace SM64DSe
             //code and patcher borrowed from NSMBe and edited.
             System.IO.DirectoryInfo dir = new System.IO.DirectoryInfo(txtFolder.Text);
             uint addr = 0x02400000;
+            int arenaLoOffs = 0x02058DE0;
             if (btnOverlay.Checked) {
                 addr = new NitroOverlay(Program.m_ROM, uint.Parse(txtOverlayId.Text)).GetRAMAddr();
             } else if (btnInjection.Checked) {
-
+                Program.m_ROM.BeginRW();
+                Arm9BinaryHandler handler = new Arm9BinaryHandler();
+                handler.loadSections();
+                addr = handler.readFromRamAddr(arenaLoOffs, -1); // value from https://github.com/Gota7/MoreObjectsMod/blob/master/ASM_HouseKeeper/arenaoffs.txt
             } else if (!btnDynamicLibrary.Checked) { 
                 addr = uint.Parse(txtOffset.Text, System.Globalization.NumberStyles.HexNumber);
             }
-            Patcher.PatchMaker pm = new Patcher.PatchMaker(dir, addr);
+            Patcher.PatchMaker pm = new Patcher.PatchMaker(dir, addr, arenaLoOffs);
 
             byte[] ret = null;
             if (btnDynamicLibrary.Checked)
+            {
                 ret = pm.makeDynamicLibrary();
+            }
             else if (btnOverlay.Checked) {
                 pm.compilePatch();
                 pm.makeOverlay(uint.Parse(txtOverlayId.Text));
                 return;
             } else if (btnInjection.Checked) { 
-                //TODO.
-            } else {
                 pm.compilePatch();
                 ret = pm.generatePatch();
+            } else {
+                pm.compilePatch();
+                pm.generatePatchForInsertation(arenaLoOffs); // TODO: PROBABLY DOES NOT WORK
             }
             if (ret == null) { return; }
             bool isOut = btnExternal.Checked;

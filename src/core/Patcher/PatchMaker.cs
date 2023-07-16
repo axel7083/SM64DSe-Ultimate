@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.IO;
 using System.Windows.Forms;
+using Ndst.Formats;
 
 namespace SM64DSe.Patcher
 {
@@ -15,16 +16,20 @@ namespace SM64DSe.Patcher
         Arm9BinaryHandler handler;
         DirectoryInfo romdir;
         uint m_CodeAddr;
+        private int arenaLoOffs;
 
-        public PatchMaker(DirectoryInfo romdir, uint codeAddr)
+        public PatchMaker(DirectoryInfo romdir, uint codeAddr, int arenaLoOffs)
         {
-            //handler = new Arm9BinaryHandler();
+            // handler = new Arm9BinaryHandler();
             this.romdir = romdir;
             m_CodeAddr = codeAddr;
+            this.arenaLoOffs = arenaLoOffs;
         }
+        
 		
         public void compilePatch()
         {
+            // 34957984
             PatchCompiler.compilePatch(m_CodeAddr, romdir);
         }
 
@@ -328,6 +333,109 @@ namespace SM64DSe.Patcher
             }
         }
 
+        // TODO: ABSOLUTELY NOT TESTED DO NOT TRY 
+        public void generatePatchForInsertation(int codeAddr)
+        {
+            Console.Out.WriteLine(String.Format("New code address: {0:X8}", codeAddr));
+
+            FileInfo f = new FileInfo(romdir.FullName + "/newcode.bin");
+            if (!f.Exists)
+            {
+                throw new Exception("newcode.bin not found.");
+            }
+            FileStream fs = f.OpenRead();
+
+            byte[] newdata = new byte[fs.Length];
+            fs.Read(newdata, 0, (int)fs.Length);
+            fs.Close();
+
+            ByteArrayOutputStream extradata = new ByteArrayOutputStream();
+
+            extradata.write(newdata);
+            extradata.align(4);
+            int hookAddr = codeAddr + extradata.getPos();
+
+
+            f = new FileInfo(romdir.FullName + "/newcode.sym");
+            StreamReader s = f.OpenText();
+
+            while (!s.EndOfStream)
+            {
+                string l = s.ReadLine();
+
+                int ind = -1;
+                if (l.Contains("nsub_"))
+                    ind = l.IndexOf("nsub_");
+                if (l.Contains("hook_"))
+                    ind = l.IndexOf("hook_");
+                if (l.Contains("repl_"))
+                    ind = l.IndexOf("repl_");
+
+                if (ind != -1)
+                {
+                    int destRamAddr= parseHex(l.Substring(0, 8));    //Redirect dest addr
+                    int ramAddr = parseHex(l.Substring(ind + 5, 8)); //Patched addr
+                    uint val = 0;
+
+                    int ovId = -1;
+                    if (l.Contains("_ov_"))
+                        ovId = parseHex(l.Substring(l.IndexOf("_ov_") + 4, 2));
+
+                    int patchCategory = 0;
+
+                    string cmd = l.Substring(ind, 4);
+                    int thisHookAddr = 0;
+
+                    switch(cmd)
+                    {
+                        case "nsub":
+                            val = makeBranchOpcode(ramAddr, destRamAddr, false);
+                            break;
+                        case "repl":
+                            val = makeBranchOpcode(ramAddr, destRamAddr, true);
+                            break;
+                        case "hook":
+                            //Jump to the hook addr
+                            thisHookAddr = hookAddr;
+                            val = makeBranchOpcode(ramAddr, hookAddr, false);
+
+                            uint originalOpcode = handler.readFromRamAddr(ramAddr, ovId);
+                            
+                            //TODO: Parse and fix original opcode in case of BL instructions
+                            //so it's possible to hook over them too.
+                            extradata.writeUInt(originalOpcode);
+                            hookAddr += 4;
+                            extradata.writeUInt(0xE92D5FFF); //push {r0-r12, r14}
+                            hookAddr += 4;
+                            extradata.writeUInt(makeBranchOpcode(hookAddr, destRamAddr, true));
+                            hookAddr += 4;
+                            extradata.writeUInt(0xE8BD5FFF); //pop {r0-r12, r14}
+                            hookAddr += 4;
+                            extradata.writeUInt(makeBranchOpcode(hookAddr, ramAddr+4, false));
+                            hookAddr += 4;
+                            extradata.writeUInt(0x12345678);
+                            hookAddr += 4;
+                            break;
+                        default:
+                            continue;
+                    }
+
+                    //Console.Out.WriteLine(String.Format("{0:X8}:{1:X8} = {2:X8}", patchCategory, ramAddr, val));
+                    Console.Out.WriteLine(String.Format("              {0:X8} {1:X8}", destRamAddr, thisHookAddr));
+
+                    handler.writeToRamAddr(ramAddr, val, ovId);
+                }
+            }
+
+            s.Close();
+
+            int newArenaOffs = codeAddr + extradata.getPos();
+            handler.writeToRamAddr(arenaLoOffs, (uint)newArenaOffs, -1);
+
+            handler.sections.Add(new Arm9BinSection(extradata.getArray(), codeAddr, 0));
+            handler.saveSections();
+        }
+
         public byte[] generatePatch()
         {
             Console.Out.WriteLine(String.Format("New code address: {0:X8}", m_CodeAddr));
@@ -479,9 +587,9 @@ namespace SM64DSe.Patcher
             return int.Parse(s, System.Globalization.NumberStyles.HexNumber);
         }
 
-        public void restore() {
+        /*public void restore() {
             handler.restoreFromBackup();
-        }
+        }*/
 
     }
 }

@@ -28,6 +28,7 @@ using System;
 using System.Runtime.InteropServices;
 using SM64DSe.core.Api;
 using Nancy.Hosting.Self;
+using SM64DSe.Patcher;
 
 
 namespace SM64DSe
@@ -116,6 +117,13 @@ namespace SM64DSe
             romEditor = new RomEditor();
             romEditor.ParseArguments(args);
             
+            Program.m_ROM.BeginRW();
+            Arm9BinaryHandler handler = new Arm9BinaryHandler();
+            handler.loadSections();
+            handler.saveSections();
+            Program.m_ROM.EndRW();
+            Console.ReadKey();
+
             if (romEditor.isOpen)
             {
                 var hostConfigs = new HostConfiguration { UrlReservations = new UrlReservations() { CreateAutomatically = true } };

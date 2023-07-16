@@ -29,10 +29,15 @@ namespace SM64DSe.Patcher {
         public uint readFromRamAddr(int addr) {
             addr -= ramAddr;
 
-            return (uint)(data[addr] |
-                data[addr + 1] << 8 |
-                data[addr + 2] << 16 |
-                data[addr + 3] << 24);
+            byte a = data[addr];
+            byte b = data[addr + 1];
+            byte c = data[addr + 2];
+            byte d = data[addr + 3];
+
+            return (uint)(a |
+                          b << 8 |
+                          c << 16 |
+                          d << 24);
         }
 
         public void writeToRamAddr(int addr, uint val, int numBytes = 4)     //DY: added numBytes parameter

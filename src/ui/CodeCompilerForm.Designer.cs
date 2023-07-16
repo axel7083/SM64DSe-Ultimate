@@ -204,7 +204,7 @@
             this.btnInjection.TabIndex = 12;
             this.btnInjection.Text = "Injection";
             this.btnInjection.UseVisualStyleBackColor = true;
-            this.btnInjection.Visible = false;
+            this.btnInjection.Visible = true;
             this.btnInjection.CheckedChanged += new System.EventHandler(this.btnInjection_CheckedChanged);
             // 
             // btnGeneric
