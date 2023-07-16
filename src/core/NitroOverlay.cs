@@ -186,10 +186,10 @@ namespace SM64DSe
         public void Update() { m_OVTEntryAddr = m_ROM.GetOverlayEntryOffset(m_ID); }
 
 
-        private uint m_ID;
-        private ushort m_FileID;
-        private uint m_OVTEntryAddr;
-        private uint m_RAMAddr;
+        public uint m_ID { get; private set; }
+        public ushort m_FileID { get; private set; }
+        public  uint m_OVTEntryAddr { get; private set; }
+        public uint m_RAMAddr { get; private set; }
         
         public ushort GetCollisionFileID()
         {

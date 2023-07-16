@@ -1459,7 +1459,11 @@ namespace SM64DSe
         // To be implemented by subclasses
         public virtual void SaveChanges() { }
 
+        [JsonIgnore]
 	    protected NitroROM m_ROM;
+        
 	    public byte[] m_Data;
+        
+        
     }
 }

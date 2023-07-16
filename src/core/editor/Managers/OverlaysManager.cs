@@ -19,6 +19,11 @@ namespace SM64DSe.core.Api
                 File.WriteAllBytes(filename, overlay.m_Data);
             }
         }
+        
+        public NitroROM.OverlayEntry[] GetOverlayEntries()
+        {
+            return this.m_ROM.GetOverlayEntries();
+        }
 
         public void Decompress(uint ovlId)
         {
@@ -44,6 +49,11 @@ namespace SM64DSe.core.Api
         public uint GetLevelOverlayID(int levelId)
         {
             return m_ROM.GetLevelOverlayID(levelId);
+        }
+
+        public NitroOverlay GetOverlay(uint ovlId)
+        {
+            return new NitroOverlay(m_ROM, ovlId);
         }
 
         public NitroFile GetCollisionFileID(uint ovlId)
