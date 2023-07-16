@@ -1,4 +1,5 @@
-﻿namespace SM64DSe.core.Api
+﻿
+namespace SM64DSe.core.Api
 {
     public abstract class Manager
     {

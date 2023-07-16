@@ -61,6 +61,12 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Nancy">
+      <HintPath>packages/Nancy.2.0.0/lib/net452/Nancy.dll</HintPath>
+    </Reference>
+    <Reference Include="Nancy.Hosting.Self">
+      <HintPath>packages/Nancy.Hosting.Self.2.0.0/lib/net452/Nancy.Hosting.Self.dll</HintPath>
+    </Reference>
     <Reference Include="Serilog">
       <HintPath>packages/Serilog.3.0.2-dev-02044/lib/net471/Serilog.dll</HintPath>
     </Reference>
@@ -140,13 +146,16 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="src\core\3DStuff.cs" />
-    <Compile Include="src\core\Api\FileManager.cs" />
-    <Compile Include="src\core\Api\LevelsManager.cs" />
-    <Compile Include="src\core\Api\Manager.cs" />
-    <Compile Include="src\core\Api\OverlaysManager.cs" />
-    <Compile Include="src\core\Api\PatchesManager.cs" />
+    <Compile Include="src\core\Api\BaseApi.cs" />
+    <Compile Include="src\core\Api\models\RomMetadata.cs" />
+    <Compile Include="src\core\Api\models\RomVersion.cs" />
     <Compile Include="src\core\Api\RomEditor.cs" />
-    <Compile Include="src\core\Api\RomMetadata.cs" />
+    <Compile Include="src\core\Api\RomEditorBootstrapper.cs" />
+    <Compile Include="src\core\Api\services\FileManager.cs" />
+    <Compile Include="src\core\Api\services\LevelsManager.cs" />
+    <Compile Include="src\core\Api\services\Manager.cs" />
+    <Compile Include="src\core\Api\services\OverlaysManager.cs" />
+    <Compile Include="src\core\Api\services\PatchesManager.cs" />
     <Compile Include="src\core\BasicBigFloat.cs" />
     <Compile Include="src\core\BiDictionaryOneToOne.cs" />
     <Compile Include="src\core\DataHelper.cs" />

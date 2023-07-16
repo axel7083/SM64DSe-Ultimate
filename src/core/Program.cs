@@ -27,6 +27,8 @@ using Serilog;
 using System;
 using System.Runtime.InteropServices;
 using SM64DSe.core.Api;
+using Nancy.Hosting.Self;
+
 
 namespace SM64DSe
 {
@@ -52,12 +54,44 @@ namespace SM64DSe
             get => romEditor.DangerousGetRom();
             set => throw new Exception("Program.m_ROM cannot be changed. Use Program.romEditor");
         }
-        public static string m_ROMPath;
-        public static bool m_IsROMFolder;
-        public static string m_ROMBasePath;
-        public static string m_ROMPatchPath;
-        public static string m_ROMConversionPath;
-        public static string m_ROMBuildPath;
+        
+        [ObsoleteAttribute("Use Program.romEditor.GetRomMetadata()")]
+        public static string m_ROMPath
+        {
+            get => romEditor.GetRomMetadata().m_ROMPath;
+            set => throw new Exception("Program.m_ROMPath cannot be changed. Use Program.romEditor");
+        }
+        [ObsoleteAttribute("Use Program.romEditor.GetRomMetadata()")]
+        public static bool m_IsROMFolder
+        {
+            get => romEditor.GetRomMetadata().m_IsROMFolder;
+            set => throw new Exception("Program.m_IsROMFolder cannot be changed. Use Program.romEditor");
+        }
+        [ObsoleteAttribute("Use Program.romEditor.GetRomMetadata()")]
+        public static string m_ROMBasePath
+        {
+            get => romEditor.GetRomMetadata().m_ROMBasePath;
+            set => throw new Exception("Program.m_ROMBasePath cannot be changed. Use Program.romEditor");
+        }
+        [ObsoleteAttribute("Use Program.romEditor.GetRomMetadata()")]
+        public static string m_ROMPatchPath
+        {
+            get => romEditor.GetRomMetadata().m_ROMPatchPath;
+            set => throw new Exception("Program.m_ROMPatchPath cannot be changed. Use Program.romEditor");
+        }
+        [ObsoleteAttribute("Use Program.romEditor.GetRomMetadata()")]
+        public static string m_ROMConversionPath
+        {
+            get => romEditor.GetRomMetadata().m_ROMConversionPath;
+            set => throw new Exception("Program.m_ROMConversionPath cannot be changed. Use Program.romEditor");
+        }
+        [ObsoleteAttribute("Use Program.romEditor.GetRomMetadata()")]
+        public static string m_ROMBuildPath
+        {
+            get => romEditor.GetRomMetadata().m_ROMBuildPath;
+            set => throw new Exception("Program.m_ROMBuildPath cannot be changed. Use Program.romEditor");
+        }
+        
         
         // 
         public static List<LevelEditorForm> m_LevelEditors;
@@ -77,15 +111,23 @@ namespace SM64DSe
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             
-            romEditor = new RomEditor(args);
-            if (romEditor.isOpen) {
-                Application.Run(new MainForm());
-            }
-            else
+            romEditor = new RomEditor();
+            romEditor.ParseArguments(args);
+
+            if (romEditor.isOpen)
             {
+                var hostConfigs = new HostConfiguration { UrlReservations = new UrlReservations() { CreateAutomatically = true } };
+                var nancyHost = new NancyHost(
+                    new RomEditorBootstrapper(),
+                    hostConfigs, 
+                    new Uri("http://localhost:8888/")
+                );
+                nancyHost.Start();
                 Application.Run(new MainForm());
-                //TODO: show recent projects
+                nancyHost.Stop();
             }
+            
+            //TODO: show recent projects
 #if DEBUG
             FreeConsole();
 #endif
