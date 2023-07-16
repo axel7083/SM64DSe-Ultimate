@@ -37,29 +37,9 @@ namespace SM64DSe
         {
             MessageBox.Show(message, Program.AppTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
-        
-        private void LoadROM(string filename)
+
+        private void PostLoad()
         {
-            try
-            {
-                Program.romEditor.LoadRom(filename);
-            }
-            catch (RomEditorException e)
-            {
-                showError(e.Message);
-                return;
-            }
-            catch (IOException)
-            {
-                showError("The ROM couldn't be opened. Close any program that may be using it and try again.");
-                return;
-            }
-            catch (Exception e)
-            {
-                showError("The following error occured while loading the ROM:\n" + e.Message + "\n" + e.StackTrace);
-                return;
-            }
-            
             if (Program.romEditor.GetManager<PatchesManager>().NeedsPatch())
             {
                 DialogResult res = MessageBox.Show(
@@ -132,6 +112,31 @@ namespace SM64DSe
 
             slStatusLabel.Text = "Loaded ROM Version: " + Program.romEditor.GetRomVersion().ToString().Replace('_', ' ');
         }
+        
+        private void LoadROM(string filename)
+        {
+            try
+            {
+                Program.romEditor.LoadRom(filename);
+            }
+            catch (RomEditorException e)
+            {
+                showError(e.Message);
+                return;
+            }
+            catch (IOException)
+            {
+                showError("The ROM couldn't be opened. Close any program that may be using it and try again.");
+                return;
+            }
+            catch (Exception e)
+            {
+                showError("The following error occured while loading the ROM:\n" + e.Message + "\n" + e.StackTrace);
+                return;
+            }
+
+            PostLoad();
+        }
 
         private void LoadROMExtracted(string basePath, string patchPath, string conversionPath, string buildPath) {
             showError("NOT SUPPORTED AT THE MOMENT");
@@ -180,6 +185,9 @@ namespace SM64DSe
 
             slStatusLabel.Text = "Ready";
             ObjectDatabase.Initialize();
+
+            if (Program.romEditor.isOpen)
+                PostLoad();
         }
 
         private void MainForm_Shown(object sender, EventArgs e)

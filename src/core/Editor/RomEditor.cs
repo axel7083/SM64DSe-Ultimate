@@ -57,12 +57,16 @@ namespace SM64DSe.core.Api
             while (Program.m_LevelEditors.Count > 0)
                 Program.m_LevelEditors[0].Close();
             m_ROM.EndRW();
-            Program.m_ROMPath = "";
+            metadata = null;
+            isOpen = false;
         }
 
         public void LoadRom(string filename)
         {
             Log.Information("Loading ROM from " + filename);
+            if (isOpen)
+                Cleanup();
+            
             metadata = new RomMetadata(
                 false, 
                 null, 
@@ -75,9 +79,6 @@ namespace SM64DSe.core.Api
             // Check file exist
             if (!File.Exists(filename))
                 throw new RomEditorException("The specified file doesn't exist.");
-
-            if (isOpen)
-                Cleanup();
             
             this.m_ROM = new NitroROM(filename);
             isOpen = true;
