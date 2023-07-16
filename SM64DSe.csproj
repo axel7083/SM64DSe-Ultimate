@@ -210,7 +210,6 @@
     <Compile Include="src\core\KuppaScript\KuppaScript.cs" />
     <Compile Include="src\core\KuppaScript\NumberInterpreter.cs" />
     <Compile Include="src\core\Level.cs" />
-    <Compile Include="src\core\LevelEditorForm.EditingHandler.cs" />
     <Compile Include="src\core\LevelObject.cs" />
     <Compile Include="src\core\ModelCache.cs" />
     <Compile Include="src\core\models\OverlayCount.cs" />
@@ -251,11 +250,11 @@
     <Compile Include="src\core\Ndst\Ninja.cs" />
     <Compile Include="src\core\Ndst\Overlay.cs" />
     <Compile Include="src\core\Ndst\ROM.cs" />
-    <Compile Include="src\core\NitroFile.cs" />
-    <Compile Include="src\core\NitroOverlay.cs" />
-    <Compile Include="src\core\NitroROM.cs" />
-    <Compile Include="src\core\NitroROM_patch.cs" />
-    <Compile Include="src\core\NitroROM_Utils.cs" />
+    <Compile Include="src\core\NitroRom\NitroFile.cs" />
+    <Compile Include="src\core\NitroRom\NitroOverlay.cs" />
+    <Compile Include="src\core\NitroRom\NitroROM.cs" />
+    <Compile Include="src\core\NitroRom\NitroROM_patch.cs" />
+    <Compile Include="src\core\NitroRom\NitroROM_Utils.cs" />
     <Compile Include="src\core\ObjectDatabase.cs" />
     <Compile Include="src\core\ObjectProperties.cs" />
     <Compile Include="src\core\ObjectRenderer.cs" />
