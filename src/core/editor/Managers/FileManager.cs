@@ -7,11 +7,6 @@ namespace SM64DSe.core.Api
     {
         public FileManager(NitroROM m_ROM): base(m_ROM) { }
 
-        public NitroROM.OverlayEntry[] GetOverlayEntries()
-        {
-            return this.m_ROM.GetOverlayEntries();
-        }
-        
         public NitroROM.FileEntry[] GetFileEntries()
         {
             return this.m_ROM.GetFileEntries();

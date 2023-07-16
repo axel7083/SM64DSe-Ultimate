@@ -149,7 +149,7 @@ namespace SM64DSe
             NitroROM.FileEntry[] files = Program.romEditor.GetManager<FileManager>().GetFileEntries();
             TreeNode ovlNode = tvFileList.Nodes.Add("root", "ARM 9 Overlays");
 
-            NitroROM.OverlayEntry[] ovls = Program.romEditor.GetManager<FileManager>().GetOverlayEntries();
+            NitroROM.OverlayEntry[] ovls = Program.romEditor.GetManager<OverlaysManager>().GetOverlayEntries();
             for (int i = 0; i < ovls.Length; i++)
             {
                 string ind = String.Format("{0:D3}", i);
