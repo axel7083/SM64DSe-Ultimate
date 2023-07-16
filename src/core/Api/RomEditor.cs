@@ -30,7 +30,7 @@ namespace SM64DSe.core.Api
             return (T)manager;
         }
 
-        public RomEditor(string[] args)
+        public void ParseArguments(string[] args)
         {
             if (args.Length >= 1) {
                 if (args[0].EndsWith(".nds")) { 
@@ -41,14 +41,13 @@ namespace SM64DSe.core.Api
             }
         }
 
+        public RomMetadata GetRomMetadata()
+        {
+            return this.metadata;
+        }
+
         public NitroROM DangerousGetRom()
         {
-#if DEBUG
-            Log.Warning(
-                "WARNING: manually getting m_ROM\n" + 
-                new System.Diagnostics.StackTrace().ToString()
-            );
-#endif
             return this.m_ROM;
         }
 
@@ -64,6 +63,15 @@ namespace SM64DSe.core.Api
         public void LoadRom(string filename)
         {
             Log.Information("Loading ROM from " + filename);
+            metadata = new RomMetadata(
+                false, 
+                null, 
+                null, 
+                null, 
+                null, 
+                filename
+            );
+            
             // Check file exist
             if (!File.Exists(filename))
                 throw new RomEditorException("The specified file doesn't exist.");
@@ -73,19 +81,13 @@ namespace SM64DSe.core.Api
             
             this.m_ROM = new NitroROM(filename);
             isOpen = true;
-            
-            Program.m_IsROMFolder = false;
-            Program.m_ROMPath = filename;
 
-            metadata = new RomMetadata(
-                false, 
-                null, 
-                null, 
-                null, 
-                null, 
-                filename
-                );
             Log.Information("Rom version: " + GetRomVersion());
+        }
+
+        public void LoadRomExtracted()
+        {
+            //TODO
         }
 
         public void LoadTables()

@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using SM64DSe.core.Api;
 
 namespace SM64DSe {
 
@@ -14,7 +15,6 @@ namespace SM64DSe {
     /// </summary>
     public class FilesystemEditorForm : Form {
         private string m_SelectedFile = "";
-        private NitroROM m_ROM;
         private bool promptOnClose;
         private IContainer components;
         private TreeView tvFiles;
@@ -29,11 +29,12 @@ namespace SM64DSe {
             this.InitializeComponent();
             this.Text = "Josh65536's File System Editor";
             Icon = main.Icon;
-            this.m_ROM = Program.m_ROM;
             ROMFileSelect.LoadFileList(this.tvFiles);
             this.DialogResult = DialogResult.Ignore;
-            if (this.m_ROM.StartFilesystemEdit())
+            
+            if (Program.romEditor.GetManager<FileManager>().StartFilesystemEdit())
                 return;
+            MessageBox.Show("Cannot start file system edition.");
             this.Close();
         }
 
@@ -57,12 +58,11 @@ namespace SM64DSe {
         private void FilesystemEditorForm_FormClosed(object sender, FormClosedEventArgs e) {
             if (this.promptOnClose) {
                 if (MessageBox.Show("Do you want to save your changes?", "Save?", MessageBoxButtons.YesNo) == DialogResult.Yes)
-                    this.m_ROM.SaveFilesystem();
+                    Program.romEditor.GetManager<FileManager>().StopFilesystemEdit(true);
                 else
-                    this.m_ROM.RevertFilesystem();
+                    Program.romEditor.GetManager<FileManager>().StopFilesystemEdit(false);
                 this.DialogResult = DialogResult.OK;
-            } else
-                this.m_ROM.EndRW(false);
+            }
         }
 
         private void tvFiles_AfterSelect(object sender, TreeViewEventArgs e) {
@@ -86,22 +86,22 @@ namespace SM64DSe {
                 return;
             string str = this.m_SelectedFile.Substring(0, this.m_SelectedFile.TrimEnd('/').LastIndexOf('/') + 1);
             if (this.m_SelectedFile.Substring(this.m_SelectedFile.Length - 1) == "/")
-                Program.m_ROM.RenameDir(this.m_SelectedFile.TrimEnd('/'), typedText, this.tvFiles.Nodes[0]);
+                Program.romEditor.GetManager<FileManager>().RenameDir(this.m_SelectedFile.TrimEnd('/'), typedText, this.tvFiles.Nodes[0]);
             else
-                Program.m_ROM.RenameFile(this.m_SelectedFile, typedText, this.tvFiles.Nodes[0]);
+                Program.romEditor.GetManager<FileManager>().RenameFile(this.m_SelectedFile, typedText, this.tvFiles.Nodes[0]);
             this.promptOnClose = true;
             this.m_SelectedFile = str + typedText + (this.m_SelectedFile.Substring(this.m_SelectedFile.Length - 1) == "/" ? "/" : "");
         }
 
         private void btnSaveChanges_Click(object sender, EventArgs e) {
-            this.m_ROM.SaveFilesystem();
+            Program.romEditor.GetManager<FileManager>().StopFilesystemEdit(true);
             this.promptOnClose = false;
             this.DialogResult = DialogResult.OK;
             this.Close();
         }
 
         private void btnRevertChanges_Click(object sender, EventArgs e) {
-            this.m_ROM.RevertFilesystem();
+            Program.romEditor.GetManager<FileManager>().StopFilesystemEdit(false);
             this.promptOnClose = false;
             this.DialogResult = DialogResult.OK;
             this.Close();
@@ -112,9 +112,9 @@ namespace SM64DSe {
                 return;
             this.m_SelectedFile.Substring(0, this.m_SelectedFile.TrimEnd('/').LastIndexOf('/') + 1);
             if (this.m_SelectedFile.Substring(this.m_SelectedFile.Length - 1) == "/")
-                Program.m_ROM.RemoveDir(this.m_SelectedFile.TrimEnd('/'), this.tvFiles.Nodes[0]);
+                Program.romEditor.GetManager<FileManager>().RemoveDir(this.m_SelectedFile.TrimEnd('/'), this.tvFiles.Nodes[0]);
             else
-                Program.m_ROM.RemoveFile(this.m_SelectedFile, this.tvFiles.Nodes[0]);
+                Program.romEditor.GetManager<FileManager>().RemoveFile(this.m_SelectedFile, this.tvFiles.Nodes[0]);
             this.promptOnClose = true;
         }
 
@@ -126,7 +126,7 @@ namespace SM64DSe {
             string selectedFile = this.m_SelectedFile;
             List<string> filenames = new List<string>((IEnumerable<string>)openFileDialog.SafeFileNames);
             List<string> fullNames = new List<string>((IEnumerable<string>)openFileDialog.FileNames);
-            Program.m_ROM.AddFile(this.m_SelectedFile, filenames, fullNames, this.tvFiles.Nodes[0]);
+            Program.romEditor.GetManager<FileManager>().AddFile(this.m_SelectedFile, filenames, fullNames, this.tvFiles.Nodes[0]);
             this.promptOnClose = true;
         }
 
@@ -138,7 +138,7 @@ namespace SM64DSe {
             if (!this.ValidateFilename(typedText))
                 return;
             string selectedFile = this.m_SelectedFile;
-            Program.m_ROM.AddDir(this.m_SelectedFile, typedText, this.tvFiles.Nodes[0]);
+            Program.romEditor.GetManager<FileManager>().AddDir(this.m_SelectedFile, typedText, this.tvFiles.Nodes[0]);
             this.promptOnClose = true;
         }
 
