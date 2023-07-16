@@ -98,13 +98,16 @@ namespace SM64DSe
         [STAThread]
         static void Main(string[] args)
         {
-#if DEBUG
-            AllocConsole();
+#if !DEBUG
+            if(args.Contains("console"))
+#endif
+                AllocConsole();
+            
             Log.Logger = new LoggerConfiguration()
                 .MinimumLevel.Debug()
                 .WriteTo.Console()
                 .CreateLogger();
-#endif
+
             Log.Information("SM64DSe-Ultimate");
 
             Application.EnableVisualStyles();
@@ -144,9 +147,11 @@ namespace SM64DSe
             }
             
             //TODO: show recent projects
-#if DEBUG
-            FreeConsole();
+            
+#if !DEBUG
+            if(args.Contains("console"))
 #endif
+                FreeConsole();
         }
     }
 }
