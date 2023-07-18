@@ -186,7 +186,7 @@ namespace SM64DSe
             slStatusLabel.Text = "Ready";
             ObjectDatabase.Initialize();
 
-            if (Program.romEditor.isOpen)
+            if (Program.romEditor != null && Program.romEditor.isOpen)
                 PostLoad();
         }
 
@@ -1212,5 +1212,10 @@ namespace SM64DSe
 
             SoundHeaderGenerator.Generate(o.FileName);
         }
-	}
+
+        private void Panel2_Paint(object sender, PaintEventArgs e)
+        {
+            throw new System.NotImplementedException();
+        }
+    }
 }

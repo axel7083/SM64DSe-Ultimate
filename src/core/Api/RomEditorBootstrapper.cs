@@ -7,7 +7,7 @@ namespace SM64DSe.core.Api
     {
         public override void Configure(INancyEnvironment environment)
         {
-            environment.Tracing(enabled: true, displayErrorTraces:true);
+            environment.Tracing(true, true);
             base.Configure(environment);
         }
     }

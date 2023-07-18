@@ -11,16 +11,16 @@ namespace SM64DSe.core.Api
         private NitroROM m_ROM;
         private RomMetadata metadata;
         public bool isOpen;
-        
+
         private Dictionary<Type, Manager> managers = new Dictionary<Type, Manager>();
 
         public T GetManager<T>() where T : Manager
         {
-            Type managerType = typeof(T);
+            var managerType = typeof(T);
 
             if (managers.ContainsKey(managerType))
                 return (T)managers[managerType];
-            
+
             if (!isOpen)
                 throw new Exception($"Trying to access {managerType.Name} without any ROM opened.");
 
@@ -32,10 +32,14 @@ namespace SM64DSe.core.Api
 
         public void ParseArguments(string[] args)
         {
-            if (args.Length >= 1) {
-                if (args[0].EndsWith(".nds")) { 
+            if (args.Length >= 1)
+            {
+                if (args[0].EndsWith(".nds"))
+                {
                     LoadRom(args[0]);
-                } else {
+                }
+                else
+                {
                     //TODO
                 }
             }
@@ -43,12 +47,12 @@ namespace SM64DSe.core.Api
 
         public RomMetadata GetRomMetadata()
         {
-            return this.metadata;
+            return metadata;
         }
 
         public NitroROM DangerousGetRom()
         {
-            return this.m_ROM;
+            return m_ROM;
         }
 
         public void Cleanup()
@@ -66,21 +70,21 @@ namespace SM64DSe.core.Api
             Log.Information("Loading ROM from " + filename);
             if (isOpen)
                 Cleanup();
-            
+
             metadata = new RomMetadata(
-                false, 
-                null, 
-                null, 
-                null, 
-                null, 
+                false,
+                null,
+                null,
+                null,
+                null,
                 filename
             );
-            
+
             // Check file exist
             if (!File.Exists(filename))
                 throw new RomEditorException("The specified file doesn't exist.");
-            
-            this.m_ROM = new NitroROM(filename);
+
+            m_ROM = new NitroROM(filename);
             isOpen = true;
 
             Log.Information("Rom version: " + GetRomVersion());
@@ -100,7 +104,7 @@ namespace SM64DSe.core.Api
 
         public void BackupRom(string destination)
         {
-            this.m_ROM.EndRW();
+            m_ROM.EndRW();
             File.Copy(Program.m_ROMPath, destination, true);
         }
 

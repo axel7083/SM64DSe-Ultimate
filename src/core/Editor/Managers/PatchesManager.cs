@@ -2,38 +2,39 @@
 
 namespace SM64DSe.core.Api
 {
-    public class PatchesManager: Manager
+    public class PatchesManager : Manager
     {
-        public PatchesManager(NitroROM m_ROM) : base(m_ROM) { }
-        
+        public PatchesManager(NitroROM m_ROM) : base(m_ROM)
+        {
+        }
+
         public bool NeedsPatch()
         {
-            this.m_ROM.BeginRW();
-            return this.m_ROM.NeedsPatch();
+            m_ROM.BeginRW();
+            return m_ROM.NeedsPatch();
         }
 
         public void Patch()
         {
             // switch to buffered RW mode (faster for patching)
-            this.m_ROM.BeginRW(true);
-            this.m_ROM.Patch();
+            m_ROM.BeginRW(true);
+            m_ROM.Patch();
         }
-
         
         // Very ugly, should be deprecated
         public bool ToggleSuitabilityForNSMBeASMPatching()
         {
             if (Program.m_IsROMFolder)
                 throw new RomEditorException("Cannot toggle suitability with extracted ROM.");
-            
+
             m_ROM.BeginRW();
 
-            bool suitable = (this.m_ROM.Read32(0x4AF4) == 0xDEC00621 && this.m_ROM.Read32(0x4AF8) == 0x2106C0DE) ? true : false;
+            var suitable = m_ROM.Read32(0x4AF4) == 0xDEC00621 && m_ROM.Read32(0x4AF8) == 0x2106C0DE ? true : false;
             if (!suitable)
             {
                 m_ROM.Write32(0x4AF4, 0xDEC00621);
                 m_ROM.Write32(0x4AF8, 0x2106C0DE);
-                uint binend = (m_ROM.Read32(0x2C) + 0x4000);
+                var binend = m_ROM.Read32(0x2C) + 0x4000;
                 m_ROM.Write32(binend, 0xDEC00621);
                 m_ROM.Write32(0x4AEC, 0x00000000);
             }
@@ -41,7 +42,7 @@ namespace SM64DSe.core.Api
             {
                 m_ROM.Write32(0x4AF4, 0x00000000);
                 m_ROM.Write32(0x4AF8, 0x00000000);
-                uint binend = (m_ROM.Read32(0x2C) + 0x4000);
+                var binend = m_ROM.Read32(0x2C) + 0x4000;
                 m_ROM.Write32(binend, 0x00000000);
                 m_ROM.Write32(0x4AEC, 0x02061504);
             }
@@ -52,7 +53,7 @@ namespace SM64DSe.core.Api
 
         public bool IsDlPatch()
         {
-            bool autorw = m_ROM.CanRW();
+            var autorw = m_ROM.CanRW();
             if (!autorw) m_ROM.BeginRW();
 
             return m_ROM.Read32(0x6590) != 0;
@@ -61,7 +62,7 @@ namespace SM64DSe.core.Api
         public void DlPatch()
         {
             m_ROM.BeginRW();
-            NitroOverlay ov2 = new NitroOverlay(m_ROM, 2);
+            var ov2 = new NitroOverlay(m_ROM, 2);
 
             //Move the ACTOR_SPAWN_TABLE so it can expand
             m_ROM.WriteBlock(0x6590, m_ROM.ReadBlock(0x90864, 0x61c));

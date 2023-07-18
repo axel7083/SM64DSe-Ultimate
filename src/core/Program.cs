@@ -29,7 +29,10 @@ using System.Runtime.InteropServices;
 using SM64DSe.core.Api;
 using Nancy.Hosting.Self;
 using SM64DSe.Patcher;
-
+using SM64DSe.core;
+using SM64DSe.core.NSMBe4;
+using SM64DSe.core.NSMBe4.DSFileSystem;
+using SM64DSe.ui.compiler;
 
 namespace SM64DSe
 {
@@ -117,14 +120,21 @@ namespace SM64DSe
             romEditor = new RomEditor();
             romEditor.ParseArguments(args);
             
-            Program.m_ROM.BeginRW();
-            Arm9BinaryHandler handler = new Arm9BinaryHandler();
-            handler.loadSections();
-            handler.saveSections();
-            Program.m_ROM.EndRW();
+            /*NitroROMFilesystem fs = new NitroROMFilesystem("C:\\Users\\axels\\OneDrive\\Bureau\\SM64DS\\EUROPE.nds");
+            NSMBe4ROM.load(fs);
+            
+            SM64DSe.core.NSMBe4.Patcher.PatchMaker pm = new SM64DSe.core.NSMBe4.Patcher.PatchMaker(
+                new DirectoryInfo("C:\\Users\\axels\\OneDrive\\Bureau\\SM64DS\\BasicPatch")
+                );
+            pm.restore();
+            pm.compilePatch();
+            pm.generatePatch();
+            Log.Information("PATCH DONE.");*/
+
+            Application.Run(new CompilerForm());
             Console.ReadKey();
 
-            if (romEditor.isOpen)
+            if (romEditor != null && romEditor.isOpen)
             {
                 var hostConfigs = new HostConfiguration { UrlReservations = new UrlReservations() { CreateAutomatically = true } };
                 var nancyHost = new NancyHost(

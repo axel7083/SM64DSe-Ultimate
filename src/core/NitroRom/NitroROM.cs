@@ -41,8 +41,11 @@ namespace SM64DSe
         public BinaryWriter arm9W;
         public uint headerSize = 0x4000;
 
+        public string path;
+
         public NitroROM(string path)
         {
+            this.path = path;
             LoadROM(path);
         }
 
