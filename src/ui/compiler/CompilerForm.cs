@@ -2,6 +2,7 @@
 using System.Drawing;
 using System.Windows.Forms;
 using SM64DSe.core.Api;
+using SM64DSe.core.Editor.Managers;
 using SM64DSe.core.models;
 
 namespace SM64DSe.ui.compiler
@@ -13,20 +14,36 @@ namespace SM64DSe.ui.compiler
         private ColumnHeader textColumnHeader;
         private ColumnHeader buildStatusColumnHeader;
         
-        private void AddListViewItem(string number, string text, string status)
+        private void AddListViewItem(string number, string text, CompilationStatus status)
         {
             ListViewItem item = new ListViewItem(number);
             item.SubItems.Add(text);
-            
-            item.BackColor = Color.Chocolate;
-            item.SubItems.Add(status);
 
+            switch (status)
+            {
+                case CompilationStatus.PENDING:
+                    item.BackColor = Color.Chocolate;
+                    break;
+                case CompilationStatus.FAILED:
+                    item.BackColor = Color.Red;
+                    break;
+                case CompilationStatus.SUCCESS:
+                    item.BackColor = Color.Green;
+                    break;
+            }
+
+            item.ImageKey = "build";
+            item.SubItems.Add(status.ToString());
             compiledOverlaysList.Items.Add(item);
         }
         
         public CompilerForm()
         {
             InitializeComponent();
+            
+            var imageList = new ImageList();
+            imageList.Images.Add("build", global::SM64DSe.Properties.Resources.btnA1);
+            compiledOverlaysList.SmallImageList = imageList;
             
             this.compiledOverlaysList.Dock = System.Windows.Forms.DockStyle.Fill;
             this.compiledOverlaysList.FullRowSelect = true;
@@ -55,10 +72,10 @@ namespace SM64DSe.ui.compiler
             Resize += OnResize;
             forceResize();
 
-            updateOverlaysList();
+            updateData();
         }
 
-        private void updateOverlaysList()
+        private void updateData()
         {
             this.compiledOverlaysList.Clear();
             this.compiledOverlaysList.Columns.AddRange(new[] {
@@ -66,22 +83,24 @@ namespace SM64DSe.ui.compiler
                 this.textColumnHeader,
                 this.buildStatusColumnHeader
             });
-            Program.romEditor.GetManager<CompilerManager>().targets.ForEach(target =>
+            Program.romEditor.GetManager<CompilerManager>().GetOverlayTargets().ForEach(target =>
             {
-                AddListViewItem("[" + target.OverlayId + "]", target.Path, target.Status.ToString());
+                AddListViewItem("[" + target.OverlayId + "]", target.Path, target.Status);
             });
+            
+            this.patchTargetFolder.Text = Program.romEditor.GetManager<CompilerManager>().getPatchFolder();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void AddTarget_Click(object sender, EventArgs e)
         {
-            string path = ui.Utils.Systems.pickFolder("Choose a target");
+            string path = Utils.Systems.pickFolder("Choose a target");
             if (path == null)
                 return;
-
-            Program.romEditor.GetManager<CompilerManager>().addTarget(
-                new CompilerTarget(154, path, CompilationStatus.PENDING)
+            
+            Program.romEditor.GetManager<CompilerManager>().addOverlayTarget(
+                new OverlayTarget(path, 155)
                 );
-            updateOverlaysList();
+            updateData();
         }
 
         private void forceResize()
@@ -94,11 +113,21 @@ namespace SM64DSe.ui.compiler
         {
             forceResize();
         }
-        
+
         private void buildButton_Click(object sender, EventArgs e)
         {
-            Program.romEditor.GetManager<CompilerManager>().build();
-            updateOverlaysList();
+            Program.romEditor.GetManager<CompilerManager>().BuildAll();
+            updateData();
+        }
+
+        private void explorerButton_Click(object sender, EventArgs e)
+        {
+            string path = Utils.Systems.pickFolder("Choose a target");
+            if (path == null)
+                return;
+
+            Program.romEditor.GetManager<CompilerManager>().SetPatchTarget(path);
+            updateData();
         }
     }
 }

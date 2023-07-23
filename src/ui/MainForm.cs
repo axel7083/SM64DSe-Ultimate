@@ -28,6 +28,7 @@ using System.Globalization;
 using Serilog;
 using SM64DSe.core.Api;
 using SM64DSe.Exceptions;
+using SM64DSe.ui.compiler;
 
 namespace SM64DSe
 {
@@ -663,7 +664,7 @@ namespace SM64DSe
 
         private void mnitASMHackingCompilationCodeCompiler_Click(object sender, EventArgs e)
         {
-            new CodeCompilerForm().Show();
+            new CompilerForm().Show();
         }
 
         private void mnitASMHackingCompilationFixCodeOffsets_Click(object sender, EventArgs e)

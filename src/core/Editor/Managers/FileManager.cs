@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Windows.Forms;
+using Serilog;
 
 namespace SM64DSe.core.Api
 {
@@ -121,6 +122,27 @@ namespace SM64DSe.core.Api
         public void AddDir(string path, string name, TreeNode root)
         {
             m_ROM.AddDir(path, name, root);
+        }
+
+        public uint CreateNewFile()
+        {
+            uint nFileId = (uint)(GetFileEntries().Length + 1); 
+            Log.Information("Creating new file: " + nFileId + ".");
+            
+            var entries = new NitroROM.FileEntry[nFileId];
+            GetFileEntries().CopyTo(entries, 0);
+            entries[nFileId - 1] = new NitroROM.FileEntry()
+            {
+                FullName = "",
+                Name = "",
+                Data = new byte[0x20],
+                ID = (ushort)nFileId,
+                InternalID = 0xFFFF,
+                Offset = uint.MaxValue,
+                ParentID = 0,
+                Size = 0x20
+            };
+            return nFileId;
         }
     }
 }

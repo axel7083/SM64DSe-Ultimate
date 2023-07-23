@@ -213,7 +213,7 @@
     <Compile Include="src\core\Level.cs" />
     <Compile Include="src\core\LevelObject.cs" />
     <Compile Include="src\core\ModelCache.cs" />
-    <Compile Include="src\core\models\CompilerTarget.cs" />
+    <Compile Include="src\core\models\CompilationConfig.cs" />
     <Compile Include="src\core\models\OverlayCount.cs" />
     <Compile Include="src\core\models\RomMetadata.cs" />
     <Compile Include="src\core\models\RomVersion.cs" />
@@ -468,6 +468,12 @@
     <Compile Include="src\ui\OverlayEditor.Designer.cs">
       <DependentUpon>OverlayEditor.cs</DependentUpon>
     </Compile>
+    <Compile Include="src\ui\Pages\StartupForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="src\ui\Pages\StartupForm.Designer.cs">
+      <DependentUpon>StartupForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="src\ui\ParticleEditorForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -653,6 +659,9 @@
     <EmbeddedResource Include="src\ui\OverlayEditor.resx">
       <DependentUpon>OverlayEditor.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="src\ui\Pages\StartupForm.resx">
+      <DependentUpon>StartupForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="src\ui\ParticleEditorForm.resx">
       <DependentUpon>ParticleEditorForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -783,6 +792,7 @@
     </Content>
     <Content Include="assets\external-tools\ninja.exe" />
     <Content Include="assets\Images\DummyTex.png" />
+    <Content Include="assets\Images\folder-icon.png" />
     <Content Include="assets\Images\KuppaScript.ico" />
     <Content Include="assets\jap_chars.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -799,6 +809,7 @@
     <Content Include="Documentation\kcl_format.txt" />
     <Content Include="Documentation\SM64DS Level Format Doc v2.1x.txt" />
     <Content Include="Documentation\SM64DS Text Editing.txt" />
+    <Content Include="Resources\folder_icon.png" />
     <Content Include="src\core\NSMBe4\README.md" />
     <Content Include="src\utils\Templates\Enemy.cpp" />
     <Content Include="src\utils\Templates\Enemy.h" />

@@ -1,4 +1,7 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
+using System.Linq;
+using Serilog;
 
 namespace SM64DSe.core.Api
 {
@@ -72,9 +75,43 @@ namespace SM64DSe.core.Api
             return m_ROM.GetFileFromInternalID(currentOverlay.GetCollisionFileID());
         }
 
-        public int GetOverlayCount()
+        public uint GetOverlayCount()
         {
             return m_ROM.getOverlayCount();
+        }
+
+        public uint CreateNewOverlay(uint ramAddress = 0)
+        {
+            if (!m_ROM.StartFilesystemEdit())
+                throw new Exception("Cannot edit filesystem.");
+            
+            uint nOvlId = GetOverlayCount() + 1; 
+            Log.Information("Creating new overlay: " + nOvlId + ".");
+            
+            var entries = new NitroROM.OverlayEntry[nOvlId];
+            m_ROM.m_OverlayEntries.CopyTo(entries, 0);
+            entries[nOvlId - 1] = new NitroROM.OverlayEntry()
+            {
+                FileID = (ushort)m_ROM.m_FileEntries.Count(),
+                BSSSize = 0,
+                EntryOffset = m_ROM.OVTOffset * (nOvlId - 1) * 0x20,
+                Flags = 0,
+                ID = nOvlId,
+                RAMAddress = ramAddress,
+                RAMSize = 0x20,
+                StaticInitEnd = 4,
+                StaticInitStart = 0
+            };
+            m_ROM.m_OverlayEntries = entries;
+            
+            // Add to file system
+            var nFileId = Program.romEditor.GetManager<FileManager>().CreateNewFile();
+            
+            m_ROM.OVTSize = (uint)(0x20 * nOvlId);
+            m_ROM.FATSize = (uint)(0x8 * nFileId);
+            m_ROM.RewriteSizeTables();
+            m_ROM.SaveFilesystem();
+            return nOvlId;
         }
     }
 }

@@ -921,9 +921,9 @@ namespace SM64DSe
             return m_OverlayEntries;
         }
 
-        public int getOverlayCount()
+        public uint getOverlayCount()
         {
-            return m_OverlayEntries.Length;
+            return (uint) m_OverlayEntries.Length;
         }
 
         public byte Read8(uint addr) {

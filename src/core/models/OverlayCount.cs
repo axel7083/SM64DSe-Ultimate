@@ -2,9 +2,9 @@
 {
     public class OverlayCount
     {
-        public int count;
+        public uint count;
 
-        public OverlayCount(int count)
+        public OverlayCount(uint count)
         {
             this.count = count;
         }

@@ -131,9 +131,6 @@ namespace SM64DSe
             pm.generatePatch();
             Log.Information("PATCH DONE.");*/
 
-            Application.Run(new CompilerForm());
-            Console.ReadKey();
-
             if (romEditor != null && romEditor.isOpen)
             {
                 var hostConfigs = new HostConfiguration { UrlReservations = new UrlReservations() { CreateAutomatically = true } };
