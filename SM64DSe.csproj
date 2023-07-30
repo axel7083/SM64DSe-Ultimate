@@ -76,6 +76,9 @@
     <Reference Include="Serilog">
       <HintPath>packages/Serilog.3.0.2-dev-02044/lib/net471/Serilog.dll</HintPath>
     </Reference>
+    <Reference Include="Nancy.Serialization.JsonNet">
+      <HintPath>packages/Nancy.Serialization.JsonNet.2.0.0-clinteastwood/lib/net452/Nancy.Serialization.JsonNet.dll</HintPath>
+    </Reference>
     <Reference Include="Serilog.Sinks.Console">
       <HintPath>packages/Serilog.Sinks.Console.4.1.1-dev-00910/lib/net45/Serilog.Sinks.Console.dll</HintPath>
     </Reference>
@@ -154,15 +157,19 @@
     <Compile Include="src\core\3DStuff.cs" />
     <Compile Include="src\core\Api\BaseApi.cs" />
     <Compile Include="src\core\Api\FileApi.cs" />
+    <Compile Include="src\core\Api\LevelApi.cs" />
+    <Compile Include="src\core\Api\ObjectsApi.cs" />
     <Compile Include="src\core\Api\OverlayApi.cs" />
     <Compile Include="src\core\Api\RomEditorBootstrapper.cs" />
     <Compile Include="src\core\BasicBigFloat.cs" />
     <Compile Include="src\core\BiDictionaryOneToOne.cs" />
     <Compile Include="src\core\DataHelper.cs" />
     <Compile Include="src\core\Editor\Managers\CompilerManager.cs" />
+    <Compile Include="src\core\Editor\Managers\ConverterManager.cs" />
     <Compile Include="src\core\Editor\Managers\FileManager.cs" />
     <Compile Include="src\core\Editor\Managers\LevelsManager.cs" />
     <Compile Include="src\core\Editor\Managers\Manager.cs" />
+    <Compile Include="src\core\Editor\Managers\ObjectsManager.cs" />
     <Compile Include="src\core\Editor\Managers\OverlaysManager.cs" />
     <Compile Include="src\core\Editor\Managers\PatchesManager.cs" />
     <Compile Include="src\core\Editor\RomEditor.cs" />
@@ -214,6 +221,7 @@
     <Compile Include="src\core\LevelObject.cs" />
     <Compile Include="src\core\ModelCache.cs" />
     <Compile Include="src\core\models\CompilationConfig.cs" />
+    <Compile Include="src\core\models\LevelObjects.cs" />
     <Compile Include="src\core\models\OverlayCount.cs" />
     <Compile Include="src\core\models\RomMetadata.cs" />
     <Compile Include="src\core\models\RomVersion.cs" />

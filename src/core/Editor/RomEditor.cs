@@ -12,6 +12,8 @@ namespace SM64DSe.core.Api
         private RomMetadata metadata;
         public bool isOpen;
 
+        public string CurrentTemp;
+
         private Dictionary<Type, Manager> managers = new Dictionary<Type, Manager>();
 
         public T GetManager<T>() where T : Manager
@@ -63,6 +65,12 @@ namespace SM64DSe.core.Api
             m_ROM.EndRW();
             metadata = null;
             isOpen = false;
+
+            if (CurrentTemp != null && Directory.Exists(CurrentTemp))
+            {
+                Log.Warning("Cleaning temp folder " + CurrentTemp + ".");
+                Directory.Delete(CurrentTemp);  
+            }
         }
 
         public void LoadRom(string filename)
@@ -87,12 +95,22 @@ namespace SM64DSe.core.Api
             m_ROM = new NitroROM(filename);
             isOpen = true;
 
+            CurrentTemp = GetTemporaryDirectory();
+
             Log.Information("Rom version: " + GetRomVersion());
+            Log.Information("Creating Temp folder in " + CurrentTemp + ".");
         }
 
         public void LoadRomExtracted()
         {
             //TODO
+        }
+        
+        private string GetTemporaryDirectory()
+        {
+            string tempDirectory = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
+            Directory.CreateDirectory(tempDirectory);
+            return tempDirectory;
         }
 
         public void LoadTables()

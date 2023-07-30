@@ -26,6 +26,7 @@ using System.IO;
 using System.Xml;
 using System.Net;
 using System.Windows.Forms;
+using Newtonsoft.Json;
 
 namespace SM64DSe
 {
@@ -47,11 +48,16 @@ namespace SM64DSe
             }
 
             public int m_Category;
-
+            
+            [JsonProperty]
             public ushort m_ID;
+            [JsonProperty]
             public ushort m_ActorID;
+            [JsonProperty]
             public string m_Name;
+            [JsonProperty]
             public string m_InternalName;
+            
             public string m_Description;
 
             public int m_BankRequirement;

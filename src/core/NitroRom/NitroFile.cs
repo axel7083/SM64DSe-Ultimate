@@ -21,6 +21,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using Newtonsoft.Json;
 
 namespace SM64DSe
 {
@@ -84,8 +85,9 @@ namespace SM64DSe
             m_ROM.ReinsertFile(m_ID, m_Data);
         }
 
-
+        [JsonProperty]
         public ushort m_ID;
+        [JsonProperty]
         public string m_Name;
     }
 }

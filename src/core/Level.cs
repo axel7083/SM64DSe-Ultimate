@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.IO;
+using Newtonsoft.Json;
 
 namespace SM64DSe
 {
     public class Level
     {
+        [JsonIgnore]
         public static readonly int[] k_LevelObjTypeSizes = { 16, 16, 6, 6, 14, 8, 8, 8, 8, 12, 14, 2, 2, 0, 4 };
+        [JsonIgnore]
         public static readonly LevelObject.Type[] k_MiscLevelObjTypeOrder = new LevelObject.Type[] { 
             LevelObject.Type.PATH_NODE, 
             LevelObject.Type.PATH, 
@@ -23,32 +26,51 @@ namespace SM64DSe
             LevelObject.Type.STAR_CAMERAS, 
             LevelObject.Type.EXIT
         };
+        [JsonIgnore]
         public static readonly LevelObject.Type[] k_StandardLevelObjTypeOrder = new LevelObject.Type[] {
             LevelObject.Type.SIMPLE, 
             LevelObject.Type.STANDARD
         };
+        [JsonProperty]
         public static readonly int k_MaxNumAreas = 8;
+        [JsonIgnore]
         public const byte k_LevelFormatVersion = 0x01;
-
+        [JsonIgnore]
         public NitroOverlay m_Overlay;
+        [JsonProperty]
         public int m_LevelID;
 
+        [JsonProperty]
         public LevelSettings m_LevelSettings;
+        [JsonProperty]
         public int m_NumAreas;
+        [JsonIgnore]
         public Dictionary<uint, LevelObject> m_LevelObjects;
+        [JsonIgnore]
         public List<LevelTexAnim> m_TexAnims;
+        [JsonIgnore]
         public List<ushort> m_DynLibIDs;
+        [JsonProperty]
         public CLPS m_CLPS;
-
+        [JsonProperty]
         public ushort[] m_MinimapFileIDs;
+        [JsonProperty]
         public byte[] m_MinimapIndices;
 
+        [JsonIgnore]
         private int m_EntranceID = 0;
+        [JsonIgnore]
         private int m_ViewID = 0;
+        [JsonIgnore]
         private int m_PathID = 0;
+        [JsonIgnore]
         private int m_PathNodeID = 0;
+        [JsonIgnore]
         private int m_MinimapTileIDNum = 0;
 
+        [JsonIgnore]
+        public Dictionary<ushort, bool> m_ObjAvailable;
+        
         public Level() { }
 
         public Level(int levelID)
@@ -248,7 +270,6 @@ namespace SM64DSe
             }
         }
 
-        public Dictionary<ushort, bool> m_ObjAvailable;
         public void DetermineAvailableObjects()
         {
             m_ObjAvailable.Clear();
@@ -887,15 +908,24 @@ namespace SM64DSe
         }
 
         public byte QuestionMarks;
+        [JsonProperty]
         public byte Background;
+        [JsonProperty]
         public uint[] ObjectBanks;
+        [JsonProperty]
         public ushort BMDFileID, KCLFileID, MinimapTsetFileID, MinimapPalFileID;
+        [JsonProperty]
         public byte[] MusicBytes;
+        [JsonProperty]
         public ushort MinimapCoordinateScale;
+        [JsonProperty]
         public byte CameraStartZoomedOut;
+        [JsonProperty]
         public byte LevelFormatVersion;
+        [JsonProperty]
         public byte OverlayInitialiserVersion;
         public byte ActSelectorID;// NOT stored in the overlay - not possible
+        [JsonProperty]
         public ushort[] DynLibIDs;
     }
 

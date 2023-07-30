@@ -156,10 +156,15 @@ namespace SM64DSe
         public int m_Layer;
         public int m_Area;
         public uint m_UniqueID;
+        
+        [JsonProperty]
         public Type m_Type;
-
+        
+        [JsonIgnore]
         public ObjectRenderer m_Renderer;
+        [JsonIgnore]
         public PropertyTable m_Properties;
+        
         public ParameterField[] m_ParameterFields = null;
 
         public string m_KCLName = null; // For blocks and whomp's towers only ;)

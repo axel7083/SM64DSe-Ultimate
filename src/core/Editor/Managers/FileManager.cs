@@ -35,6 +35,11 @@ namespace SM64DSe.core.Api
             return m_ROM.GetFileFromName(name);
         }
 
+        public NitroFile GetFileFromId(ushort id)
+        {
+            return m_ROM.GetFileFromInternalID(id);
+        }
+
         public void DecompressLz77WithHeader(string filename)
         {
             var file = GetFileFromName(filename);

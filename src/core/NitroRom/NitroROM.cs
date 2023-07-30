@@ -593,8 +593,6 @@ namespace SM64DSe
 
         public void BeginRW(bool buffered)
         {
-            Log.Information("BeginRW (" + buffered + ")");
-            
             if (Program.m_IsROMFolder) return;
             if (m_CanRW) return;
 
@@ -619,8 +617,7 @@ namespace SM64DSe
 
         public void EndRW(bool keep)
         {
-            Log.Information("EndRW (" + keep + ")");
-            
+           
             if (Program.m_IsROMFolder) return;
             if (!m_CanRW) return;
 
@@ -1474,6 +1471,7 @@ namespace SM64DSe
         [JsonIgnore]
 	    protected NitroROM m_ROM;
         
+        [JsonIgnore]
 	    public byte[] m_Data;
         
         
