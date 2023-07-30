@@ -1,11 +1,4 @@
 <?xml version='1.0'?>
-
-<!--
-	Super Mario 64 DS Object Info Database
-	built on 04/24/2017 16:02:18 for SM64DS Editor
-	Thanks to colinzinho, Fiachra, Hiccup, Jesse, mibts, PyrHacKhan, shibboleet, skawo for their contributions!
--->
-
 <database timestamp='1493064138'>
 
     <object id='0'>
@@ -13,22 +6,13 @@
         <name>Player</name>
         <internalname>PLAYER</internalname>
         <actorid>0</actorid>
-        <description>Creates a player clone if placed in a level. That clone mimics all of the player's actions,
-            including grabbing and throwing objects (underwater as well) and swimming. It also seems that the clone's
-            voice always has priority over the main player's voice. Punching, kicking or ground-pounding the clone hurts
-            the player, but stomping him does not hurt the player. The clone does not seem to always interact with other
-            objects right, namely, he will go through certain (random) objects.
+        <description>Creates a player clone if placed in a level. That clone mimics all of the player's actions, including grabbing and throwing objects (underwater as well) and swimming. It also seems that the clone's voice always has priority over the main player's voice. Punching, kicking or ground-pounding the clone hurts the player, but stomping him does not hurt the player. The clone does not seem to always interact with other objects right, namely, he will go through certain (random) objects.
 
             Parameters (standard):
             Need to be documented better. Parameter 1 does affect character the clone is.
-            If you set Parameter 1 to 0001, he loads as a mario, but when hit turns into Luigi. If you set it to 0002,
-            loads as Mario but when hit turns into Wario. 0003 loads as Mario, gets hit, turns into Yoshi. 0004 seems to
-            be same as 0001. 0005 loads as mario, but when hit freezes the game. 0006 loads as Mario, and when hit,
-            turns invisible. The invisible character can still walk around and interact with things, but I can't tell
-            what character it is. (Mario, Luigi, Yoshi, Wario..?)
+            If you set Parameter 1 to 0001, he loads as a mario, but when hit turns into Luigi. If you set it to 0002, loads as Mario but when hit turns into Wario. 0003 loads as Mario, gets hit, turns into Yoshi. 0004 seems to be same as 0001. 0005 loads as mario, but when hit freezes the game. 0006 loads as Mario, and when hit, turns invisible. The invisible character can still walk around and interact with things, but I can't tell what character it is. (Mario, Luigi, Yoshi, Wario..?)
 
-            Parameters 2 and 3 do nothing.
-        </description>
+            Parameters 2 and 3 do nothing.</description>
         <bankreq>none</bankreq>
     </object>
 
@@ -43,8 +27,7 @@
             ==Misc. Info==
             ===Files===
             * /data/ARCHIVE/arc1.narc/data/normal_obj/obj_pathlift
-            ** obj_pathlift.bmd
-        </description>
+            ** obj_pathlift.bmd</description>
         <bankreq>1=5</bankreq>
     </object>
 
@@ -67,8 +50,7 @@
             * Files:
             ** /data/special_obj/ewb_ice/
             *** ewb_ice_c.bmd
-            *** ewb_ice_c.kcl
-        </description>
+            *** ewb_ice_c.kcl</description>
         <bankreq>1=5</bankreq>
     </object>
 
@@ -80,8 +62,7 @@
         <description>A large block of ice that continally moves along a set path.
 
             Parameter 1:
-            XXXX Path ID to follow
-        </description>
+            XXXX Path ID to follow</description>
         <bankreq>7=49</bankreq>
         <param n='0'>
             <name>Path ID</name>
@@ -103,8 +84,7 @@
             Parameter 2:
             XXXX Delay before moving up and down (when level is first loaded)
 
-            (Source: Sparsite)
-        </description>
+            (Source: Sparsite)</description>
         <bankreq>7=45</bankreq>
     </object>
 
@@ -119,8 +99,7 @@
 
             XXX - Nothing?
 
-            P - Path ID
-        </description>
+            P - Path ID</description>
         <bankreq>7=45</bankreq>
     </object>
 
@@ -134,8 +113,7 @@
             [b]Parameters (standard):[/b]
             1: start position (2 = ?, 7 = ?)
             2: X rotation for the platform
-            3: Z rotation for the platform
-        </description>
+            3: Z rotation for the platform</description>
         <bankreq>4=3</bankreq>
     </object>
 
@@ -147,8 +125,7 @@
         <description>A wooden checkerboard lift found in The Secret Under The Moat.
 
             Parameter 1:
-            XXXX The higher the value the earlier it starts?
-        </description>
+            XXXX The higher the value the earlier it starts?</description>
         <bankreq>4=3</bankreq>
     </object>
 
@@ -178,8 +155,7 @@
             ==Misc. Info==
             ===Files===
             /data/ARCHIVE/arc1.narc/data/normal_obj/obj_pathlift
-            * obj_pathlift.bmd
-        </description>
+            * obj_pathlift.bmd</description>
         <bankreq>6=1</bankreq>
     </object>
 
@@ -188,9 +164,7 @@
         <name>Chain Chomp</name>
         <internalname>WANWAN</internalname>
         <actorid>219</actorid>
-        <description>A Chomp chained to a ground-poundable wood pole. When freed, runs into [object=0033] then
-            disappears. Requires bank 4 to be set to 3, because this actor spawns the wooden pole.
-        </description>
+        <description>A Chomp chained to a ground-poundable wood pole. When freed, runs into [object=0033] then disappears. Requires bank 4 to be set to 3, because this actor spawns the wooden pole.</description>
         <bankreq>7=7</bankreq>
     </object>
 
@@ -217,9 +191,7 @@
         <name>Rolling Iron Ball</name>
         <internalname>IRON_BALL</internalname>
         <actorid>220</actorid>
-        <description>Iron boulder. Can roll along a set path, but respects gravity no matter what. Explodes when hitting
-            an obstacle such as a wall. They appear to be hard-coded to be small in &quot;Tiny Huge Island - tiny&quot;
-            (ID 25).
+        <description>Iron boulder. Can roll along a set path, but respects gravity no matter what. Explodes when hitting an obstacle such as a wall. They appear to be hard-coded to be small in &quot;Tiny Huge Island - tiny&quot; (ID 25).
 
             Parameter 1:
             XXXX where
@@ -228,8 +200,7 @@
             FF01 - Single ball, doesn't follow path
             FF02 - Single ball, doesn't move
             FF03 - Doesn't spawn?
-            FF04 - Same as FF03?
-        </description>
+            FF04 - Same as FF03?</description>
         <bankreq>6=1</bankreq>
     </object>
 
@@ -252,9 +223,7 @@
             04 - Spawn one, not rolling, with a star.
             05+ - Same as 02?
 
-            Set Star ID to FF if you do not want a star to spawn when breaking the rock, eg. FF04 will spawn a
-            stationary rock that does nothing when broken.
-        </description>
+            Set Star ID to FF if you do not want a star to spawn when breaking the rock, eg. FF04 will spawn a stationary  rock that does nothing when broken.</description>
         <bankreq>7=14</bankreq>
     </object>
 
@@ -288,8 +257,7 @@
 
             ==Misc. Info==
             ===VS Mode Practice Behaviours==
-            * On load: Freezes/Crashes
-        </description>
+            * On load: Freezes/Crashes</description>
         <bankreq>3=1</bankreq>
     </object>
 
@@ -310,11 +278,9 @@
 
             E: Extra contents
             0, 2+ - None
-            1 - A Silver Star. The Silver Star won't spawn if you defeat it by bumping into it, so setting this is not
-            recommended.
+            1 - A Silver Star. The Silver Star won't spawn if you defeat it by bumping into it, so setting this is not recommended.
 
-            C: Cap to spawn. Cap appears floating above the Goomba, so setting this to anything other than F is not
-            recommended.
+            C: Cap to spawn. Cap appears floating above the Goomba, so setting this to anything other than F is not recommended.
             0 - Mario
             1 - Luigi
             2 - Wario
@@ -323,8 +289,7 @@
 
             ==Misc. Info==
             ===VS Mode Practice Behaviours==
-            * On load: Freezes/Crashes
-        </description>
+            * On load: Freezes/Crashes</description>
         <bankreq>3=1</bankreq>
     </object>
 
@@ -356,8 +321,7 @@
 
             ==Misc. Info==
             ===VS Mode Practice Behaviours==
-            * On load: Freezes/Crashes
-        </description>
+            * On load: Freezes/Crashes</description>
         <bankreq>3=1</bankreq>
     </object>
 
@@ -371,8 +335,7 @@
             ==Other Requirments==
             * 3=1 (contains Goomba)
             * 4=1 (contains Key)
-            * 7=46
-        </description>
+            * 7=46</description>
         <bankreq>1=6</bankreq>
     </object>
 
@@ -381,9 +344,7 @@
         <name>Bob-omb</name>
         <internalname>BOMBHEI</internalname>
         <actorid>206</actorid>
-        <description>That bomb enemy from SMB2. Can be picked up and thrown. If grabbed underwater, the player can carry
-            it like a green Koopa Shell. Even though shell swimming has a timer, the Bob-omb will explode before the
-            time is up. It can also be thrown underwater.
+        <description>That bomb enemy from SMB2. Can be picked up and thrown. If grabbed underwater, the player can carry it like a green Koopa Shell. Even though shell swimming has a timer, the Bob-omb will explode before the time is up. It can also be thrown underwater.
 
             Parameter 1:
             XXXX where
@@ -397,8 +358,7 @@
             0005 - Walks in circles.
             0006 - Same as 0002?
 
-            (source: Hiccup)
-        </description>
+            (source: Hiccup)</description>
         <bankreq>none</bankreq>
     </object>
 
@@ -410,8 +370,7 @@
         <description>Pink, peaceful Bob-Omb buddy. Tells the associated message when the player talks to them.
 
             Parameter 1:
-            Usually the text that will be spoken to Mario; 1, 2 and 3 are added to the specified text ID to get the text
-            that will be used for Luigi, Wario and Yoshi respectively.
+            Usually the text that will be spoken to Mario; 1, 2 and 3 are added to the specified text ID to get the text that will be used for Luigi, Wario and Yoshi respectively.
 
             Parameter 2:
             XXXT where
@@ -424,8 +383,7 @@
 
             ==Misc. Info==
             ===VS Mode Practice Behaviours==
-            * On load: Freezes/Crashes
-        </description>
+            * On load: Freezes/Crashes</description>
         <bankreq>3=1</bankreq>
     </object>
 
@@ -434,9 +392,7 @@
         <name>Koopa Troopa</name>
         <internalname>NOKONOKO</internalname>
         <actorid>203</actorid>
-        <description>Well-known enemy from SMB. Can be kicked out of its shell, and awards a blue coin when killed. Eat
-            the red variation for one-off fire breath. And kick the red shell to knock out enemies, like when you spit
-            out a green shell.
+        <description>Well-known enemy from SMB. Can be kicked out of its shell, and awards a blue coin when killed. Eat the red variation for one-off fire breath. And kick the red shell to knock out enemies, like when you spit out a green shell.
 
             Parameter 1:
             XXXC
@@ -446,8 +402,7 @@
 
             ==Misc. Info==
             ===VS Mode Practice Behaviours==
-            * On load: Freezes/Crashes
-        </description>
+            * On load: Freezes/Crashes</description>
         <bankreq>0=1</bankreq>
         <param n='0'>
             <name>Color</name>
@@ -464,8 +419,7 @@
         <name>Small Koopa Troopa</name>
         <internalname>NOKONOKO_S</internalname>
         <actorid>204</actorid>
-        <description>Found in the small area of Tiny Huge Island. Both colours act the same (maybe because the code to
-            make it red is shared/copied from the normal Koopa Troopa).
+        <description>Found in the small area of Tiny Huge Island. Both colours act the same (maybe because the code to make it red is shared/copied from the normal Koopa Troopa).
 
             Parameter 1:
             XXXC
@@ -475,8 +429,7 @@
 
             ==Misc. Info==
             ===VS Mode Practice Behaviours==
-            * On load: Freezes/Crashes
-        </description>
+            * On load: Freezes/Crashes</description>
         <bankreq>0=1</bankreq>
     </object>
 
@@ -485,9 +438,7 @@
         <name>Brick Block</name>
         <internalname>BLOCK_L</internalname>
         <actorid>15</actorid>
-        <description>Those orange brick blocks. Anyone but Yoshi can break them with normal attacks. If it contains a
-            Red Coin (by literally putting it inside the block), it does not spawn coins when broken. It is aprox
-            1.65x1.65x1.65 inches or 0.2x0.2x0.2 points.
+        <description>Those orange brick blocks. Anyone but Yoshi can break them with normal attacks. If it contains a Red Coin (by literally putting it inside the block), it does not spawn coins when broken. It is aprox 1.65x1.65x1.65 inches or 0.2x0.2x0.2 points.
 
             Param 2:
             XXXX where
@@ -499,8 +450,7 @@
 
             ==Misc. Info==
             ===VS Mode Practice Behaviours==
-            * On destruction with Param2 as 1 or Above: Plays empty sound
-        </description>
+            * On destruction with Param2 as 1 or Above: Plays empty sound</description>
         <bankreq>none</bankreq>
     </object>
 
@@ -517,8 +467,7 @@
             XXXX: Extra sound when broken?
             0000 - None
             0001 - &quot;Small secret found&quot;
-            0002+ - Same as 0001?
-        </description>
+            0002+ - Same as 0001?</description>
         <bankreq>none</bankreq>
     </object>
 
@@ -527,15 +476,13 @@
         <name>Switch-activated Brick Block</name>
         <internalname>SW_BLOCK_L</internalname>
         <actorid>19</actorid>
-        <description>If you activated the ! Switch in one Area then go into another the timer will pause and will only
-            continue if you go back into the area with the ! Switch.
+        <description>If you activated the ! Switch in one Area then go into another the timer will pause and will only continue if you go back into the area with the ! Switch.
 
             Parameter 1:
             XXXX where
 
             XXXX:
-            FF00 - Activated by ! Switch with Parameter 1 set to FF00 or FF02
-        </description>
+            FF00 - Activated by ! Switch with Parameter 1 set to FF00 or FF02</description>
         <bankreq>none</bankreq>
     </object>
 
@@ -560,8 +507,7 @@
             * Yoshi: No music change
             * Mario: Freezes/Crashes
             * Luigi: No music change
-            * Wario: Freezes/Crashes
-        </description>
+            * Wario: Freezes/Crashes</description>
         <bankreq>none</bankreq>
     </object>
 
@@ -574,8 +520,7 @@
 
             ==Misc. Info==
             ===VS Mode Practice Behaviours==
-            * When pressed: Malfunctions/Freezes/Crashes
-        </description>
+            * When pressed: Malfunctions/Freezes/Crashes</description>
         <bankreq>none</bankreq>
     </object>
 
@@ -584,14 +529,11 @@
         <name>Crate</name>
         <internalname>BLOCK_S</internalname>
         <actorid>194</actorid>
-        <description>Can be carried, thrown, eaten, burned, stood upon, and broken. If grabbed underwater, the player
-            can carry it for a limited time like a Green Shell underwater with shell-surfing music playing. Underwater,
-            it can be thrown as well.
+        <description>Can be carried, thrown, eaten, burned, stood upon, and broken. If grabbed underwater, the player can carry it for a limited time like a Green Shell underwater with shell-surfing music playing. Underwater, it can be thrown as well.
 
             ==Misc. Info==
             ===VS Mode Practice Behaviours==
-            * On load: Freezes/Crashes
-        </description>
+            * On load: Freezes/Crashes</description>
         <bankreq>none</bankreq>
     </object>
 
@@ -605,10 +547,8 @@
             Parameter 1:
             XXXX where:
 
-            FF01 - Takes priority over other Cannon Hatches (unless they all have the same parameter, in that case it is
-            based on which Cannon Hatches was placed last)
-            FFFF - Doesn't take priority over other Cannon Hatches
-        </description>
+            FF01 - Takes priority over other Cannon Hatches (unless they all have the same parameter, in that case it is based on which Cannon Hatches was placed last)
+            FFFF - Doesn't take priority over other Cannon Hatches</description>
         <bankreq>none</bankreq>
     </object>
 
@@ -620,8 +560,7 @@
         <description>Parameter 1:
             XXCC where
 
-            XX - If CC is set to 00, this is the amount of coins. If CC is set to 01, this is the Star ID - for matching
-            with a Star Marker set to 002X. It seems to be ignored for other CC values.
+            XX - If CC is set to 00, this is the amount of coins. If CC is set to 01, this is the Star ID - for matching with a Star Marker set to 002X. It seems to be ignored for other CC values.
 
             CC: Contents
             00 - Coin(s)
@@ -638,8 +577,7 @@
             0B - Same as 08?
             0C - Same as 08?
             0D - Same as 09?
-            (source: Hiccup)
-        </description>
+            (source: Hiccup)</description>
         <bankreq>none</bankreq>
     </object>
 
@@ -653,8 +591,7 @@
             Parameter 1:
             XXCC where
 
-            XX - If CC is set to 00, this is the amount of coins. If CC is set to 01, this is the Star ID - for matching
-            with a Star Marker set to 002X. It seems to be ignored for other CC values.
+            XX - If CC is set to 00, this is the amount of coins. If CC is set to 01, this is the Star ID - for matching with a Star Marker set to 002X. It seems to be ignored for other CC values.
 
             CC: Contents
             00 - Coin(s)
@@ -671,8 +608,7 @@
             0B - Same as 08?
             0C - Same as 08?
             0D - Same as 09?
-            (source: Hiccup)
-        </description>
+            (source: Hiccup)</description>
         <bankreq>none</bankreq>
     </object>
 
@@ -716,9 +652,7 @@
         <actorid>23</actorid>
         <description>A box that gives out a Mario hat when hit.
 
-            This object is unused in the game, but is present in the general purpose test map, and fully functional.
-            Character must be unlocked or the level contain a corresponding hat through Object 254.
-        </description>
+            This object is unused in the game, but is present in the general purpose test map, and fully functional. Character must be unlocked or the level contain a corresponding hat through Object 254.</description>
         <bankreq>none</bankreq>
     </object>
 
@@ -729,9 +663,7 @@
         <actorid>24</actorid>
         <description>A box that gives out a Wario hat when hit.
 
-            This object is unused in the game, but is present in the general purpose test map, and fully functional.
-            Character must be unlocked or the level contain a corresponding hat through Object 254.
-        </description>
+            This object is unused in the game, but is present in the general purpose test map, and fully functional. Character must be unlocked or the level contain a corresponding hat through Object 254.</description>
         <bankreq>none</bankreq>
     </object>
 
@@ -742,9 +674,7 @@
         <actorid>25</actorid>
         <description>A box that gives out a Luigi hat when hit.
 
-            This object is unused in the game, but is present in the general purpose test map, and fully functional.
-            Character must be unlocked or the level contain a corresponding hat through Object 254.
-        </description>
+            This object is unused in the game, but is present in the general purpose test map, and fully functional. Character must be unlocked or the level contain a corresponding hat through Object 254.</description>
         <bankreq>none</bankreq>
     </object>
 
@@ -762,8 +692,7 @@
         <name>Coin</name>
         <internalname>COIN</internalname>
         <actorid>288</actorid>
-        <description>Standard, yellow coin. Every 50 coins collected earn the player one life upon successfully
-            finishing the stage.
+        <description>Standard, yellow coin. Every 50 coins collected earn the player one life upon successfully finishing the stage.
 
             Parameter:
             XXSY where
@@ -776,8 +705,7 @@
             2 - Bounces, slides if on a slide and disappears after a while.
             3 - Bounces back and forth and when approached bounces away. Disappears after a while.
             4-C - ?
-            D -
-        </description>
+            D -</description>
         <bankreq>none</bankreq>
     </object>
 
@@ -786,11 +714,9 @@
         <name>Red Coin</name>
         <internalname>RED_COIN</internalname>
         <actorid>289</actorid>
-        <description>Worth two yellow coins. When 8 red coins are collected, a star appears. If placed inside a brick,
-            the brick does not spawn coins when broken.
+        <description>Worth two yellow coins. When 8 red coins are collected, a star appears. If placed inside a brick, the brick does not spawn coins when broken.
 
-            [b]Important note:[/b] Do allow the player to collect more than 8 red coins in one session. Collecting more
-            than 8 red coins freezes the game.
+            [b]Important note:[/b] Do allow the player to collect more than 8 red coins in one session. Collecting more than 8 red coins freezes the game.
 
             Parameter:
             XXSY where
@@ -803,8 +729,7 @@
             2 - Bounces, slides if on a slide and disappears after a while.
             3 - Bounces back and forth and when approached bounces away. Disappears after a while.
             4-C - ?
-            D -
-        </description>
+            D -</description>
         <bankreq>none</bankreq>
     </object>
 
@@ -813,8 +738,7 @@
         <name>Blue Coin</name>
         <internalname>BLUE_COIN</internalname>
         <actorid>290</actorid>
-        <description>Worth 5 yellow coins. Appears when ground-pounding an associated [object=0131], or when killing
-            certain enemies.
+        <description>Worth 5 yellow coins. Appears when ground-pounding an associated [object=0131], or when killing certain enemies.
 
             Parameter:
             XXMY
@@ -833,8 +757,7 @@
             ===Files===
             ** /data/ARCHIVE/arc1.narc/data/normal_obj/coin
             *** coin_blue_poly32.bmd
-            *** coin_blue_poly4.bmd
-        </description>
+            *** coin_blue_poly4.bmd</description>
         <bankreq>none</bankreq>
     </object>
 
@@ -849,8 +772,7 @@
             Parameter 1:
             0 - Dark World Behaviour Patterns
             1 - Fire Sea Behaviour Patterns
-            2 - Sky Behaviour Patterns (Can only be used in Sky - Fight)
-        </description>
+            2 - Sky Behaviour Patterns (Can only be used in Sky - Fight)</description>
         <bankreq>none</bankreq>
     </object>
 
@@ -876,17 +798,14 @@
             ==Misc. Info==
             ===Files===
             /data/ARCHIVE/arc1.narc/data/normal_obj/tree
-            * castle_tree.bmd
-        </description>
+            * castle_tree.bmd</description>
         <bankreq>none</bankreq>
         <param n='0'>
             <name>Type</name>
             <offset>4</offset>
             <length>3</length>
             <type>enum</type>
-            <values>&quot;Bubbly (BoB)&quot;, &quot;Spiky&quot;, &quot;Snowy&quot;, &quot;Palm tree&quot;, &quot;Bubbly
-                (castle)&quot;, &quot;Bubbly (castle)&quot;, &quot;Bubbly (castle)&quot;, &quot;Bubbly (castle)&quot;
-            </values>
+            <values>&quot;Bubbly (BoB)&quot;, &quot;Spiky&quot;, &quot;Snowy&quot;, &quot;Palm tree&quot;, &quot;Bubbly (castle)&quot;, &quot;Bubbly (castle)&quot;, &quot;Bubbly (castle)&quot;, &quot;Bubbly (castle)&quot;</values>
             <description>What the tree looks like.</description>
         </param>
     </object>
@@ -946,8 +865,7 @@
 
             Parameter 2:
             Z
-            Z - Z rotation. Details unsure
-        </description>
+            Z - Z rotation. Details unsure</description>
         <bankreq>2=4</bankreq>
     </object>
 
@@ -962,16 +880,11 @@
             XXXX:
             FF00 - Don't use timer.
             FF01 - Glitchy?
-            FF02 - Use timer. Any &quot;Switch-activated Brick Block&quot; (ID: 25) or &quot;BitS Switch-controlled
-            Stairs&quot; (ID 224) objects must have Parameter 1 set to &quot;FF00&quot; in order to be activated by the
-            switch.
+            FF02 - Use timer. Any &quot;Switch-activated Brick Block&quot; (ID: 25) or &quot;BitS Switch-controlled Stairs&quot; (ID 224) objects  must have Parameter 1 set to &quot;FF00&quot; in order to be activated by the switch.
             FF08 - Don't use timer. Unknown details.
-            FF0A - Use timer. Any &quot;Switch-activated Brick Block&quot; objects (ID: 25) must have Parameter 1 set to
-            &quot;FF01&quot; in order to be activated by the switch.
-            FF12 - Use timer. Any &quot;Switch-activated Brick Block&quot; objects (ID: 25) must have Parameter 1 set to
-            &quot;FF02&quot; in order to be activated by the switch.
-            (source: Fiachra, Hiccup)
-        </description>
+            FF0A - Use timer. Any &quot;Switch-activated Brick Block&quot; objects (ID: 25) must have Parameter 1 set to &quot;FF01&quot; in order to be activated by the switch.
+            FF12 - Use timer. Any &quot;Switch-activated Brick Block&quot; objects (ID: 25) must have Parameter 1 set to &quot;FF02&quot; in order to be activated by the switch.
+            (source: Fiachra, Hiccup)</description>
         <bankreq>none</bankreq>
     </object>
 
@@ -990,8 +903,7 @@
 
             ==Misc. Info==
             ===VS Mode Practice Behaviours==
-            * On use: Malfunctions
-        </description>
+            * On use: Malfunctions</description>
         <bankreq>none</bankreq>
     </object>
 
@@ -1000,15 +912,13 @@
         <name>Switch-activated Shutter</name>
         <internalname>SWITCHDOOR</internalname>
         <actorid>40</actorid>
-        <description>A fence door that opens when the associated switch is activated. Never closes if associated to a
-            timed switch, even after the switch timer runs out.
+        <description>A fence door that opens when the associated switch is activated. Never closes if associated to a timed switch, even after the switch timer runs out.
 
             Parameter 1:
             XXXX Which way it opens
 
             0000 - Left
-            0001 - Right
-        </description>
+            0001 - Right</description>
         <bankreq>7=7</bankreq>
         <param n='0'>
             <name>Orientation</name>
@@ -1034,8 +944,7 @@
         <name>Control Pad Lift</name>
         <internalname>CV_NEWS_LIFT</internalname>
         <actorid>68</actorid>
-        <description>Platform in Hazy Maze Cave. Walking onto the arrows makes the platform move in their direction.
-        </description>
+        <description>Platform in Hazy Maze Cave. Walking onto the arrows makes the platform move in their direction.</description>
         <bankreq>7=14</bankreq>
     </object>
 
@@ -1044,15 +953,13 @@
         <name>Unchained Chomp</name>
         <internalname>WANWAN2</internalname>
         <actorid>337</actorid>
-        <description>A Chain Chomp that isn't attached to a pole, and instead wanders around following a set path
-            carrying a Silver Star (a Power Star in VS Mode) attached to its chain
+        <description>A Chain Chomp that isn't attached to a pole, and instead wanders around following a set path carrying a Silver Star (a Power Star in VS Mode) attached to its chain
 
             Parameter 1:
             XSPP where
 
             S - Star ID for VS Mode. Set to F in normal mode levels in it appears in (i.e. Bob-omb Battlefield).
-            PP - Path ID
-        </description>
+            PP - Path ID</description>
         <bankreq>6=1</bankreq>
     </object>
 
@@ -1061,8 +968,7 @@
         <name>1-Up Mushroom</name>
         <internalname>ONEUPKINOKO</internalname>
         <actorid>276</actorid>
-        <description>Green mushroom that gives the player an extra life. If a mushroom is to be spawned from a tree,
-            Nintendo places the &quot;create tag&quot; mushroom 0.2 y points above the &quot;tag&quot; mushroom.
+        <description>Green mushroom that gives the player an extra life. If a mushroom is to be spawned from a tree, Nintendo places the &quot;create tag&quot; mushroom 0.2 y points above the &quot;tag&quot; mushroom.
 
             TODO: figure out parameters
 
@@ -1073,32 +979,23 @@
             0000 - Like spawned from block (springs out, trundles around slowly and eventually disappears)
             0001 - Trundles around, trying to avoid player.
             0014 - Still, until approached; then does a big jump. It sparkles, but never disappears.
-            0015 - Spawns when one Mushroom with Parameter 1 set to F6 is triggered. Mushroom trundles around, trying to
-            avoid player and eventually disappears. There is not point having more than one 00015 mushroom, as only the
-            first one will spawn.
+            0015 - Spawns when one Mushroom with Parameter 1 set to F6 is triggered. Mushroom trundles around, trying to avoid player and eventually disappears. There is not point having more than one 00015 mushroom, as only the first one will spawn.
             0016 - Nothing?
-            0017 - Spawns when one Mushroom with Parameter 1 set to F8 is triggered. Mushroom flies towards the player,
-            going through all obstacles.
-            0045 - Spawns when four Mushrooms with Parameter 1 set to F6 are triggered. Mushroom trundles around, trying
-            to avoid player and eventually disappears.
-            0085 - Spawns when eight Mushrooms with Parameter 1 set to FB are triggered. Mushroom trundles around,
-            trying to avoid player and eventually disappears.
+            0017 - Spawns when one Mushroom with Parameter 1 set to F8 is triggered. Mushroom flies towards the player, going through all obstacles.
+            0045 - Spawns when four Mushrooms with Parameter 1 set to F6 are triggered. Mushroom trundles around, trying to avoid player and eventually disappears.
+            0085 - Spawns when eight Mushrooms with Parameter 1 set to FB are triggered. Mushroom trundles around, trying to avoid player and eventually disappears.
             00F1 - Nothing?
-            00F2 - Still, until approached; then it starts trundling back and forth very quickly, eventually
-            disappering.
+            00F2 - Still, until approached; then it starts trundling back and forth very quickly, eventually disappering.
             00F3 - Still
             00F4 - Mushroom jumps when approached
-            00F6 - Invisible tag for one Mushroom with Parameter 1 set to 0045 or 0015. If you have too many triggers it
-            won't work.
+            00F6 - Invisible tag for one Mushroom with Parameter 1 set to 0045 or 0015. If you have too many triggers it won't work.
             00F7 - Nothing?
             00F8 - Invisible tag for one Mushroom with Parameter 1 set to 0017. See 0017 for more info.
-            00FB - Invisible tag for one Mushroom with Parameter 1 set to 0085. See 0085 for more info. Appears and acts
-            like a coin.
+            00FB - Invisible tag for one Mushroom with Parameter 1 set to 0085. See 0085 for more info. Appears and acts like a coin.
 
             * Files:
             ** /data/ARCHIVE/arc1.narc/data/normal_obj/oneup_kinoko
-            *** oneup_kinoko.bmd
-        </description>
+            *** oneup_kinoko.bmd</description>
         <bankreq>none</bankreq>
     </object>
 
@@ -1107,8 +1004,7 @@
         <name>Cannon</name>
         <internalname>CANNON</internalname>
         <actorid>207</actorid>
-        <description>When touched, allows the player to aim, then press the attack button to blast out. Can also act as
-            a decoration (fires water bombs)
+        <description>When touched, allows the player to aim, then press the attack button to blast out. Can also act as a decoration (fires water bombs)
 
             Parameter 1:
             XXXX Behaviour
@@ -1121,8 +1017,7 @@
             Parameter 3:
             XXXX Default Y rotation (cannon limitations are 90 degrees left and right of this)
 
-            (Source: Sparsite)
-        </description>
+            (Source: Sparsite)</description>
         <bankreq>none</bankreq>
     </object>
 
@@ -1131,9 +1026,7 @@
         <name>Chain Chomp Fence</name>
         <internalname>WANWAN_SHUTTER</internalname>
         <actorid>41</actorid>
-        <description>The fence [object=000A] runs into when freed. In Bob-Omb Battlefield, it is used to prevent access
-            to the 7th star. However, Vanish Luigi can go through it.
-        </description>
+        <description>The fence [object=000A] runs into when freed. In Bob-Omb Battlefield, it is used to prevent access to the 7th star. However, Vanish Luigi can go through it.</description>
         <bankreq>7=7</bankreq>
     </object>
 
@@ -1147,8 +1040,7 @@
 
             ==Misc. Info==
             ===VS Mode Practice Behaviours==
-            * On load: Freezes/Crashes
-        </description>
+            * On load: Freezes/Crashes</description>
         <bankreq>none</bankreq>
     </object>
 
@@ -1164,8 +1056,7 @@
 
             Y: Unknown
 
-            Z: Number of birds to spawn
-        </description>
+            Z: Number of birds to spawn</description>
         <bankreq>7=2</bankreq>
     </object>
 
@@ -1181,8 +1072,7 @@
 
             X: Unknown
 
-            Y: How many fish to spawn
-        </description>
+            Y: How many fish to spawn</description>
         <bankreq>6=1</bankreq>
     </object>
 
@@ -1198,8 +1088,7 @@
             21 - Spawn 3, 2 turn into cannonballs when touched, one turns into 1UP
             75 - Spawn 5
             1F - Spawn 3, one turns into 1UP
-            2F - Turns into cannonball
-        </description>
+            2F - Turns into cannonball</description>
         <bankreq>6=1</bankreq>
     </object>
 
@@ -1208,21 +1097,16 @@
         <name>King Bob-omb</name>
         <internalname>BOMBKING</internalname>
         <actorid>189</actorid>
-        <description>A big Bob-omb, that can be found on top summit of Bob-omb Battlefield. Formerly known as Big
-            Bob-omb in this game and other earlier games.
+        <description>A big Bob-omb, that can be found on top summit of Bob-omb Battlefield. Formerly known as Big Bob-omb in this game and other earlier games.
 
             Parameter 1:
             FF followed by the Star ID.
 
             Notes:
-            - The behaviour of King Bob-Omb is hard-coded to match the Star ID with which the level was entered, ie.:
-            Star 1 - Fight 1, Star 4 - Fight 2.
+            - The behaviour of King Bob-Omb is hard-coded to match the Star ID with which the level was entered, ie.: Star 1 - Fight 1, Star 4 - Fight 2.
             - King Bob-Omb's position in a level is hard-coded to only work properly if placed at -2.998, 4.192, -4.597
 
-            Important: Using King Bob-Omb requires that the level contains a Bob-Omb object (can be hidden under level),
-            otherwise during behaviour 1, after throwing a couple of Bob-Ombs, all subsequent Bob-Ombs will have totally
-            corrupted textures. Reason for this is unknown.
-        </description>
+            Important: Using King Bob-Omb requires that the level contains a Bob-Omb object (can be hidden under level), otherwise during behaviour 1, after throwing a couple of Bob-Ombs, all subsequent Bob-Ombs will have totally corrupted textures. Reason for this is unknown.</description>
         <bankreq>2=2</bankreq>
     </object>
 
@@ -1231,8 +1115,7 @@
         <name>Mr. Blizzard</name>
         <internalname>SNOWMAN</internalname>
         <actorid>223</actorid>
-        <description>A snowman that appears out of nowhere and throws snowballs at the player. Can be defeated by
-            running circles around it.
+        <description>A snowman that appears out of nowhere and throws snowballs at the player. Can be defeated by running circles around it.
 
             Parameter 1:
             XXXX where
@@ -1240,10 +1123,8 @@
             0000 - Bounce along Path 0
             0002 - Bounce along Path 2
             0003 - Bounce along Path 3
-            01FF - Stay in one place, hidden in the ground (used in Cool, Cool Mountain, Snowman's Land and Chief Chilly
-            Challenge)
-            02FF - Same as 01FF? (used in Snowman's Land)
-        </description>
+            01FF - Stay in one place, hidden in the ground (used in Cool, Cool Mountain, Snowman's Land and Chief Chilly Challenge)
+            02FF - Same as 01FF? (used in Snowman's Land)</description>
         <bankreq>2=5</bankreq>
     </object>
 
@@ -1267,8 +1148,7 @@
 
             ==Misc. Info==
             ===VS Mode Practice Behaviours==
-            * On load: Freezes/Crashes
-        </description>
+            * On load: Freezes/Crashes</description>
         <bankreq>3=1</bankreq>
     </object>
 
@@ -1284,8 +1164,7 @@
 
             XXX - Nothing?
 
-            I - Star ID
-        </description>
+            I - Star ID</description>
         <bankreq>none</bankreq>
     </object>
 
@@ -1294,8 +1173,7 @@
         <name>Power Star</name>
         <internalname>STAR</internalname>
         <actorid>178</actorid>
-        <description>Adds 1 star to the player's star counter when collected. Only appears on the minimap if Y matches
-            the current star.
+        <description>Adds 1 star to the player's star counter when collected. Only appears on the minimap if Y matches the current star.
 
             Parameter 1:
             XXTI where:
@@ -1306,19 +1184,13 @@
             0 - Normal
             1 - Jumping around (Like if you defeat an enemy with a Silver Star)
             2 - 100-Coin Star
-            3 - VS Mode star. If matched to a Star Marker with T set to 1, the Star is still and uncollectable until the
-            Star Marker (in Star Sphere form) is smashed, then it becomes collectable, starts spinning and starts
-            jumping about.
-            4 - Upon spawning, fly in an arch whilst sparkling to the location of the Star Marker with the corresponding
-            Star ID (used when another object spawns a Star)
+            3 - VS Mode star. If matched to a Star Marker with T set to 1, the Star is still and uncollectable until the Star Marker (in Star Sphere form) is smashed, then it becomes collectable, starts spinning and starts jumping about.
+            4 - Upon spawning, fly in an arch whilst sparkling to the location of the Star Marker with the corresponding Star ID (used when another object spawns a Star)
             5 - Always yellow, but not collectable if already collected?
             6 - Appears as glass sphere, can be spawned by silver stars
-            7 - Only appears on minimap. Used to mark the location of warps that bring you to a star in another map, and
-            also used in mission 3 of Shifting Sand Land - pyramid for unknown reasons.
+            7 - Only appears on minimap. Used to mark the location of warps that bring you to a star in another map, and also used in mission 3 of Shifting Sand Land - pyramid for unknown reasons.
 
-            I - Star ID. Setting it to 0 makes it the 100 Coin Star. Only values 0-7 (inclusive) actually contribute to
-            the star count and trigger saving/exiting.
-        </description>
+            I - Star ID. Setting it to 0 makes it the 100 Coin Star. Only values 0-7 (inclusive) actually contribute to the star count and trigger saving/exiting.</description>
         <bankreq>none</bankreq>
     </object>
 
@@ -1327,8 +1199,7 @@
         <name>Silver Star</name>
         <internalname>SILVER_STAR</internalname>
         <actorid>179</actorid>
-        <description>When 5 Silver Stars are collected, makes a Star appear inside a cage. If one or more Silver Stars
-            are dropped, the caged star will disappear until they are collected again.
+        <description>When 5 Silver Stars are collected, makes a Star appear inside a cage. If one or more Silver Stars are dropped, the caged star will disappear until they are collected again.
 
             Parameter 1:
             XXTS
@@ -1348,8 +1219,7 @@
 
             ==Misc. Info==
             ===VS Mode Practice Behaviours==
-            * On load: Malfunctions/Freezes/Crashes
-        </description>
+            * On load: Malfunctions/Freezes/Crashes</description>
         <bankreq>none</bankreq>
     </object>
 
@@ -1360,25 +1230,20 @@
         <actorid>180</actorid>
         <description>Tells where the associated Power Star lands after it spawns.
 
-            Optionally, this object can show a horizontal star shadow at its position, usually when the star is spawned
-            by collecting red coins.
+            Optionally, this object can show a horizontal star shadow at its position, usually when the star is spawned by collecting red coins.
 
             Parameter 1:
             XXTS
 
             T: [T]ype
             0 - Used for Red Coins, appears as blue rotating horizontal star
-            1 - Appears as Star Sphere. Smashes when touched. Makes matching Power Star with T set to 3 become
-            collectable, start spinning and start jumping about.
-            3, 5, 7, 9, B - Appears invisible, and nothing seems to spawn a star. Star Switches set to this ID will
-            appear already pressed.
-            2, A - Star can be spawned by events like Koopa the Quick, numbered &quot;secrets&quot; or from a baddie
-            being beaten.
+            1 - Appears as Star Sphere. Smashes when touched. Makes matching Power Star with T set to 3 become collectable, start spinning and start jumping about.
+            3, 5, 7, 9, B - Appears invisible, and nothing seems to spawn a star. Star Switches set to this ID will appear already pressed.
+            2, A - Star can be spawned by events like Koopa the Quick, numbered &quot;secrets&quot; or from a baddie being beaten.
             4 - Appears as the Star Sphere, but won't spawn stars from Switch Stars, baddies nor silver stars?
             6 - For Switch Stars, appears as Star Sphere
 
-            S - [S]tar ID
-        </description>
+            S - [S]tar ID</description>
         <bankreq>none</bankreq>
     </object>
 
@@ -1387,9 +1252,7 @@
         <name>Whomp</name>
         <internalname>BATAN</internalname>
         <actorid>164</actorid>
-        <description>Walks in a straight path, then turns around and walks the other way. When it finds a player, it
-            moves faster.
-        </description>
+        <description>Walks in a straight path, then turns around and walks the other way. When it finds a player, it moves faster.</description>
         <bankreq>2=3</bankreq>
     </object>
 
@@ -1403,8 +1266,7 @@
             Parameter 1:
             FF followed by Star ID eg. FF01 for Star 1.
 
-            There should be a corresponding Star Marker with Parameters 2 followed by Star ID, eg. 21 for Star 1.
-        </description>
+            There should be a corresponding Star Marker with Parameters 2 followed by Star ID, eg. 21 for Star 1.</description>
         <bankreq>2=3</bankreq>
     </object>
 
@@ -1413,9 +1275,7 @@
         <name>Thwomp</name>
         <internalname>DOSUN</internalname>
         <actorid>161</actorid>
-        <description>An angry stone that smashes the ground, then returns to it's initial position. Can be smashed to
-            bits by Mega Players.
-        </description>
+        <description>An angry stone that smashes the ground, then returns to it's initial position. Can be smashed to bits by Mega Players.</description>
         <bankreq>4=3</bankreq>
     </object>
 
@@ -1424,8 +1284,7 @@
         <name>Boo</name>
         <internalname>TERESA</internalname>
         <actorid>209</actorid>
-        <description>Chases the player. Turns translucent when looked at, revealing a Blue Coin, or ocaisonly a Red Coin
-            or Yellow Coin inside.
+        <description>Chases the player. Turns translucent when looked at, revealing a Blue Coin, or ocaisonly a Red Coin  or Yellow Coin inside.
 
             TODO:
 
@@ -1440,8 +1299,7 @@
 
             T: Type
             00 - Normal
-            01 - Stays still, doesn't turn transparent, cannot be defeated or stomped but can be eaten which triggers
-            the usual line &quot;You can't eat ghosts&quot; and can be pushed around by walking into it.
+            01 - Stays still, doesn't turn transparent, cannot be defeated or stomped but can be eaten which triggers the usual line &quot;You can't eat ghosts&quot; and can be pushed around by walking into it.
             02 - Slightly erratic chasing movement, triggers &quot;ghosts don't die&quot; text, otherwise normal
             03 - Spawns two of the Para1:1 ghosts in the same place
             04 - Transparent, slightly bigger, flies away forever after being approached. Used in castle corridor.
@@ -1450,12 +1308,10 @@
             07 - Spawns three Boos, one of them may be Param. 1/2 behaviour.
             08 - Doesn't chase or turn transparent, but moves in a circle, otherwise normal.
             09 - Same as 0?
-            0A - Contains yellow coin instead of blue coin, may contain red coin in certain circumstances and doesn't
-            appear at the beginning of the game.
+            0A - Contains yellow coin instead of blue coin, may contain red coin in certain circumstances and doesn't appear at the beginning of the game.
             0B - Doesn't spawn?
 
-            (source: Hiccup)
-        </description>
+            (source: Hiccup)</description>
         <bankreq>0=2</bankreq>
     </object>
 
@@ -1477,10 +1333,8 @@
             01 - Does not appear to spawn. Needs investigation.
             02 - Spawns when all Para1:2 Boos are defeated.
             03 - King Boo (may require object LUIGI to function)
-            04 - Stays still, doesn't turn transparent, cannot be defeated or stomped but can be pushed around by
-            walking into it.
-            05 - same as 4?
-        </description>
+            04 - Stays still, doesn't turn transparent, cannot be defeated or stomped but can be pushed around by walking into it.
+            05 - same as 4?</description>
         <bankreq>0=2</bankreq>
     </object>
 
@@ -1496,8 +1350,7 @@
 
             where:
             XX: Star ID
-            YY: Unknown
-        </description>
+            YY: Unknown</description>
         <bankreq>0=2</bankreq>
     </object>
 
@@ -1509,8 +1362,7 @@
         <description>These appear after defeating Big Boo in the mansion.
 
             Parameter 1:
-            XXXX Star ID for them to be set down?
-        </description>
+            XXXX Star ID for them to be set down?</description>
         <bankreq>0=2</bankreq>
     </object>
 
@@ -1519,9 +1371,7 @@
         <name>Secret Door Bookshelf</name>
         <internalname>BOOKSHELF</internalname>
         <actorid>158</actorid>
-        <description>When you hit the books in the right order it will move to the left. If you get the order wrong, it
-            will shoot a book at you and reset the books.
-        </description>
+        <description>When you hit the books in the right order it will move to the left. If you get the order wrong, it will shoot a book at you and reset the books.</description>
         <bankreq>0=2</bankreq>
     </object>
 
@@ -1530,9 +1380,7 @@
         <name>Big Boo's Merry-Go-Round</name>
         <internalname>MERRYGOROUND</internalname>
         <actorid>159</actorid>
-        <description>Big Boo's Merry-Go-Round. Rotating platform. Also plays its own music when the player is close
-            enough to it.
-        </description>
+        <description>Big Boo's Merry-Go-Round. Rotating platform. Also plays its own music when the player is close enough to it.</description>
         <bankreq>0=2</bankreq>
     </object>
 
@@ -1550,9 +1398,7 @@
         <name>Rec Room Cupboard object</name>
         <internalname>PL_CLOSET</internalname>
         <actorid>182</actorid>
-        <description>An long invisible object that triggers the &quot;Continue with adventure / Save and play mini-games&quot;
-            message when you go up to it and press A. Used in front of the actual cupboard.
-        </description>
+        <description>An long invisible object that triggers the &quot;Continue with adventure / Save and play mini-games&quot; message when you go up to it and press A. Used in front of the actual cupboard.</description>
         <bankreq>7=51</bankreq>
     </object>
 
@@ -1571,8 +1417,7 @@
 
             ==Misc. Info==
             ===VS Mode Practice Behaviours==
-            * On load: Freezes/Crashes
-        </description>
+            * On load: Freezes/Crashes</description>
         <bankreq>3=2</bankreq>
     </object>
 
@@ -1581,9 +1426,7 @@
         <name>Sign Post</name>
         <internalname>TATEFUDA</internalname>
         <actorid>184</actorid>
-        <description>Wooden sign post. When close to it, the player can press A or B to read its message. Wario can
-            stand behind a sign and press A to pick it up and carry it, then press A again to throw it. If placed
-            underwater, Wario can grab these from behind and ride them like Koopa Shells underwater.
+        <description>Wooden sign post. When close to it, the player can press A or B to read its message. Wario can stand behind a sign and press A to pick it up and carry it, then press A again to throw it. If placed underwater, Wario can grab these from behind and ride them like Koopa Shells underwater.
 
             Parameter 1:
             XXXX where
@@ -1596,8 +1439,7 @@
 
             ==Misc. Info==
             ===VS Mode Practice Behaviours==
-            * On reading: Malfunction/Crash/Freeze
-        </description>
+            * On reading: Malfunction/Crash/Freeze</description>
         <bankreq>none</bankreq>
     </object>
 
@@ -1606,8 +1448,7 @@
         <name>Ice Sheet</name>
         <internalname>ICE_BOARD</internalname>
         <actorid>295</actorid>
-        <description>Used in Cool, Cool Mountain. A square sheet of ice only Wario can break. Visible from both sides.
-        </description>
+        <description>Used in Cool, Cool Mountain. A square sheet of ice only Wario can break. Visible from both sides.</description>
         <bankreq>7=11</bankreq>
     </object>
 
@@ -1616,8 +1457,7 @@
         <name>Seaweed</name>
         <internalname>WAKAME</internalname>
         <actorid>296</actorid>
-        <description>Wavy pieces of seaweed. Seen in water levels like Jolly Roger Bay and Dire Dire Docks.
-        </description>
+        <description>Wavy pieces of seaweed. Seen in water levels like Jolly Roger Bay and Dire Dire Docks.</description>
         <bankreq>none</bankreq>
     </object>
 
@@ -1635,13 +1475,11 @@
         <name>Toad</name>
         <internalname>KINOPIO</internalname>
         <actorid>185</actorid>
-        <description>Toad, in-game. Some Toads give you Power Stars. The parameters for Toad's message are the same as
-            those for Bob-omb Buddy.
+        <description>Toad, in-game. Some Toads give you Power Stars. The parameters for Toad's message are the same as those for Bob-omb Buddy.
 
             Parameter 1:
             TTTT
-            TTTT - Text ID. Usually the text Toad will speak to Mario; 1, 2 and 3 are added to the specified text ID to
-            get the text that Toad will use for Luigi, Wario and Yoshi respectively.
+            TTTT - Text ID. Usually the text Toad will speak to Mario; 1, 2 and 3 are added to the specified text ID to get the text that Toad will use for Luigi, Wario and Yoshi respectively.
 
             Parameter 2:
             XXSS
@@ -1650,8 +1488,7 @@
 
             ==Misc. Info==
             ===VS Mode Practice Behaviours==
-            * On load: Freezes/Crashes
-        </description>
+            * On load: Freezes/Crashes</description>
         <bankreq>3=2</bankreq>
     </object>
 
@@ -1662,16 +1499,13 @@
         <actorid>186</actorid>
         <description>Princess Peach in-game. If you stand in front of her and press A or B, she says the following.
 
-            &quot;That's just fine--I've been looking for something to fry with my fire breath! Your Star Power is
-            useless against me! Your friends are all trapped in the walls... And you'll never see the princess again!
-            Gwa ha ha ha!&quot;
+            &quot;That's just fine--I've been looking for something to fry with my fire breath! Your Star Power is useless against me! Your friends are all trapped in the walls... And you'll never see the princess again! Gwa ha ha ha!&quot;
 
             This might be because she was never intended to talk, but was given this behavior to prevent crashing.
 
             ==Misc. Info==
             ===VS Mode Practice Behaviours==
-            * On load: Freezes/Crashes
-        </description>
+            * On load: Freezes/Crashes</description>
         <bankreq>3=2</bankreq>
     </object>
 
@@ -1680,12 +1514,10 @@
         <name>BitFS-f Tilting Platform</name>
         <internalname>KOOPA2BG</internalname>
         <actorid>166</actorid>
-        <description>The red tinted platform in Bowser in the Fire Sea - fight. It tilts towards Bowser if he jumps on
-            it.
+        <description>The red tinted platform in Bowser in the Fire Sea - fight. It tilts towards Bowser if he jumps on it.
 
             Parameter 1:
-            Uses FFFF
-        </description>
+            Uses FFFF</description>
         <bankreq>none</bankreq>
     </object>
 
@@ -1694,13 +1526,11 @@
         <name>BitS-f Falling Platform</name>
         <internalname>KOOPA3BG</internalname>
         <actorid>167</actorid>
-        <description>A large green piece of the platform in Bowser in the Sky - Fight. They fall one by one each time
-            Bowser is thrown off the platform. Once Bowser is on his last hit,
+        <description>A large green piece of the platform in Bowser in the Sky - Fight. They fall one by one each time Bowser is thrown off the platform. Once Bowser is on his last hit,
 
             Parameter 1:
             FFXX Order that platforms fall in?
-            (ex. FF01)
-        </description>
+            (ex. FF01)</description>
         <bankreq>none</bankreq>
     </object>
 
@@ -1709,9 +1539,7 @@
         <name>Koopa Shell</name>
         <internalname>SHELL</internalname>
         <actorid>285</actorid>
-        <description>The green Koopa Shell can be ridden on/under water and on land, while its red counterpart can be
-            hit to send it flying across the ground. Red shells can be eaten by Yoshi to allow him to breathe fire.
-            Green shells can be eaten by Yoshi, then spat out to travel as a Red Shell does when hit.
+        <description>The green Koopa Shell can be ridden on/under water and on land, while its red counterpart can be hit to send it flying across the ground. Red shells can be eaten by Yoshi to allow him to breathe fire. Green shells can be eaten by Yoshi, then spat out to travel as a Red Shell does when hit.
 
             Parameter 1:
             XXUC where
@@ -1722,8 +1550,7 @@
 
             Z: Color
             0 - Green
-            1 - Red (Unused)
-        </description>
+            1 - Red (Unused)</description>
         <bankreq>none</bankreq>
         <param n='0'>
             <name>Color</name>
@@ -1740,12 +1567,10 @@
         <name>Sushi</name>
         <internalname>SHARK</internalname>
         <actorid>225</actorid>
-        <description>Swims around very fast, taking three life points if a player hits it. Like Cheep-Cheep, it cannot
-            be killed in any way.
+        <description>Swims around very fast, taking three life points if a player hits it. Like Cheep-Cheep, it cannot be killed in any way.
 
             Parameter 1:
-            XXXX Path ID to follow
-        </description>
+            XXXX Path ID to follow</description>
         <bankreq>4=2</bankreq>
     </object>
 
@@ -1783,8 +1608,7 @@
         <actorid>111</actorid>
         <description>TODO: Investigate what the additional requirements are
 
-            A large conveyor belt found in Tick Tock Clock.
-        </description>
+            A large conveyor belt found in Tick Tock Clock.</description>
         <bankreq>0=4</bankreq>
     </object>
 
@@ -1802,9 +1626,7 @@
         <name>TTC Mecha 05</name>
         <internalname>CT_MECHA05</internalname>
         <actorid>113</actorid>
-        <description>A rectangular box that shoots out and trys to push the player out of its way found in Tick Tock
-            Clock.
-        </description>
+        <description>A rectangular box that shoots out and trys to push the player out of its way found in Tick Tock Clock.</description>
         <bankreq>0=4</bankreq>
     </object>
 
@@ -1822,10 +1644,7 @@
         <name>TTC Mecha 07 (Unused)</name>
         <internalname>CT_MECHA07</internalname>
         <actorid>115</actorid>
-        <description>Unused rotating triangular platform from Tick Tock clock. Shaped like a segment of a hexagon,
-            rotates about Y (up) axis and has a raised bump at the centre (inner point of triangle). Uses the same
-            shadow as CT_MECHA06.
-        </description>
+        <description>Unused rotating triangular platform from Tick Tock clock. Shaped like a segment of a hexagon, rotates about Y (up) axis and has a raised bump at the centre (inner point of triangle). Uses the same shadow as CT_MECHA06.</description>
         <bankreq>0=4</bankreq>
     </object>
 
@@ -1834,9 +1653,7 @@
         <name>TTT Mecha 08A (Unused)</name>
         <internalname>CT_MECHA08A</internalname>
         <actorid>116</actorid>
-        <description>Unused cube-shaped platform from Tick Tock Clock. Moves up and down continuously. No shadow. Shares
-            same behaviour as CT_MECHA08B.
-        </description>
+        <description>Unused cube-shaped platform from Tick Tock Clock. Moves up and down continuously. No shadow. Shares same behaviour as CT_MECHA08B.</description>
         <bankreq>0=4</bankreq>
     </object>
 
@@ -1845,9 +1662,7 @@
         <name>TTC Mecha 08B (Unused)</name>
         <internalname>CT_MECHA08B</internalname>
         <actorid>117</actorid>
-        <description>Unused cube-shaped platform from Tick Tock Clock. Moves up and down continuously. Shares same
-            behaviour as CT_MECHA08A.
-        </description>
+        <description>Unused cube-shaped platform from Tick Tock Clock. Moves up and down continuously. Shares same behaviour as CT_MECHA08A.</description>
         <bankreq>0=4</bankreq>
     </object>
 
@@ -1904,8 +1719,7 @@
         <description>A thin rectangular brick block from Shifting Sand Land. Moves up and down.
 
             Parameter 1:
-            FF0X How low the block should start relative to its origin when spawned (for different up/down timings)
-        </description>
+            FF0X How low the block should start relative to its origin when spawned (for different up/down timings)</description>
         <bankreq>7=18</bankreq>
     </object>
 
@@ -1943,8 +1757,7 @@
         <actorid>89</actorid>
         <description>Sliding poles that appear in Dire Dire Docks.
 
-            Parameter 1 gives the ID (zero-based index) of the path the pole is to follow.
-        </description>
+            Parameter 1 gives the ID (zero-based index) of the path the pole is to follow.</description>
         <bankreq>7=19</bankreq>
     </object>
 
@@ -1953,9 +1766,7 @@
         <name>Bowser's Submarine</name>
         <internalname>WL_SUBMARINE</internalname>
         <actorid>90</actorid>
-        <description>A submarine of Bowsers found in Dire Dire Docks. Disappears permanently after DDD Star 1 is
-            completed.
-        </description>
+        <description>A submarine of Bowsers found in Dire Dire Docks. Disappears permanently after DDD Star 1 is completed.</description>
         <bankreq>7=19</bankreq>
     </object>
 
@@ -1973,12 +1784,10 @@
         <name>RR Tricky Triangles Object</name>
         <internalname>RC_DORIFU</internalname>
         <actorid>123</actorid>
-        <description>A platform in Rainbow Ride that, when activated by a switch, flips the pointy ends of the
-            triangles.
+        <description>A platform in Rainbow Ride that, when activated by a switch, flips the pointy ends of the triangles.
 
             Parameter 1:
-            FF00 to be actiated by a ! switch
-        </description>
+            FF00 to be actiated by a ! switch</description>
         <bankreq>7=29</bankreq>
     </object>
 
@@ -2005,9 +1814,7 @@
         <name>RR Donut Lift</name>
         <internalname>RC_TIKUWA</internalname>
         <actorid>126</actorid>
-        <description>Platform that begins to fall after the player walks on it, from Rainbow Ride. It disappears when it
-            hits the ground.
-        </description>
+        <description>Platform that begins to fall after the player walks on it, from Rainbow Ride. It disappears when it hits the ground.</description>
         <bankreq>7=29</bankreq>
     </object>
 
@@ -2046,8 +1853,7 @@
             0000 - Counter-Clockwise
             FEC9 - Clockwise.
 
-            (Source: Fiachra)
-        </description>
+            (Source: Fiachra)</description>
         <bankreq>7=29</bankreq>
     </object>
 
@@ -2085,8 +1891,7 @@
         <actorid>104</actorid>
         <description>Breakable rock at entrance to Wiggler's Cave in Tiny Huge Island - Tiny.
 
-            Use FFFF.
-        </description>
+            Use FFFF.</description>
         <bankreq>7=26</bankreq>
     </object>
 
@@ -2097,8 +1902,7 @@
         <actorid>105</actorid>
         <description>Water above entrance to Wiggler's Cave. Lowers and disappears when entrance broken.
 
-            Uses FFFF.
-        </description>
+            Uses FFFF.</description>
         <bankreq>7=26</bankreq>
     </object>
 
@@ -2107,11 +1911,9 @@
         <name>THI-H Cover</name>
         <internalname>TD_FUTA</internalname>
         <actorid>106</actorid>
-        <description>Tiny Huge Island - Huge breakable entrance to Wiggler's Cave. Disappears when entrance broken in
-            Tiny island.
+        <description>Tiny Huge Island - Huge breakable entrance to Wiggler's Cave. Disappears when entrance broken in Tiny island.
 
-            Use FFFF.
-        </description>
+            Use FFFF.</description>
         <bankreq>7=25</bankreq>
     </object>
 
@@ -2120,11 +1922,9 @@
         <name>THI-H water</name>
         <internalname>TD_WATER</internalname>
         <actorid>107</actorid>
-        <description>Tiny Huge Island - Huge water above entrance to Wiggler's Cave. Lowers and disappears when entrance
-            broken in Tiny island.
+        <description>Tiny Huge Island - Huge water above entrance to Wiggler's Cave. Lowers and disappears when entrance broken in Tiny island.
 
-            Use FFFF.
-        </description>
+            Use FFFF.</description>
         <bankreq>7=25</bankreq>
     </object>
 
@@ -2165,8 +1965,7 @@
             Parameter 1:
             XXII
 
-            II - Match this with the II of the water.
-        </description>
+            II - Match this with the II of the water.</description>
         <bankreq>7=22</bankreq>
     </object>
 
@@ -2193,8 +1992,7 @@
 
             T: Type
             0 - Lift
-            1 - Static object (unused)
-        </description>
+            1 - Static object (unused)</description>
         <bankreq>7=22</bankreq>
         <param n='0'>
             <name>If working</name>
@@ -2225,8 +2023,7 @@
             Parameter 1:
             XXII
 
-            II - Match this with the II of the Water Diamond.
-        </description>
+            II - Match this with the II of the Water Diamond.</description>
         <bankreq>7=22</bankreq>
     </object>
 
@@ -2244,9 +2041,7 @@
         <name>LLL Volcano Ring</name>
         <internalname>FL_RING</internalname>
         <actorid>71</actorid>
-        <description>The rotating ring around the volcano in Lethal Lava Land. It stops and shoots lava out of the
-            centre every so often.
-        </description>
+        <description>The rotating ring around the volcano in Lethal Lava Land. It stops and shoots lava out of the centre every so often.</description>
         <bankreq>7=15</bankreq>
     </object>
 
@@ -2266,8 +2061,7 @@
         <actorid>73</actorid>
         <description>The little bridge that goes up and down from Lethal Lava Land.
 
-            The name seems to be an interesting reference to London bridge.
-        </description>
+            The name seems to be an interesting reference to London bridge.</description>
         <bankreq>7=15</bankreq>
     </object>
 
@@ -2337,8 +2131,7 @@
 
             Parameter 2:
             XXXX Delay before bobbing up and down
-            (ex. F000)
-        </description>
+            (ex. F000)</description>
         <bankreq>7=15</bankreq>
     </object>
 
@@ -2347,16 +2140,14 @@
         <name>LLL Fall Down Block</name>
         <internalname>FL_KUZURE</internalname>
         <actorid>83</actorid>
-        <description>Spawns when a Star Marker with a matching Star ID is activated. Star Markers with Star Switch
-            parameter setup seem to count as &quot;activated&quot; all the time.
+        <description>Spawns when a Star Marker with a matching Star ID is activated. Star Markers with Star Switch parameter setup seem to count as &quot;activated&quot; all the time.
 
             TODO: test other bosses/objects, and invalid Star IDs
 
             Parameter 1:
             XXXS where
 
-            S - Star ID.
-        </description>
+            S - Star ID.</description>
         <bankreq>7=15</bankreq>
     </object>
 
@@ -2368,8 +2159,7 @@
         <description>An object that comes out of the wall when the player gets near it in an attempt to kill the player.
 
             Parameter 1:
-            Uses FFFF
-        </description>
+            Uses FFFF</description>
         <bankreq>7=16</bankreq>
     </object>
 
@@ -2378,9 +2168,7 @@
         <name>Popping Lava Bubbles</name>
         <internalname>LAVA</internalname>
         <actorid>196</actorid>
-        <description>Adds a 'popping lava bubbles' effect to each plane with either LETHAL LAVA or LETHAL ICE collision
-            applied.
-        </description>
+        <description>Adds a 'popping lava bubbles' effect to each plane with either LETHAL LAVA or LETHAL ICE collision applied.</description>
         <bankreq>none</bankreq>
     </object>
 
@@ -2398,8 +2186,7 @@
         <name>Manta Ray</name>
         <internalname>MANTA</internalname>
         <actorid>226</actorid>
-        <description>A Big Manta Ray that roams the waters of Dire Dire Docks. It releases rings for the player to
-            collect. Deals 1 damage if touched. Only appears on stars 2-7.
+        <description>A Big Manta Ray that roams the waters of Dire Dire Docks. It releases rings for the player to collect. Deals 1 damage if touched. Only appears on stars 2-7.
 
             Parameter 1:
             XXXY
@@ -2407,8 +2194,7 @@
             X: Star ID
             (ex. 700)
 
-            Y: Path ID to follow
-        </description>
+            Y: Path ID to follow</description>
         <bankreq>4=2</bankreq>
     </object>
 
@@ -2417,17 +2203,14 @@
         <name>Scuttlebug</name>
         <internalname>SPIDER</internalname>
         <actorid>255</actorid>
-        <description>Black/yellow spider that walks around. When it sees a player, it runs directly at them, much faster
-            than when it walks. Releases 3 coins when killed.
+        <description>Black/yellow spider that walks around. When it sees a player, it runs directly at them, much faster than when it walks. Releases 3 coins when killed.
 
             Parameter 1:
             XXXT where
 
             T: Type
             0 - Normal
-            1 - Spawner; a bug springs out a from XYZ placement when you get near. If you defeat it, a replacement will
-            spawn. Only the first one will release coins when defeated.
-        </description>
+            1 - Spawner; a bug springs out a from XYZ placement when you get near. If you defeat it, a replacement will spawn. Only the first one will release coins when defeated.</description>
         <bankreq>1=3</bankreq>
     </object>
 
@@ -2436,14 +2219,11 @@
         <name>Spiny</name>
         <internalname>TOGEZO</internalname>
         <actorid>260</actorid>
-        <description>Classic enemy from SMB. It is a red spiny Koopa that walks on all fours. This enemy will simply
-            bounce backwards when hit with any attack, even being rammed into with a green Koopa Shell. The only way to
-            kill a Spiny is to hit it with a Yoshi Egg.
+        <description>Classic enemy from SMB. It is a red spiny Koopa that walks on all fours. This enemy will simply bounce backwards when hit with any attack, even being rammed into with a green Koopa Shell. The only way to kill a Spiny is to hit it with a Yoshi Egg.
 
             ==Misc. Info==
             ===VS Mode Practice Behaviours==
-            * On load: Freezes/Crashes
-        </description>
+            * On load: Freezes/Crashes</description>
         <bankreq>2=1</bankreq>
     </object>
 
@@ -2463,8 +2243,7 @@
 
             ==Misc. Info==
             ===VS Mode Practice Behaviours==
-            * On load: Freezes/Crashes
-        </description>
+            * On load: Freezes/Crashes</description>
         <bankreq>2=1</bankreq>
     </object>
 
@@ -2473,9 +2252,7 @@
         <name>Moneybag</name>
         <internalname>GAMAGUCHI</internalname>
         <actorid>261</actorid>
-        <description>Disguised as a coin, this enemy appears to be harmless. When approached, it turns into a purse,
-            then hops away. When hit, it releases many coins.
-        </description>
+        <description>Disguised as a coin, this enemy appears to be harmless. When approached, it turns into a purse, then hops away. When hit, it releases many coins.</description>
         <bankreq>2=5</bankreq>
     </object>
 
@@ -2484,9 +2261,7 @@
         <name>Mr. I</name>
         <internalname>EYEKUN</internalname>
         <actorid>262</actorid>
-        <description>Stays in one place, constantly looking at the player. Every 5 seconds or so, it fires a plasma ball
-            at the player. It can be defeated by running circles around it. Releases a blue coin when killed.
-        </description>
+        <description>Stays in one place, constantly looking at the player. Every 5 seconds or so, it fires a plasma ball at the player. It can be defeated by running circles around it. Releases a blue coin when killed.</description>
         <bankreq>1=3</bankreq>
     </object>
 
@@ -2495,11 +2270,9 @@
         <name>Big Mr. I</name>
         <internalname>EYEKUN_BOSS</internalname>
         <actorid>263</actorid>
-        <description>Huge version of Mr. I seen in the attic in Big Boo's Haunt. It acts the same way as its smaller
-            counterpart, but releases a Power Star when defeated, as opposed to a blue coin.
+        <description>Huge version of Mr. I seen in the attic in Big Boo's Haunt. It acts the same way as its smaller counterpart, but releases a Power Star when defeated, as opposed to a blue coin.
 
-            Parameter 1: Star ID
-        </description>
+            Parameter 1: Star ID</description>
         <bankreq>1=3</bankreq>
     </object>
 
@@ -2508,9 +2281,7 @@
         <name>Crazed Crate</name>
         <internalname>BATTA_BLOCK</internalname>
         <actorid>193</actorid>
-        <description>When grabbed or eaten, makes the player do a triple jump while diving. If watched closely while
-            idle, the block will hop up and down. If grabbed underwater, the player can carry it like a Koopa Shell.
-        </description>
+        <description>When grabbed or eaten, makes the player do a triple jump while diving. If watched closely while idle, the block will hop up and down. If grabbed underwater, the player can carry it like a Koopa Shell.</description>
         <bankreq>2=4</bankreq>
     </object>
 
@@ -2519,13 +2290,11 @@
         <name>Amp</name>
         <internalname>BIRIKYU</internalname>
         <actorid>266</actorid>
-        <description>Black, electric ball that moves around in a circle. When touched, the player will be electricuted
-            and stunned for a second. Metal Wario will not take damage, and Invisible Luigi can walk through them.
+        <description>Black, electric ball that moves around in a circle. When touched, the player will be electricuted and stunned for a second. Metal Wario will not take damage, and Invisible Luigi can walk through them.
 
             Parameter 1:
 
-            (Diameter of Amp's path) * 10
-        </description>
+            (Diameter of Amp's path) * 10</description>
         <bankreq>1=2</bankreq>
     </object>
 
@@ -2565,8 +2334,7 @@
 
             Param 1:
             0 - Real
-            1 - Fake
-        </description>
+            1 - Fake</description>
         <bankreq>1=4</bankreq>
     </object>
 
@@ -2575,11 +2343,9 @@
         <name>Mother Penguin</name>
         <internalname>PENGUIN_MOTHER</internalname>
         <actorid>257</actorid>
-        <description>Bring her the correct baby and she will reward you with a star. Its position in the level affects
-            where she looks down at player; level needs to be high enough or low enough so it looks right.
+        <description>Bring her the correct baby and she will reward you with a star. Its position in the level affects where she looks down at player; level needs to be high enough or low enough so it looks right.
 
-            Param 1: Star ID
-        </description>
+            Param 1: Star ID</description>
         <bankreq>7=11</bankreq>
     </object>
 
@@ -2610,9 +2376,7 @@
             * Kuromame
             * Fire Chomp
 
-            When it sees a player, it constantly looks at them. Occasionally, it will puff up twice as large, then it
-            will spew a fireball that follows the player.
-        </description>
+            When it sees a player, it constantly looks at them. Occasionally, it will puff up twice as large, then it will spew a fireball that follows the player.</description>
         <bankreq>1=2</bankreq>
     </object>
 
@@ -2657,8 +2421,7 @@
         <name>Cheep Cheep</name>
         <internalname>PUKUPUKU</internalname>
         <actorid>227</actorid>
-        <description>Fish that appears in Dire, Dire Docks. It swims around and deals 1 piece of health when touched.
-        </description>
+        <description>Fish that appears in Dire, Dire Docks. It swims around and deals 1 piece of health when touched.</description>
         <bankreq>4=2</bankreq>
     </object>
 
@@ -2694,9 +2457,7 @@
         <name>Skeeter</name>
         <internalname>MENBO</internalname>
         <actorid>230</actorid>
-        <description>Enemies that slide on top of the water in Wet Dry World. If a Skeeter is stuck between the water
-            and a floating platform, it dies.
-        </description>
+        <description>Enemies that slide on top of the water in Wet Dry World. If a Skeeter is stuck between the water and a floating platform, it dies.</description>
         <bankreq>4=2</bankreq>
     </object>
 
@@ -2712,8 +2473,7 @@
 
             R:
             0 - [R]aise up when jumped on
-            1 - Do not move
-        </description>
+            1 - Do not move</description>
         <bankreq>1=3</bankreq>
     </object>
 
@@ -2722,9 +2482,7 @@
         <name>Fwoosh</name>
         <internalname>HYUHYU</internalname>
         <actorid>231</actorid>
-        <description>An enemy that resembles a cloud with a face. It floats in one spot, trying to blow the player's hat
-            away, and even the player itself.
-        </description>
+        <description>An enemy that resembles a cloud with a face. It floats in one spot, trying to blow the player's hat away, and even the player itself.</description>
         <bankreq>4=3</bankreq>
     </object>
 
@@ -2754,8 +2512,7 @@
         <description>Parameter 1:
             XXMM where
 
-            MM - See ! Switch parameter info
-        </description>
+            MM - See ! Switch parameter info</description>
         <bankreq>7=36</bankreq>
     </object>
 
@@ -2764,10 +2521,8 @@
         <name>BitDW Diamond Lift</name>
         <internalname>KM1_UKISHIMA</internalname>
         <actorid>135</actorid>
-        <description>Follows a hardcoded square-shaped path, starting movement in the direction they are facing.
-            Nintendo places them 0.6 z and y points apart on metal tracks.
-            (source: Hiccup)
-        </description>
+        <description>Follows a hardcoded square-shaped path, starting movement in the direction they are facing. Nintendo places them 0.6 z and y points apart on metal tracks.
+            (source: Hiccup)</description>
         <bankreq>7=36</bankreq>
     </object>
 
@@ -2859,9 +2614,7 @@
         <actorid>298</actorid>
         <description>That green warp pipe from every Mario game.
 
-            Does nothing if placed alone. For it to act as an entrance or an exit, the corresponding objects must be
-            placed inside it.
-        </description>
+            Does nothing if placed alone. For it to act as an entrance or an exit, the corresponding objects must be placed inside it.</description>
         <bankreq>none</bankreq>
     </object>
 
@@ -2874,8 +2627,7 @@
 
             ==Misc. Info==
             ===VS Mode Practice Behaviours==
-            * On load: Freezes/Crashes
-        </description>
+            * On load: Freezes/Crashes</description>
         <bankreq>none</bankreq>
     </object>
 
@@ -2888,8 +2640,7 @@
 
             ==Misc. Info==
             ===VS Mode Practice Behaviours==
-            * On load: Freezes/Crashes
-        </description>
+            * On load: Freezes/Crashes</description>
         <bankreq>none</bankreq>
     </object>
 
@@ -2902,8 +2653,7 @@
 
             Parameter 1:
             0 - Normal
-            1 - Spits fire in addition to swooping at you
-        </description>
+            1 - Spits fire in addition to swooping at you</description>
         <bankreq>1=2</bankreq>
     </object>
 
@@ -2912,9 +2662,7 @@
         <name>Bullet Bill</name>
         <internalname>KILLER</internalname>
         <actorid>222</actorid>
-        <description>When launched from a Bullet Bill Box (KILLER_DAI) home in on a player and follow them. It can be
-            defeated with a well-timed attack.
-        </description>
+        <description>When launched from a Bullet Bill Box (KILLER_DAI) home in on a player and follow them. It can be defeated with a well-timed attack.</description>
         <bankreq>2=3</bankreq>
     </object>
 
@@ -2950,8 +2698,7 @@
         <name>TTM-S Orange Smiley Decoration</name>
         <internalname>HS_Y_STAR</internalname>
         <actorid>304</actorid>
-        <description>A smiling, blushing, orange face used for decoration in the Tall Tall Mountain Slider.
-        </description>
+        <description>A smiling, blushing, orange face used for decoration in the Tall Tall Mountain Slider.</description>
         <bankreq>7=24</bankreq>
     </object>
 
@@ -2960,8 +2707,7 @@
         <name>TTM-S Blue Smiley Decoration</name>
         <internalname>HS_B_STAR</internalname>
         <actorid>305</actorid>
-        <description>A smiling, blushing, blue face thats used for decoration in the Tall Tall Mountain Slider.
-        </description>
+        <description>A smiling, blushing, blue face thats used for decoration in the Tall Tall Mountain Slider.</description>
         <bankreq>7=24</bankreq>
     </object>
 
@@ -2988,9 +2734,7 @@
         <name>WF Stood-up plank</name>
         <internalname>BK_BOTAOSI</internalname>
         <actorid>44</actorid>
-        <description>If kicked, it will fall flat, ignoring all collision. If it is bumped into by a giant player it
-            falls down on its back.
-        </description>
+        <description>If kicked, it will fall flat, ignoring all collision. If it is bumped into by a giant player it falls down on its back.</description>
         <bankreq>7=8</bankreq>
     </object>
 
@@ -3019,8 +2763,7 @@
         <actorid>47</actorid>
         <description>Non-breakable version of BK_KABE00 wall from Whomp's Fortress from &quot;Blast Away The Wall&quot;.
 
-            Note: The collision map for this object should be scaled by 8 - reason unknown.
-        </description>
+            Note: The collision map for this object should be scaled by 8 - reason unknown.</description>
         <bankreq>2=3</bankreq>
     </object>
 
@@ -3029,15 +2772,13 @@
         <name>WF Breakable Wall</name>
         <internalname>BK_KABE00</internalname>
         <actorid>48</actorid>
-        <description>Breakable wall from Whomp's Fortress from &quot;Blast Away The Wall&quot;. Destroyed when Player
-            hits it after being fired from cannon.
+        <description>Breakable wall from Whomp's Fortress from &quot;Blast Away The Wall&quot;. Destroyed when Player hits it after being fired from cannon.
             Parameter 1:
             FF followed by ID of Star, eg. FF01 for Star 1
 
             A Star marker should exist with Parameter of 2 followed by Star ID. eg. 21 for Star 1.
 
-            Note: The collision map for this object should be scaled by 10.
-        </description>
+            Note: The collision map for this object should be scaled by 10.</description>
         <bankreq>2=3</bankreq>
     </object>
 
@@ -3081,8 +2822,7 @@
             MM: Movement
             FF - No movement
             01 - Move in and out
-            02 - Move up and down
-        </description>
+            02 - Move up and down</description>
         <bankreq>7=8</bankreq>
     </object>
 
@@ -3091,9 +2831,7 @@
         <name>WF Bomp - Small</name>
         <internalname>BK_DOSSUNBAR_S</internalname>
         <actorid>54</actorid>
-        <description>Chunk of wall (small) that move in and out in Whomp's Fortress. Rotation does not work correctly,
-            direction of movement cannot be changed.
-        </description>
+        <description>Chunk of wall (small) that move in and out in Whomp's Fortress. Rotation does not work correctly, direction of movement cannot be changed.</description>
         <bankreq>7=8</bankreq>
     </object>
 
@@ -3102,9 +2840,7 @@
         <name>WF Bomp - Large</name>
         <internalname>BK_DOSSUNBAR_L</internalname>
         <actorid>53</actorid>
-        <description>Chunk of wall (large) that move in and out in Whomp's Fortress. Rotation does not work correctly,
-            direction of movement cannot be changed.
-        </description>
+        <description>Chunk of wall (large) that move in and out in Whomp's Fortress. Rotation does not work correctly, direction of movement cannot be changed.</description>
         <bankreq>7=8</bankreq>
     </object>
 
@@ -3185,8 +2921,7 @@
 
             PP - Path ID?
 
-            (Source: skawo)
-        </description>
+            (Source: skawo)</description>
         <bankreq>4=3</bankreq>
     </object>
 
@@ -3279,8 +3014,7 @@
         <description>Other requirments:
             * Only works in BitS map.
 
-            TODO: Work out parameters
-        </description>
+            TODO: Work out parameters</description>
         <bankreq>4=3</bankreq>
     </object>
 
@@ -3298,9 +3032,7 @@
         <name>CB Switch Pillar</name>
         <internalname>C0_SWITCH</internalname>
         <actorid>34</actorid>
-        <description>When two of them have been groundpounded, the water level in the castle's moat is lowered, making
-            the 'Secret under the Moat' level accessible.
-        </description>
+        <description>When two of them have been groundpounded, the water level in the castle's moat is lowered, making the 'Secret under the Moat' level accessible.</description>
         <bankreq>7=5</bankreq>
     </object>
 
@@ -3312,8 +3044,7 @@
         <description>Parameter 1:
             XXXP
             XXX - Nothing?
-            P - Path ID
-        </description>
+            P - Path ID</description>
         <bankreq>7=11</bankreq>
     </object>
 
@@ -3326,8 +3057,7 @@
 
             ==Misc. Info==
             ===VS Mode Practice Behaviours==
-            * On load: Freezes/Crashes
-        </description>
+            * On load: Freezes/Crashes</description>
         <bankreq>none</bankreq>
     </object>
 
@@ -3381,12 +3111,10 @@
         <name>Bowser Spikey Bomb</name>
         <internalname>KIRAI</internalname>
         <actorid>284</actorid>
-        <description>Explodes when touched, taking two wedges of the player's health. If Bowser comes in contact with
-            these after being thrown, he will be damaged.
+        <description>Explodes when touched, taking two wedges of the player's health. If Bowser comes in contact with these after being thrown, he will be damaged.
 
             ==Other Requirements==
-            * Must be in Bowser fight map
-        </description>
+            * Must be in Bowser fight map</description>
         <bankreq>none</bankreq>
     </object>
 
@@ -3410,8 +3138,7 @@
 
             ==Misc. Info==
             ===VS Mode Practice Behaviours==
-            * On load: Freezes/Crashes
-        </description>
+            * On load: Freezes/Crashes</description>
         <bankreq>3=2</bankreq>
     </object>
 
@@ -3422,8 +3149,7 @@
         <actorid>229</actorid>
         <description>==Misc. Info==
             ===VS Mode Practice Behaviours==
-            * On load: Freezes/Crashes
-        </description>
+            * On load: Freezes/Crashes</description>
         <bankreq>3=2</bankreq>
     </object>
 
@@ -3432,9 +3158,7 @@
         <name>Hoot the Owl</name>
         <internalname>OWL</internalname>
         <actorid>234</actorid>
-        <description>Appears when the player climbs into his tree. While holding B, the player can fly around holding
-            him. Nintendo places him 0.2 y points higher than the tree.
-        </description>
+        <description>Appears when the player climbs into his tree. While holding B, the player can fly around holding him. Nintendo places him 0.2 y points higher than the tree.</description>
         <bankreq>5=1</bankreq>
     </object>
 
@@ -3461,8 +3185,7 @@
             0,2,F - Big Bully
             1 - Three bullies that spawn a Big Bully when defeated.
 
-            S - Star ID. Requires matching Star Marker for the star to spawn.
-        </description>
+            S - Star ID. Requires matching Star Marker for the star to spawn.</description>
         <bankreq>0=3</bankreq>
     </object>
 
@@ -3482,8 +3205,7 @@
             0 - First Tox Box movement path (SSL)
             1 - Second Tox Box movement path (SSL)
             2 - Third Tox Box movement path (SSL)
-            3 - Unused movement path? Seems to be used with Tox Boxes that follow paths
-        </description>
+            3 - Unused movement path? Seems to be used with Tox Boxes that follow paths</description>
         <bankreq>4=4</bankreq>
     </object>
 
@@ -3501,8 +3223,7 @@
             00 - No
             01 - Yes
 
-            YY: (Height of the pole * 100) (in hex)
-        </description>
+            YY: (Height of the pole * 100) (in hex)</description>
         <bankreq>none</bankreq>
     </object>
 
@@ -3518,8 +3239,7 @@
 
             ==Misc. Info==
             ===VS Mode Practice Behaviours==
-            * On load: Freezes/Crashes
-        </description>
+            * On load: Freezes/Crashes</description>
         <bankreq>3=2</bankreq>
     </object>
 
@@ -3528,13 +3248,11 @@
         <name>Pushable Block</name>
         <internalname>PUSHBLOCK</internalname>
         <actorid>192</actorid>
-        <description>A large metal block that the player can push. Can't be pushed off edge of flat platform or onto
-            other Pushable Blocks. These 0.3x0.3x0.3 points or 1x1x1 inches.
+        <description>A large metal block that the player can push. Can't be pushed off edge of flat platform or onto other Pushable Blocks. These 0.3x0.3x0.3 points or 1x1x1 inches.
 
             ==Misc. Info==
             ===VS Mode Practice Behaviours==
-            * On use: no sound effect
-        </description>
+            * On use: no sound effect</description>
         <bankreq>none</bankreq>
     </object>
 
@@ -3554,8 +3272,7 @@
             0 - From level start
             1 - When touched
 
-            Z - Path ID
-        </description>
+            Z - Path ID</description>
         <bankreq>0=3</bankreq>
     </object>
 
@@ -3587,8 +3304,7 @@
             Z: How it should behave
             0 - Normal
             1 - Unknown (Seems to freeze the Monty Mole)
-            2 - Requires another Monty Mole with X set to 1, comes out when other Monty Mole is underground?
-        </description>
+            2 - Requires another Monty Mole with X set to 1, comes out when other Monty Mole is underground?</description>
         <bankreq>2=4</bankreq>
     </object>
 
@@ -3619,8 +3335,7 @@
 
             ==Misc. Info==
             ===VS Mode Practice Behaviours==
-            * On load: Freezes/Crashes
-        </description>
+            * On load: Freezes/Crashes</description>
         <bankreq>2=1</bankreq>
     </object>
 
@@ -3629,8 +3344,7 @@
         <name>Klepto the Condor</name>
         <internalname>JANGO</internalname>
         <actorid>239</actorid>
-        <description>A bird that tries to steal the player's hat. If the player is Yoshi, or has no hat, Klepto will try
-            to attack them.
+        <description>A bird that tries to steal the player's hat. If the player is Yoshi, or has no hat, Klepto will try to attack them.
 
             TODO: Work out parameters better
 
@@ -3650,8 +3364,7 @@
 
             ==Misc. Info==
             ===VS Mode Practice Behaviours==
-            * On load: Freezes/Crashes
-        </description>
+            * On load: Freezes/Crashes</description>
         <bankreq>0=1</bankreq>
     </object>
 
@@ -3699,9 +3412,7 @@
 
             ==Trivia==
             * Name is prefixed with OBJ because/despite...
-            * Name is MARIO_CAP despite it being used for other player's caps. Maybe leftover from earlier version or
-            N64 or not.
-        </description>
+            * Name is MARIO_CAP despite it being used for other player's caps. Maybe leftover from earlier version or N64 or not.</description>
         <bankreq>none</bankreq>
     </object>
 
@@ -3728,8 +3439,7 @@
         <name>Dorrie</name>
         <internalname>DOSSY</internalname>
         <actorid>168</actorid>
-        <description>A dinosaur in the Underground Lake of Hazy Maze Cave. It swims around, and can be &quot;piloted&quot;
-            like a boat.
+        <description>A dinosaur in the Underground Lake of Hazy Maze Cave. It swims around, and can be &quot;piloted&quot; like a boat.
 
             Parameter 1:
             XXYY
@@ -3737,8 +3447,7 @@
             YY:
             00 - Nothing
             01 - Wears big Wario cap (Used)
-            Above - Same as 00? (Used as FF)
-        </description>
+            Above - Same as 00? (Used as FF)</description>
         <bankreq>0=4</bankreq>
     </object>
 
@@ -3747,9 +3456,7 @@
         <name>Dorrie's Wario Cap</name>
         <internalname>DOSSY_CAP</internalname>
         <actorid>169</actorid>
-        <description>Most likely the Wario Cap that Dorrie wears, considering this object is named DOSSY_CAP, and Dorrie
-            is DOSSY.
-        </description>
+        <description>Most likely the Wario Cap that Dorrie wears, considering this object is named DOSSY_CAP, and Dorrie is DOSSY.</description>
         <bankreq>0=4</bankreq>
     </object>
 
@@ -3758,9 +3465,7 @@
         <name>Spindrift</name>
         <internalname>HUWAHUWA</internalname>
         <actorid>312</actorid>
-        <description>A flower-like enemy in Snowman's Land and Cool Cool Mountain. It tries to float into the player,
-            and it can also float on water.
-        </description>
+        <description>A flower-like enemy in Snowman's Land and Cool Cool Mountain. It tries to float into the player, and it can also float on water.</description>
         <bankreq>2=5</bankreq>
     </object>
 
@@ -3769,9 +3474,7 @@
         <name>JRB ship's sliding box</name>
         <internalname>SLIDE_BOX</internalname>
         <actorid>313</actorid>
-        <description>Box that slides on the Jolly Roger Bay ship (when it is afloat). Players can walk on it, but get
-            hurt if they touch it on any side.
-        </description>
+        <description>Box that slides on the Jolly Roger Bay ship (when it is afloat). Players can walk on it, but get hurt if they touch it on any side.</description>
         <bankreq>7=9</bankreq>
     </object>
 
@@ -3791,8 +3494,7 @@
             2 - Behave as in &quot;Can the Eel Come Out to Play?&quot;.
             F - Swim about following a path.
 
-            P - Path ID
-        </description>
+            P - Path ID</description>
         <bankreq>7=9</bankreq>
     </object>
 
@@ -3810,9 +3512,7 @@
         <name>Clam</name>
         <internalname>OBJ_SHELL</internalname>
         <actorid>315</actorid>
-        <description>A clam. It opens when the player gets close, but closes after 5 seconds. It can hurt the player
-            while it is closed.
-        </description>
+        <description>A clam. It opens when the player gets close, but closes after 5 seconds. It can hurt the player while it is closed.</description>
         <bankreq>0=3</bankreq>
     </object>
 
@@ -3850,8 +3550,7 @@
             Parameter 2:
             ZZZZ where
 
-            ZZZZ - Z rotation. Unsure of details.
-        </description>
+            ZZZZ - Z rotation. Unsure of details.</description>
         <bankreq>5=2</bankreq>
     </object>
 
@@ -3862,8 +3561,7 @@
         <actorid>319</actorid>
         <description>When KINOKO_TAG tells this to, it spawns a Super Mushroom.
             Param 1:
-            MMMM - Match this with M of KINOKO_TAG - you cannot match it with more than one.
-        </description>
+            MMMM - Match this with M of KINOKO_TAG - you cannot match it with more than one.</description>
         <bankreq>none</bankreq>
     </object>
 
@@ -3872,12 +3570,9 @@
         <name>Super Mushroom Tag</name>
         <internalname>KINOKO_TAG</internalname>
         <actorid>320</actorid>
-        <description>When you touch this while in the ground-pound &quot;state&quot;, it tells the linked [object=0267]
-            to spawn a Super Mushroom.
+        <description>When you touch this while in the ground-pound &quot;state&quot;, it tells the linked [object=0267] to spawn a Super Mushroom.
             Param 1:
-            MMMM - Match this with M of KINOKO_CREATE_TAG - you cannot match it with more than one, but you can have
-            more than one KINOKO_TAG in the same place.
-        </description>
+            MMMM - Match this with M of KINOKO_CREATE_TAG - you cannot match it with more than one, but you can have more than one KINOKO_TAG in the same place.</description>
         <bankreq>none</bankreq>
     </object>
 
@@ -3886,13 +3581,11 @@
         <name>Block 1-Up Mushroom Tag</name>
         <internalname>BLK_OKINOKO_TAG</internalname>
         <actorid>321</actorid>
-        <description>Spawns a 1UP Mushroom if its location is the same as that of a Brick Block or Big Brick Block when
-            the block is destroyed.
+        <description>Spawns a 1UP Mushroom if its location is the same as that of a Brick Block or Big Brick Block when the block is destroyed.
 
             ==Misc. Info==
             ===VS Mode Practice Behaviours==
-            * On use: does not function
-        </description>
+            * On use: does not function</description>
         <bankreq>none</bankreq>
     </object>
 
@@ -3901,12 +3594,10 @@
         <name>Block Super Mushroom Tag</name>
         <internalname>BLK_SKINOKO_TAG</internalname>
         <actorid>322</actorid>
-        <description>Spawns a Super Mushroom if its location is the same as that of a Brick Block or Big Brick Block
-            when the block is destroyed.
+        <description>Spawns a Super Mushroom if its location is the same as that of a Brick Block or Big Brick Block when the block is destroyed.
 
             Parameter 1:
-            7F
-        </description>
+            7F</description>
         <bankreq>none</bankreq>
     </object>
 
@@ -3915,9 +3606,7 @@
         <name>Block Green Shell Tag</name>
         <internalname>BLK_GNSHELL_TAG</internalname>
         <actorid>323</actorid>
-        <description>Spawns a Green Shell if its location is the same as that of a Brick Block or Big Brick Block when
-            the block is destroyed.
-        </description>
+        <description>Spawns a Green Shell if its location is the same as that of a Brick Block or Big Brick Block when the block is destroyed.</description>
         <bankreq>none</bankreq>
     </object>
 
@@ -3926,13 +3615,11 @@
         <name>Block Silver Star Tag</name>
         <internalname>BLK_SLVSTAR_TAG</internalname>
         <actorid>324</actorid>
-        <description>Spawns a Silver Star if its location is the same as that of a Brick Block or Big Brick Block when
-            the block is destroyed.
+        <description>Spawns a Silver Star if its location is the same as that of a Brick Block or Big Brick Block when the block is destroyed.
 
             ==Misc. Info==
             ===VS Mode Practice Behaviours==
-            * On load: Malfunction/Freeze/Crash
-        </description>
+            * On load: Malfunction/Freeze/Crash</description>
         <bankreq>none</bankreq>
     </object>
 
@@ -3950,8 +3637,7 @@
         <name>C1 Light Beam</name>
         <internalname>C1_HIKARI</internalname>
         <actorid>37</actorid>
-        <description>Warps to [31] ? Switch if you look at the top of it with the highest zoom level and 14 stars.
-        </description>
+        <description>Warps to [31] ? Switch if you look at the top of it with the highest zoom level and 14 stars.</description>
         <bankreq>7=3</bankreq>
     </object>
 
@@ -3970,9 +3656,7 @@
         <internalname>RC_CARPET</internalname>
         <actorid>130</actorid>
         <description>Flying Carpet from Rainbow Ride.
-            Parameter 1: First two digits should be 06, second to specify the path ID (zero-based index) the carpet is
-            to follow.
-        </description>
+            Parameter 1: First two digits should be 06, second to specify the path ID (zero-based index) the carpet is to follow.</description>
         <bankreq>7=29</bankreq>
     </object>
 
@@ -3989,8 +3673,7 @@
             2 - Mario Key
             3 - Luigi Key
             4 - Wario Key
-            5 - Big Star Key (Unused? - might be used internally, or be a side effect of how the keys work)
-        </description>
+            5 - Big Star Key (Unused? - might be used internally, or be a side effect of how the keys work)</description>
         <bankreq>4=1</bankreq>
     </object>
 
@@ -3999,14 +3682,9 @@
         <name>Last Star</name>
         <internalname>LAST_STAR</internalname>
         <actorid>283</actorid>
-        <description>Spawns a large star similar to the one awarded when Bowser is defeated for the final time. Touching
-            it gives the player wings, and upon landing, the player teleports to 0.000, 0.000, 0.000 and executes the
-            &quot;super triple jump&quot; animation, then flies around for a few seconds, finally triggering the ending.
-            Some parameters might yield a key from the first two fights.
+        <description>Spawns a large star similar to the one awarded when Bowser is defeated for the final time. Touching it gives the player wings, and upon landing, the player teleports to 0.000, 0.000, 0.000 and executes the &quot;super triple jump&quot; animation, then flies around for a few seconds, finally triggering the ending. Some parameters might yield a key from the first two fights.
 
-            Setting Parameter 1 to FFFF causes it to work the same as when Bowser is defeated and trigger the ending
-            sequence.
-        </description>
+            Setting Parameter 1 to FFFF causes it to work the same as when Bowser is defeated and trigger the ending sequence.</description>
         <bankreq>4=1</bankreq>
     </object>
 
@@ -4018,16 +3696,13 @@
         <description>TODO:
             Write the coordinates.
 
-            Boss in Shifting Sand Land - pyramid. It uses its hands to attack, and can be killed by hitting the eye on
-            each hand 3 times.
+            Boss in Shifting Sand Land - pyramid. It uses its hands to attack, and can be killed by hitting the eye on each hand 3 times.
 
             PARAM 1:
             XYYY
             X - Star ID
 
-            This object will only activate if you stand on it or the area around it in specific coordinates in Shifting
-            Sand Land's Pyramid, and nowhere else.
-        </description>
+            This object will only activate if you stand on it or the area around it in specific coordinates in Shifting Sand Land's Pyramid, and nowhere else.</description>
         <bankreq>0=5</bankreq>
     </object>
 
@@ -4036,12 +3711,10 @@
         <name>Wiggler</name>
         <internalname>HANACHAN</internalname>
         <actorid>248</actorid>
-        <description>A caterpillar that tries to run over the player. When defeated, a Power Star appears, and Wiggler
-            falls.
+        <description>A caterpillar that tries to run over the player. When defeated, a Power Star appears, and Wiggler falls.
 
             Parameter 1:
-            FF0X Star ID
-        </description>
+            FF0X Star ID</description>
         <bankreq>7=27</bankreq>
     </object>
 
@@ -4050,9 +3723,7 @@
         <name>Koopa the Quick</name>
         <internalname>RACE_NOKO</internalname>
         <actorid>188</actorid>
-        <description>A large Koopa that challenges the player to several races. He will follow the path ID stopping at
-            the last node. He respects gravity, has collision detection, will jump at the edge of cliffs and can make it
-            across small gaps. There must be a &quot;Koopa Flag&quot; in the level, or he will freeze when talked to.
+        <description>A large Koopa that challenges the player to several races. He will follow the path ID stopping at the last node. He respects gravity, has collision detection, will jump at the edge of cliffs and can make it across small gaps. There must be a &quot;Koopa Flag&quot; in the level, or he will freeze when talked to.
 
             Uses different message IDs if used in Tiny-Huge Island - huge (map ID 24)
 
@@ -4073,8 +3744,7 @@
 
             ==Misc. Info==
             ===VS Mode Practice Behaviours==
-            * On load: Freezes/Crashes
-        </description>
+            * On load: Freezes/Crashes</description>
         <bankreq>0=1</bankreq>
     </object>
 
@@ -4087,8 +3757,7 @@
 
             ==Misc. Info==
             ===VS Mode Practice Behaviours==
-            * On load: Freezes/Crashes
-        </description>
+            * On load: Freezes/Crashes</description>
         <bankreq>0=1</bankreq>
     </object>
 
@@ -4115,8 +3784,7 @@
             0 - Three coins
             1 - Power Star. Requires matching Star Marker.
 
-            S - Star ID. For an empty block, set this to an invalid value (so a star icon doesn't appear on the minimap)
-            and have no matching Star Marker.
+            S - Star ID. For an empty block, set this to an invalid value (so a star icon doesn't appear on the minimap) and have no matching Star Marker.
 
 
             Param 2:
@@ -4125,8 +3793,7 @@
             XXXX: Extra sound when broken?
             0000 - None
             0001 - &quot;Small secret found&quot;
-            0002+ - Same as 0001?
-        </description>
+            0002+ - Same as 0001?</description>
         <bankreq>none</bankreq>
     </object>
 
@@ -4136,9 +3803,7 @@
         <internalname>ICE_BLOCK_LL</internalname>
         <actorid>18</actorid>
         <description>Meltable by Yoshi's fire breath and smashable by giant players.
-            If you put a Power Star inside it (by literally placing it inside it), the &quot;Power Star appear&quot;
-            cutscene will play when the block is melted. No parameters are needed for this.
-        </description>
+            If you put a Power Star inside it (by literally placing it inside it), the &quot;Power Star appear&quot; cutscene will play when the block is melted. No parameters are needed for this.</description>
         <bankreq>2=5</bankreq>
     </object>
 
@@ -4190,8 +3855,7 @@
             Parameter 1:
             XXYY
             XX - Nothing?
-            YY - Star ID
-        </description>
+            YY - Star ID</description>
         <bankreq>7=20</bankreq>
     </object>
 
@@ -4214,15 +3878,13 @@
             Parameter 1:
             XXYY where:
 
-            XX - The Star ID, for the first chests this is FF, for the final chest this should be the Star ID and match
-            the Star ID of a Star Marker
+            XX - The Star ID, for the first chests this is FF, for the final chest this should be the Star ID and match the Star ID of a Star Marker
             YY - The order of the current chest.
 
             * Files:
             ** /data/normal_obj/t_box
             *** t_box.bmd
-            *** t_box_open.bca
-        </description>
+            *** t_box_open.bca</description>
         <bankreq>0=3</bankreq>
     </object>
 
@@ -4276,8 +3938,7 @@
         <name>CG Flag</name>
         <internalname>MC_FLAG</internalname>
         <actorid>342</actorid>
-        <description>A red and white flag, like the ones present on Peach's castle's roof. Purely decorative object.
-        </description>
+        <description>A red and white flag, like the ones present on Peach's castle's roof. Purely decorative object.</description>
         <bankreq>7=2</bankreq>
     </object>
 
@@ -4292,14 +3953,12 @@
             XXTT where
 
             TT: Type
-            00 - Smashes the ground occasionally, but unlike Thwomps it only &quot;stops at the top&quot; when it
-            touches a ceiling.
-            01 - Moves back and forth in a line by jumping.
+            00 -  Smashes the ground occasionally, but unlike Thwomps it only &quot;stops at the top&quot; when it touches a ceiling.
+            01 -  Moves back and forth in a line by jumping.
             (01+ - Appears to alternate between previous values)
 
             ==Other Requirements==
-            * Must be in &quot;Shifting Sand Land - pyramid&quot; map
-        </description>
+            * Must be in &quot;Shifting Sand Land - pyramid&quot; map</description>
         <bankreq>7=18</bankreq>
     </object>
 
@@ -4308,10 +3967,7 @@
         <name>Spindel</name>
         <internalname>DONGURU</internalname>
         <actorid>163</actorid>
-        <description>A round, mummified Thwomp that rolls back and forth trying to roll over the player. Nintendo places
-            it 0.175 above the floor. When spawned it rolls forward, pauses, rolls back, pauses and so on. It ignores
-            all collisions and rotation and has no apparent parameters.
-        </description>
+        <description>A round, mummified Thwomp that rolls back and forth trying to roll over the player. Nintendo places it 0.175 above the floor. When spawned it rolls forward, pauses, rolls back, pauses and so on. It ignores all collisions and rotation and has no apparent parameters.</description>
         <bankreq>7=18</bankreq>
     </object>
 
@@ -4320,15 +3976,11 @@
         <name>Chuckya</name>
         <internalname>HOLHEI</internalname>
         <actorid>190</actorid>
-        <description>A large purple enemy that tries to grab the player and throw them. It can also be grabbed and
-            thrown. If grabbed underwater, the player can carry it like a green Koopa Shell. However, after a few
-            seconds, the Chuckya will automatically &quot;throw&quot; itself and die. The player can also throw it
-            underwater.
+        <description>A large purple enemy that tries to grab the player and throw them. It can also be grabbed and thrown. If grabbed underwater, the player can carry it like a green Koopa Shell. However, after a few seconds, the Chuckya will automatically &quot;throw&quot; itself and die. The player can also throw it underwater.
 
             ==Misc. Info==
             ===VS Mode Practice Behaviours==
-            * On load: Freezes/Crashes
-        </description>
+            * On load: Freezes/Crashes</description>
         <bankreq>0=1</bankreq>
     </object>
 
@@ -4337,38 +3989,28 @@
         <name>Super Mushroom</name>
         <internalname>SCALEUP_KINOKO</internalname>
         <actorid>277</actorid>
-        <description>A mushroom that makes the player huge, stomping everything in their way. If the player is huge and
-            falls into water, the player acts as if they were Metal Wario. It looks glitchy if another player stomps on
-            a huge player. If a mushroom is to be spawned from a tree, Nintendo places the &quot;create tag&quot;
-            mushroom 0.2 y points above the &quot;tag&quot; mushroom.
+        <description>A mushroom that makes the player huge, stomping everything in their way. If the player is huge and falls into water, the player acts as if they were Metal Wario. It looks glitchy if another player stomps on a huge player. If a mushroom is to be spawned from a tree, Nintendo places the &quot;create tag&quot; mushroom 0.2 y points above the &quot;tag&quot; mushroom.
 
             TODO: figure out parameters
 
             Parameter 1:
             0000 - Like spawned from block (springs out, trundles around slowly and eventually disappears)
             0001 - Trundles around, trying to avoid player.
-            0015 - Spawns when one Mushroom with Parameter 1 set to F6 is triggered. Mushroom flies towards the player,
-            going through all obstacles.
+            0015 - Spawns when one Mushroom with Parameter 1 set to F6 is triggered. Mushroom flies towards the player, going through all obstacles.
             0017 - Spawns when one Mushroom with Parameter 1 set to F8 is triggered.
-            0045 - Spawns when four Mushrooms with Parameter 1 set to F6 are triggered. Mushroom trundles around, trying
-            to avoid player and eventually disappears.
-            0085 - Spawns when eight Mushrooms with Parameter 1 set to FB are triggered. Mushroom trundles around,
-            trying to avoid player and eventually disappears.
+            0045 - Spawns when four Mushrooms with Parameter 1 set to F6 are triggered. Mushroom trundles around, trying to avoid player and eventually disappears.
+            0085 - Spawns when eight Mushrooms with Parameter 1 set to FB are triggered. Mushroom trundles around, trying to avoid player and eventually disappears.
             00F1 - Not there?
-            00F2 - Still, until approached; then it starts trundling back and forth very quickly, eventually
-            disappering.
+            00F2 - Still, until approached; then it starts trundling back and forth very quickly, eventually disappering.
             00F3 - Still
             00F4 - Mushroom jumps when approached
-            00F6 - Invisible tag for one Mushroom with Parameter 1 set to 0045 or 0015. If you have too many triggers it
-            won't work.
+            00F6 - Invisible tag for one Mushroom with Parameter 1 set to 0045 or 0015. If you have too many triggers it won't work.
             00F8 - Invisible tag for one Mushroom with Parameter 1 set to 0017. See 0017 for more info.
-            00FB - Invisible tag for one Mushroom with Parameter 1 set to 0085. See 0085 for more info. Appears and acts
-            like a coin.
+            00FB - Invisible tag for one Mushroom with Parameter 1 set to 0085. See 0085 for more info. Appears and acts like a coin.
 
             * Files:
             ** /data/normal_obj/scale_up_kinoko
-            *** scale_up_kinoko.bmd
-        </description>
+            *** scale_up_kinoko.bmd</description>
         <bankreq>none</bankreq>
     </object>
 
@@ -4394,8 +4036,7 @@
             There should be a Star Marker with parameters 2 followed by Star ID eg. 25 for Star 5.
 
             ==Misc. Info==
-            * It is called SECRET_COIN because it it often put in the same place as coins.
-        </description>
+            * It is called SECRET_COIN because it it often put in the same place as coins.</description>
         <bankreq>none</bankreq>
     </object>
 
@@ -4417,8 +4058,7 @@
 
             X - Unknown, 0
 
-            M - Match this with the M of the Blue Coins you want to trigger. Using the same number with multiple
-            switches won't work.
+            M - Match this with the M of the Blue Coins you want to trigger. Using the same number with multiple switches won't work.
 
             ==Misc. Info==
             ===Files===
@@ -4427,8 +4067,7 @@
             *** b_coin_switch.kcl
 
             ===VS Mode Practice Behaviours==
-            * On use: only plays &quot;running out of time&quot; ticking sound part, not the main part
-        </description>
+            * On use: only plays &quot;running out of time&quot; ticking sound part, not the main part</description>
         <bankreq>none</bankreq>
     </object>
 
@@ -4437,11 +4076,9 @@
         <name>Red Coin number</name>
         <internalname>OBJ_NUMBER</internalname>
         <actorid>330</actorid>
-        <description>Shows a number that quickly disappears, just like the numbers that appear when collecting red
-            coins.
+        <description>Shows a number that quickly disappears, just like the numbers that appear when collecting red coins.
 
-            Alone, not a really useful object.
-        </description>
+            Alone, not a really useful object.</description>
         <bankreq>none</bankreq>
         <param n='0'>
             <name>Digit</name>
@@ -4476,9 +4113,7 @@
         <name>CCM Shortcut Manager</name>
         <internalname>SLIDER_MANAGER</internalname>
         <actorid>356</actorid>
-        <description>In the Cool, Cool Mountain penguin slide, detects when the player takes the shortcut. Plays the
-            'secret found' sound effect, but, during races, also tells the racing penguin that the player is cheating.
-        </description>
+        <description>In the Cool, Cool Mountain penguin slide, detects when the player takes the shortcut. Plays the 'secret found' sound effect, but, during races, also tells the racing penguin that the player is cheating.</description>
         <bankreq>7=12</bankreq>
     </object>
 
@@ -4514,8 +4149,7 @@
 
             ==Misc. Info==
             ===VS Mode Practice Behaviours==
-            * On load: Freezes/Crashes
-        </description>
+            * On load: Freezes/Crashes</description>
         <bankreq>3=1</bankreq>
     </object>
 
@@ -4528,8 +4162,7 @@
 
             ==Misc. Info==
             ===VS Mode Practice Behaviours==
-            * On load: Freezes/Crashes
-        </description>
+            * On load: Freezes/Crashes</description>
         <bankreq>3=1</bankreq>
     </object>
 
@@ -4542,8 +4175,7 @@
 
             ==Misc. Info==
             ===VS Mode Practice Behaviours==
-            * On load: Freezes/Crashes
-        </description>
+            * On load: Freezes/Crashes</description>
         <bankreq>3=1</bankreq>
     </object>
 
@@ -4552,8 +4184,7 @@
         <name>Enemy Switch Tag</name>
         <internalname>ENEMY_SWITCH</internalname>
         <actorid>357</actorid>
-        <description>Makes ENEMY_CREATE function when player steps in the area it defines. Uses Y rotation as the height
-            of its cylinder collider.
+        <description>Makes ENEMY_CREATE function when player steps in the area it defines. Uses Y rotation as the height of its cylinder collider.
 
             Parameter 1:
             XY where:
@@ -4565,8 +4196,7 @@
             Size of area, default 1.
 
             Parameter 3:
-            Spawn delay, in frames, 0 is the default, FFFF.
-        </description>
+            Spawn delay, in frames, 0 is the default, FFFF.</description>
         <bankreq>none</bankreq>
     </object>
 
@@ -4575,8 +4205,7 @@
         <name>Enemy Spawner</name>
         <internalname>ENEMY_CREATE</internalname>
         <actorid>358</actorid>
-        <description>Spawns Bob-ombs when player steps into an ENEMY_SWITCH. Bob-ombs do not have to be in the loaded
-            level overlays.
+        <description>Spawns Bob-ombs when player steps into an ENEMY_SWITCH. Bob-ombs do not have to be in the loaded level overlays.
 
             Parameter 1:
             Unknown, FFC0
@@ -4588,8 +4217,7 @@
             XXY where:
 
             XX - Unknown, 3E
-            Y - Event ID of corresponding ENEMY_SWITCH
-        </description>
+            Y - Event ID of corresponding ENEMY_SWITCH</description>
         <bankreq>none</bankreq>
     </object>
 
@@ -4625,14 +4253,12 @@
         <name>SSL Tornado</name>
         <internalname>TORNADO</internalname>
         <actorid>308</actorid>
-        <description>Will appear when the player is a certain distance from it, or closer. Respawns a few seconds after
-            disappearing.
+        <description>Will appear when the player is a certain distance from it, or closer. Respawns a few seconds after disappearing.
 
             TODO: Work out parameters
 
             Parameter 1:
-            FFXX Seems to always be FF14
-        </description>
+            FFXX Seems to always be FF14</description>
         <bankreq>5=3</bankreq>
     </object>
 
@@ -4641,12 +4267,9 @@
         <name>Fire Ring</name>
         <internalname>FIRERING</internalname>
         <actorid>281</actorid>
-        <description>Possibly a fire ring. This object's actor code is contained in an overlay that isn't loaded via the
-            regular system. Possibly, it is loaded and used as a sub-object by another object, and isn't meant to be
-            used alone.
+        <description>Possibly a fire ring. This object's actor code is contained in an overlay that isn't loaded via the regular system. Possibly, it is loaded and used as a sub-object by another object, and isn't meant to be used alone.
 
-            [b]Do not use, for it will crash the game.[/b]
-        </description>
+            [b]Do not use, for it will crash the game.[/b]</description>
         <bankreq>none</bankreq>
     </object>
 
@@ -4676,8 +4299,7 @@
             5 - Bird with waterfall
             6 - Loud waterfall
             7 - Nothing (Unused?)
-            8 - Waterfall on right speaker
-        </description>
+            8 - Waterfall on right speaker</description>
         <bankreq>none</bankreq>
     </object>
 
@@ -4688,8 +4310,7 @@
         <actorid>351</actorid>
         <description>Changes background music. Need proper combination of current level music and a correct param
             to switch properly.
-            For instance: Jolly Roger Bay's music + Param 1: 71 = Jolly Roger Overworld music
-        </description>
+            For instance: Jolly Roger Bay's music + Param 1: 71 = Jolly Roger Overworld music</description>
         <bankreq>none</bankreq>
     </object>
 
@@ -4722,8 +4343,7 @@
 
             ==Misc. Info==
             ===VS Mode Practice Behaviours==
-            * On load: no sound (testing 0 and 4)?
-        </description>
+            * On load: no sound (testing 0 and 4)?</description>
         <bankreq>none</bankreq>
     </object>
 
@@ -4736,5 +4356,1093 @@
         <bankreq>none</bankreq>
     </object>
 
-</database>
+    <object id='512'>
+        <category>1</category>
+        <name>Galaxy Shrinking Platform</name>
+        <internalname>@CUSTOM%MG/000_galaxyShrinkPlatformFrame.bmd</internalname>
+        <actorid>512</actorid>
+        <description>A platform that shrinks when the player lands on it, but respawns after the player is a certain range away.
 
+            Created by: Gota7</description>
+        <bankreq>none</bankreq>
+    </object>
+
+    <object id='513'>
+        <category>1</category>
+        <name>Silver Coin</name>
+        <internalname>@CUSTOM%MG/003_silverCoin.bmd</internalname>
+        <actorid>513</actorid>
+        <description>Acts just like a stationary coin, except that it does not increment the player's health. There are no parameters, unlike a coin.
+
+            Created by: Gota7</description>
+        <bankreq>none</bankreq>
+    </object>
+
+    <object id='514'>
+        <category>1</category>
+        <name>Invisible Wall</name>
+        <internalname>@CUSTOM%MG/004_invisibleWall.bmd</internalname>
+        <actorid>514</actorid>
+        <description>An invisible wall useful for door spaces.
+
+            Created by: Gota7</description>
+        <bankreq>none</bankreq>
+    </object>
+
+    <object id='515'>
+        <category>1</category>
+        <name>Berry</name>
+        <internalname>@CUSTOM%MG/007_berryStem.bmd</internalname>
+        <actorid>515</actorid>
+        <description>A berry that Yoshi can eat and gain coins from after a certain amount.
+            Parameter 1:
+            CCCC
+
+            CCCC - Color in RGB555.
+
+            Created by: Josh65536
+            Ported by: Gota7
+        </description>
+        <bankreq>none</bankreq>
+    </object>
+
+    <object id='516'>
+        <category>1</category>
+        <name>Rideable Yoshi</name>
+        <internalname>@CUSTOM%data/player/yoshi_model.bmd</internalname>
+        <actorid>516</actorid>
+        <description>A yoshi that the player can ride (not yoshi).
+
+            Created by: Josh65536
+            Ported by: Gota7</description>
+        <bankreq>none</bankreq>
+    </object>
+
+    <object id='517'>
+        <category>1</category>
+        <name>Object Lighting Modifier</name>
+        <internalname>OBJECT_LIGHTING_MODIFIER</internalname>
+        <actorid>517</actorid>
+        <description>Changes the lighting of objects in the stage.
+
+            Parameter 1:
+            IIRR
+
+            Parameter 2:
+            GGBB
+
+            I - Light ID (0 if unsure)
+            R - Red Component
+            G - Green Component
+            B - Blue Component
+
+            Created by: Gota7
+        </description>
+        <bankreq>none</bankreq>
+    </object>
+
+    <object id='518'>
+        <category>1</category>
+        <name>2D Level</name>
+        <internalname>2D_LEVEL</internalname>
+        <actorid>518</actorid>
+        <description>Makes the level 2D.
+
+            Parameter 1:
+            ZZZZ
+
+            Parameter 2:
+            FFFF
+
+            Parameter 3:
+            DDDD:
+
+            Z - Distance in hex FXU * 10000 (2400 if 0).
+            F - FOV (30 if 0).
+            D - Direction (0 for camera in positive Z, 1 for camera in negative Z).
+
+            Created by: Pants64
+        </description>
+        <bankreq>none</bankreq>
+    </object>
+
+    <object id='519'>
+        <category>1</category>
+        <name>2D Camera Limiter</name>
+        <internalname>CAMERA_LIMITER</internalname>
+        <actorid>519</actorid>
+        <description>Limits the bounds of the camera (for 2D levels).
+
+            Parameter 1:
+            XXXT
+
+            T - 0 for upper bound, 1 for lower bound, 2 for left bound, 3 for right bound.
+
+            Created by: Gota7
+        </description>
+        <bankreq>none</bankreq>
+    </object>
+
+    <object id='520'>
+        <category>1</category>
+        <name>Small Colored Goomba</name>
+        <internalname>@CUSTOM%MG/009_coloredGoomba.bmd</internalname>
+        <actorid>520</actorid>
+        <description>A goomba that has different colors and behaviors.
+
+            Parameter 1:
+            TWEC
+
+            T: Goomba type.
+            0 - Jump (Red)
+            1 - Jump And Spin (Green)
+            2 - Double Damage (Yellow)
+            3 - Speed (Blue)
+            4 - Fire And Spin (Orange)
+            5 - Insta Kill (Purple)
+            6+ - Normal (Brown)
+
+            W: Determines [w]hen the cap should be spawned
+            0, F - Never
+            1 - If the character already unlocked
+            2 - Even if character not unlocked
+
+            E: Extra contents
+            0, 2+ - None
+            1 - A Silver Star.
+
+            C: Cap to spawn.
+            0 - Mario
+            1 - Luigi
+            2 - Wario
+            F - None
+
+            Created by: Josh65536
+            Ported by: Gota7
+            Modified by: Splatterboy
+        </description>
+        <bankreq>none</bankreq>
+    </object>
+
+    <object id='521'>
+        <category>1</category>
+        <name>Colored Goomba</name>
+        <internalname>@CUSTOM%MG/009_coloredGoomba.bmd</internalname>
+        <actorid>521</actorid>
+        <description>A goomba that has different colors and behaviors.
+
+            Parameter 1:
+            TWEC
+
+            T: Goomba type.
+            0 - Jump (Red)
+            1 - Jump And Spin (Green)
+            2 - Double Damage (Yellow)
+            3 - Speed (Blue)
+            4 - Fire And Spin (Orange)
+            5 - Insta Kill (Purple)
+            6+ - Normal (Brown)
+
+            W: Determines [w]hen the cap should be spawned
+            0, F - Never
+            1 - If the character already unlocked
+            2 - Even if character not unlocked
+
+            E: Extra contents
+            0, 2+ - None
+            1 - A Silver Star.
+
+            C: Cap to spawn.
+            0 - Mario
+            1 - Luigi
+            2 - Wario
+            F - None
+
+            Created by: Josh65536
+            Ported by: Gota7
+            Modified by: Splatterboy
+        </description>
+        <bankreq>none</bankreq>
+    </object>
+
+    <object id='522'>
+        <category>1</category>
+        <name>Large Colored Goomba</name>
+        <internalname>@CUSTOM%MG/009_coloredGoomba.bmd</internalname>
+        <actorid>522</actorid>
+        <description>A goomba that has different colors and behaviors.
+
+            Parameter 1:
+            TWEC
+
+            T: Goomba type.
+            0 - Jump (Red)
+            1 - Jump And Spin (Green)
+            2 - Double Damage (Yellow)
+            3 - Speed (Blue)
+            4 - Fire And Spin (Orange)
+            5 - Insta Kill (Purple)
+            6+ - Normal (Brown)
+
+            W: Determines [w]hen the cap should be spawned
+            0, F - Never
+            1 - If the character already unlocked
+            2 - Even if character not unlocked
+
+            E: Extra contents
+            0, 2+ - None
+            1 - A Silver Star.
+
+            C: Cap to spawn.
+            0 - Mario
+            1 - Luigi
+            2 - Wario
+            F - None
+
+            Created by: Josh65536
+            Ported by: Gota7
+            Modified by: Splatterboy
+        </description>
+        <bankreq>none</bankreq>
+    </object>
+
+    <object id='523'>
+        <category>1</category>
+        <name>Toxic Level</name>
+        <internalname>TOXIC_LEVEL</internalname>
+        <actorid>523</actorid>
+        <description>Make the entire level toxic.
+
+            Parameter 1:
+            RRRR
+
+            R - Number of frames to let pass before hurting the player.
+
+            Created by: Gota7
+        </description>
+        <bankreq>none</bankreq>
+    </object>
+
+    <object id='524'>
+        <category>1</category>
+        <name>Noteblock</name>
+        <internalname>@CUSTOM%MG/011_noteBlock.bmd</internalname>
+        <actorid>524</actorid>
+        <description>Noteblock that bounces the player up when they jump.
+
+            Parameter 1:
+            VVVV
+
+            V - Velocity to launch the player at.
+
+            Created by: Gota7
+        </description>
+        <bankreq>none</bankreq>
+    </object>
+
+    <object id='525'>
+        <category>1</category>
+        <name>Shy Guy</name>
+        <internalname>@CUSTOM%MG/013_shyGuy.bmd</internalname>
+        <actorid>525</actorid>
+        <description>The shy guy enemy from SMB2, but in 3d.
+
+            Parameter 1:
+            PPPP
+
+            Parameter 2:
+            XXTF
+
+            Parameter 3:
+            XBBBBBGGGGGRRRRR (bits)
+
+            P: Path ID
+            FFFF - None (Blue)
+            Other - Follow Path (Red)
+
+            F: Behavior Along Path
+            0 - Normal
+            1 - Back And Forth
+
+            T: Has Custom Color?
+            0 - No
+            1 - Yes
+
+            B,G,R: Color
+
+            Created by: Josh65536
+            Ported by: Gota7
+            Modified by: Splatterboy
+        </description>
+        <bankreq>none</bankreq>
+    </object>
+
+    <object id='526'>
+        <category>1</category>
+        <name>Launch Star</name>
+        <internalname>@CUSTOM%MG/018_lstar.bmd</internalname>
+        <actorid>526</actorid>
+        <description>Launch star from Mario Galaxy.
+
+            Parameter 1:
+            EEPP
+
+            Parameter 2:
+            SSSS
+
+            Parameter 3:
+            XXXH
+
+            E: Event ID
+            P: Path ID
+            S: Launch Speed
+            H: Looks Up (0: no, 1: yes)
+
+            Created by: Josh65536
+            Ported by: Gota7
+            RE help by: Overblade
+        </description>
+        <bankreq>none</bankreq>
+    </object>
+
+    <object id='527'>
+        <category>1</category>
+        <name>Kamek Shot</name>
+        <internalname>KAMEK_SHOT</internalname>
+        <actorid>527</actorid>
+        <description>Shot Kamek and Kamella fire.
+            Do not place this in a level!
+
+            Parameter 1:
+            IIII
+
+            Parameter 2:
+            XXXX
+
+            Parameter 3:
+            ZZZZ
+
+            I: Unique ID
+            X: X Angle
+            Z: Z Angle
+
+            Created by: Josh65536
+            Ported by: Gota7
+            Modified by: Splatterboy
+            Assets by: Splatterboy
+        </description>
+        <bankreq>none</bankreq>
+    </object>
+
+    <object id='528'>
+        <category>1</category>
+        <name>Magikoopa</name>
+        <internalname>@CUSTOM%MG/021_magikoopa.bmd</internalname>
+        <actorid>528</actorid>
+        <description>A magikoopa that teleports and fires magic at you.
+            NOTE: if a magikoopa spawns an object, make sure there is at least one unkilled copy of the object a shot will spawn.
+
+            Parameter 1:
+            EEPP
+
+            Parameter 2:
+            OOOO
+
+            Parameter 3:
+            XXXX
+
+            E: Event To Trigger
+            P: Path ID
+            O: Actor ID To Spawn From Shot
+            X: Spawned Object Parameters
+
+            Created by: Josh65536
+            Ported by: Gota7
+            Modified by: Splatterboy
+        </description>
+        <bankreq>none</bankreq>
+    </object>
+
+    <object id='529'>
+        <category>1</category>
+        <name>Kamella</name>
+        <internalname>@CUSTOM%MG/022_kamella.bmd</internalname>
+        <actorid>529</actorid>
+        <description>A boss magikoopa.
+            NOTE: if a magikoopa spawns an object, make sure there is at least one unkilled copy of the object a shot will spawn.
+
+            Parameter 1:
+            EEPP
+
+            Parameter 2:
+            SOOO
+
+            Parameter 3:
+            XXXX
+
+            E: Event To Trigger
+            P: Path ID
+            S: Star ID
+            O: Actor ID To Spawn From Shot
+            X: Spawned Object Parameters
+
+            Created by: Josh65536
+            Ported by: Gota7
+            Modified by: Splatterboy
+        </description>
+        <bankreq>none</bankreq>
+    </object>
+
+    <object id='530'>
+        <category>1</category>
+        <name>Skybox Rotator</name>
+        <internalname>SKYBOX_ROTATOR</internalname>
+        <actorid>530</actorid>
+        <description>Rotate the skybox.
+
+            Parameter 1:
+            XXXX
+
+            Parameter 2:
+            YYYY
+
+            Parameter 3:
+            ZZZZ
+
+            X: Speed to move along X axis.
+            Y: Speed to move along Y axis.
+            Z: Speed to move along Z axis.
+
+            Created by: Gota7 and Pants64
+        </description>
+        <bankreq>none</bankreq>
+    </object>
+
+    <object id='531'>
+        <category>1</category>
+        <name>Falling Icicle</name>
+        <internalname>@CUSTOM%MG/032_icicle.bmd</internalname>
+        <actorid>531</actorid>
+        <description>An icicle that falls and can hurt the player.
+
+            Created by: Gota7
+        </description>
+        <bankreq>none</bankreq>
+    </object>
+
+    <object id='532'>
+        <category>1</category>
+        <name>Gravity Modifier</name>
+        <internalname>GRAVITY_MODIFIER</internalname>
+        <actorid>532</actorid>
+        <description>Change gravity!
+
+            Parameter 1:
+            MMMM
+
+            Parameter 2:
+            FFDD
+
+            Parameter 3:
+            BBSS
+
+            M: Gravity Multiplier (0x1000 Is Game's Default)
+
+            F: What To Multiply Fall Damage Values By (0x10 Raised To Value Power)
+
+            D: Direction Of Gravity
+            0 - Downwards
+            1 - Upwards (REALLY GLITCHY!)
+
+            B: Fall Damage Big (Times Multiplier, 0xBB8000 Default)
+            0 - Normal
+            Other - Value Times Multiplier
+            FF - None
+
+            S: Fall Damage Small (Times Multiplier, 0x47E000 Default)
+            0 - Normal
+            Other - Value Times Multiplier
+            FF - None
+
+            Created by: Pants64
+            Ported by: Gota7
+        </description>
+        <bankreq>none</bankreq>
+    </object>
+
+    <object id='533'>
+        <category>1</category>
+        <name>Small Colored Goomba 2</name>
+        <internalname>@CUSTOM%MG/009_coloredGoomba.bmd</internalname>
+        <actorid>533</actorid>
+        <description>A goomba that has different colors and behaviors.
+
+            Parameter 1:
+            TWEC
+
+            T: Goomba type.
+            0 - Jump (Red)
+            1 - Jump And Spin (Green)
+            2 - Double Damage (Yellow)
+            3 - Speed (Blue)
+            4 - Fire And Spin (Orange)
+            5 - Insta Kill (Purple)
+            6+ - Normal (Brown)
+
+            W: Determines [w]hen the cap should be spawned
+            0, F - Never
+            1 - If the character already unlocked
+            2 - Even if character not unlocked
+
+            E: Extra contents
+            0, 2+ - None
+            1 - A Silver Star.
+
+            C: Cap to spawn.
+            0 - Mario
+            1 - Luigi
+            2 - Wario
+            F - None
+
+            Created by: Josh65536
+            Ported by: Gota7
+            Modified by: Splatterboy
+        </description>
+        <bankreq>none</bankreq>
+    </object>
+
+    <object id='534'>
+        <category>1</category>
+        <name>Colored Goomba 2</name>
+        <internalname>@CUSTOM%MG/009_coloredGoomba.bmd</internalname>
+        <actorid>534</actorid>
+        <description>A goomba that has different colors and behaviors.
+
+            Parameter 1:
+            TWEC
+
+            T: Goomba type.
+            0 - Jump (Red)
+            1 - Jump And Spin (Green)
+            2 - Double Damage (Yellow)
+            3 - Speed (Blue)
+            4 - Fire And Spin (Orange)
+            5 - Insta Kill (Purple)
+            6+ - Normal (Brown)
+
+            W: Determines [w]hen the cap should be spawned
+            0, F - Never
+            1 - If the character already unlocked
+            2 - Even if character not unlocked
+
+            E: Extra contents
+            0, 2+ - None
+            1 - A Silver Star.
+
+            C: Cap to spawn.
+            0 - Mario
+            1 - Luigi
+            2 - Wario
+            F - None
+
+            Created by: Josh65536
+            Ported by: Gota7
+            Modified by: Splatterboy
+        </description>
+        <bankreq>none</bankreq>
+    </object>
+
+    <object id='535'>
+        <category>1</category>
+        <name>Large Colored Goomba 2</name>
+        <internalname>@CUSTOM%MG/009_coloredGoomba.bmd</internalname>
+        <actorid>535</actorid>
+        <description>A goomba that has different colors and behaviors.
+
+            Parameter 1:
+            TWEC
+
+            T: Goomba type.
+            0 - Jump (Red)
+            1 - Jump And Spin (Green)
+            2 - Double Damage (Yellow)
+            3 - Speed (Blue)
+            4 - Fire And Spin (Orange)
+            5 - Insta Kill (Purple)
+            6+ - Normal (Brown)
+
+            W: Determines [w]hen the cap should be spawned
+            0, F - Never
+            1 - If the character already unlocked
+            2 - Even if character not unlocked
+
+            E: Extra contents
+            0, 2+ - None
+            1 - A Silver Star.
+
+            C: Cap to spawn.
+            0 - Mario
+            1 - Luigi
+            2 - Wario
+            F - None
+
+            Created by: Josh65536
+            Ported by: Gota7
+            Modified by: Splatterboy
+        </description>
+        <bankreq>none</bankreq>
+    </object>
+
+    <object id='536'>
+        <category>1</category>
+        <name>Yoshi NPC</name>
+        <internalname>@CUSTOM%MG/033_yoshiNPC.bmd</internalname>
+        <actorid>536</actorid>
+        <description>A Yoshi that stands around and can talk to the player.
+            Note: Power Star only spawns after the event is triggered (unless the event is set to F)
+
+            Parameter 1: SMMM
+
+            S: Star ID (F = no star)
+            M: Message ID of initial message
+
+            Parameter 2: EMMM
+
+            E: Event ID (F = no event)
+            M: Message ID of final message
+
+            Parameter 3: TBBBBBGGGGGRRRRR (bits)
+
+            T: 1 if this Yoshi should talk
+            B,G,R: Color
+
+            Created by: Josh65536
+            Ported by: Splatterboy
+        </description>
+        <bankreq>none</bankreq>
+    </object>
+
+    <object id='537'>
+        <category>1</category>
+        <name>Colored Warp Pipe</name>
+        <internalname>@CUSTOM%MG/035_coloredPipe.bmd</internalname>
+        <actorid>537</actorid>
+        <description>The good old Warp Pipe with a customizable color.
+            Does nothing if placed alone. For it to act as an entrance or an exit, the corresponding objects must be placed inside it.
+
+            NOTE: using a warp with X rotation 0 will NOT play the Warp Pipe sound effect, use 359,995 instead.
+
+            Parameter 1:
+            XBBBBBGGGGGRRRRR (bits)
+
+            Parameter 2:
+            YYYY
+
+            Parameter 3:
+            ZZZZ
+
+            B,G,R: Color
+
+            Y: X Rotation
+
+            Z: Z Rotation
+
+            Created by: Splatterboy
+        </description>
+        <bankreq>none</bankreq>
+    </object>
+
+    <object id='538'>
+        <category>1</category>
+        <name>Character Block</name>
+        <internalname>@CUSTOM%MG/037_characterBlockMario.bmd</internalname>
+        <actorid>538</actorid>
+        <description>Permanently switches character without having to go to the character door or having to use caps.
+
+            Parameter 1:
+            XSOC
+
+            C: Character ID
+            0 - Mario
+            1 - Luigi
+            2 - Wario
+            3 - Yoshi
+
+            O: Condition
+            0 - Character needs to be unlocked
+            1 - Character doesn't need to be unlocked
+
+            S: Starting Character
+            0 - Yoshi
+            1 - Mario
+            2 - Luigi
+            3 - Wario
+
+            Created by: Splatterboy
+        </description>
+        <bankreq>none</bankreq>
+    </object>
+
+    <object id='539'>
+        <category>1</category>
+        <name>Tree Shadow</name>
+        <internalname>TREE_SHADOW</internalname>
+        <actorid>539</actorid>
+        <description>A shadow for the Tree objects.
+
+            Created by: Splatterboy
+        </description>
+        <bankreq>none</bankreq>
+    </object>
+
+    <object id='540'>
+        <category>1</category>
+        <name>Save Block</name>
+        <internalname>@CUSTOM%MG/048_saveBlock.bmd</internalname>
+        <actorid>540</actorid>
+        <description>Saves the game.
+
+            Created by: Splatterboy
+        </description>
+        <bankreq>none</bankreq>
+    </object>
+
+    <object id='541'>
+        <category>1</category>
+        <name>Star Chip</name>
+        <internalname>@CUSTOM%MG/051_starChip.bmd</internalname>
+        <actorid>541</actorid>
+        <description>The Star Chips from Super Mario Galaxy, collect 5 to spawn a Launch Star.
+
+            Parameter 1:
+            XXEE
+
+            E: Event ID
+
+            Created by: Splatterboy
+            Assets by Josh65536
+        </description>
+        <bankreq>none</bankreq>
+    </object>
+
+    <object id='542'>
+        <category>1</category>
+        <name>Door Blocker</name>
+        <internalname>@CUSTOM%MG/052_doorBlocker.bmd</internalname>
+        <actorid>542</actorid>
+        <description>A wooden blockage that can be used to block doors.
+
+            Parameter 1:
+            XXEE
+
+            E: Event ID
+
+            Created by: Splatterboy
+            Assets by Josh65536
+        </description>
+        <bankreq>none</bankreq>
+    </object>
+
+    <object id='543'>
+        <category>1</category>
+        <name>Colored Coin</name>
+        <internalname>@CUSTOM%MG/054_coloredCoin.bmd</internalname>
+        <actorid>543</actorid>
+        <description>A Coin that you can fully customize: you can change it's color, coin value and even it's heal value.
+
+            Parameter 1: XBBBBBGGGGGRRRRR (bits)
+
+            B,G,R: Color
+
+            Parameter 2: OHVV
+
+            0: Heal or Hurt (0: Heal, 1: Hurt)
+            H: Heal/Hurt Value
+            V: Coin Value
+
+            Parameter 3: SFFF
+
+            S: Star ID
+            F: Amount of frames between damage
+            Note: set parameter 3 to 0 if you do not wish to place a Death Coin
+
+            Created by: Splatterboy
+        </description>
+        <bankreq>none</bankreq>
+    </object>
+
+    <object id='544'>
+        <category>1</category>
+        <name>Colored Toad</name>
+        <internalname>@CUSTOM%MG/055_coloredToad.bmd</internalname>
+        <actorid>544</actorid>
+        <description>A Toad that can have 1 of 5 different colors and a message before and after an event.
+            Note: Power Star only spawns after the event is triggered (unless the event is set to F)
+
+            Parameter 1: SMMM
+
+            S: Star ID (F = no star)
+            M: Message ID of initial message
+
+            Parameter 2: ETTT
+
+            E: Event ID (F = no event)
+            T: Message ID of final message
+
+            Parameter 3:
+            XXXC
+
+            C: Color
+            0, 6+ - Red
+            1 - Yellow
+            2 - Green
+            3 - Blue
+            4 - Purple
+            5 - Red and White
+
+            Created by: Splatterboy
+            Assets by: Josh65536 and Splatterboy
+        </description>
+        <bankreq>none</bankreq>
+    </object>
+
+    <object id='545'>
+        <category>1</category>
+        <name>Peach NPC</name>
+        <internalname>@CUSTOM%MG/059_peachNPC.bmd</internalname>
+        <actorid>545</actorid>
+        <description>A custom Peach NPC that can have a message before and after an event.
+            Note: Power Star only spawns after the event is triggered (unless the event is set to F)
+
+            Parameter 1: SMMM
+
+            S: Star ID (F = no star)
+            M: Message ID of initial message
+
+            Parameter 2: ETTT
+
+            E: Event ID (F = no event)
+            T: Message ID of final message
+
+            Created by: Splatterboy
+        </description>
+        <bankreq>none</bankreq>
+    </object>
+
+    <object id='546'>
+        <category>1</category>
+        <name>Blue Ice Block</name>
+        <internalname>@CUSTOM%MG/062_blueIceBlock.bmd</internalname>
+        <actorid>546</actorid>
+        <description>An indestructible block made of blue ice.
+        </description>
+        <bankreq>none</bankreq>
+    </object>
+
+    <object id='547'>
+        <category>1</category>
+        <name>Mega Block</name>
+        <internalname>@CUSTOM%MG/064_megaBlock.bmd</internalname>
+        <actorid>547</actorid>
+        <description>A big block with a star symbol on it's sides. This block can be destroyed by using a Mega Mushroom.
+
+            Parameter 1:
+            XXXS
+
+            S: Star ID
+
+            Created by: Josh65536
+            Ported by: Splatterboy
+        </description>
+        <bankreq>none</bankreq>
+    </object>
+
+    <object id='548'>
+        <category>1</category>
+        <name>Cutscene Loader</name>
+        <internalname>CUTSCENE_LOADER</internalname>
+        <actorid>548</actorid>
+        <description>Loads a cutscene.
+
+            Parameter 1:
+            FFFF
+
+            Parameter 2:
+            TTEE
+
+            F: Ov0 File ID
+
+            T: Trigger
+            0 - On level start if no stars have been collected in the level
+            1 - On level start
+            2 - On level start if Mario key hasn't been collected
+            3 - On level start if Luigi key hasn't been collected
+            4 - On level start if Wario key hasn't been collected
+            5 - On level start if Bowser key 1 hasn't been collected
+            6 - On level start if Bowser key 2 hasn't been collected
+            7 - On level start if HUB Star 7 hasn't been collected
+            8 - When event is triggered
+            9 - At the start of the game
+            A+ - Never
+
+            E: Event ID
+
+            Created by: Splatterboy
+        </description>
+        <bankreq>none</bankreq>
+    </object>
+
+    <object id='549'>
+        <category>1</category>
+        <name>Custom Block</name>
+        <internalname>@CUSTOM%MG/066_customBlockYellow.bmd</internalname>
+        <actorid>549</actorid>
+        <description>A block that you can customise.
+
+            Parameter 1:
+            TCCC
+
+            Parameter 2:
+            SPEE
+
+            T: Type
+            0 - Yellow
+            1 - Red (needs to be unlocked)
+
+            C: Content
+            0 - Nothing
+            1 - Power Star
+            2 - Silver Star
+            3 - 1 Up Mushroom
+            4 - Mega Mushroom
+            5 - Wing Feathers
+            6 - Power Flower
+            7 - Shiny Shell
+            8 - Bowser Key
+            9 - Bowser Key
+            A - Mario Key
+            B - Luigi Key
+            C - Wario Key
+            D - Star Key
+
+            S: Star ID
+
+            P: Player
+            0 - All
+            1 - Mario Only
+            2 - Luigi Only
+            3 - Wario Only
+            4 - Yoshi Only
+
+            E: Event ID
+
+            Created by: Splatterboy
+        </description>
+        <bankreq>none</bankreq>
+    </object>
+
+    <object id='550'>
+        <category>1</category>
+        <name>Treasure Chest</name>
+        <internalname>@CUSTOM%MG/071_treasureChest.bmd</internalname>
+        <actorid>550</actorid>
+        <description>A treasure chest.
+
+            Parameter 1:
+            XXYY where:
+
+            XX - The Star ID, for the first chests this is FF, for the final chest this should be the Star ID and match the Star ID of a Star Marker
+            YY - The order of the current chest.
+
+            Created by: Josh65536
+            Ported by: Splatterboy
+        </description>
+        <bankreq>none</bankreq>
+    </object>
+
+    <object id='551'>
+        <category>1</category>
+        <name>Thwomp</name>
+        <internalname>@CUSTOM%MG/073_thwomp.bmd</internalname>
+        <actorid>551</actorid>
+        <description>An angry stone that smashes the ground, then returns to it's initial position. Can be smashed to bits by Mega Players.
+
+            Created by: Josh65536
+            Ported by: Splatterboy
+        </description>
+        <bankreq>none</bankreq>
+    </object>
+
+    <object id='552'>
+        <category>1</category>
+        <name>Magma Thwomp</name>
+        <internalname>@CUSTOM%MG/076_thwompMagma.bmd</internalname>
+        <actorid>552</actorid>
+        <description>A Thwomp that's so hot, you get burned if you get close to it.
+
+            Created by: Josh65536
+            Modified by: Splatterboy
+            Idea from: Hailbot
+        </description>
+        <bankreq>none</bankreq>
+    </object>
+
+    <object id='553'>
+        <category>1</category>
+        <name>Giga Thwomp</name>
+        <internalname>@CUSTOM%MG/077_thwompGiga.bmd</internalname>
+        <actorid>553</actorid>
+        <description>Giga Thwomp.
+            Still WIP, do not place this in a level!
+
+            Parameter 1:
+            SSSS
+
+            S: Star ID
+
+            Created by: Splatterboy
+        </description>
+        <bankreq>none</bankreq>
+    </object>
+
+    <!--<object id='554'>
+		<category>1</category>
+		<name>Anti-Gravity Tox Box</name>
+		<internalname>@CUSTOM%MG/080_toxBox.bmd</internalname>
+		<actorid>554</actorid>
+		<description>A Tox Box that can defy gravity.
+
+Created by: Josh65536
+Ported by: Splatterboy and Pants64
+		</description>
+		<bankreq>none</bankreq>
+	</object>
+
+	<object id='555'>
+		<category>1</category>
+		<name>Player Tox Box</name>
+		<internalname>@CUSTOM%MG/084_toxBoxPlayer.bmd</internalname>
+		<actorid>555</actorid>
+		<description>Used by the Tox Box Flower.
+Do not place this in a level!
+
+Created by: Josh65536
+Ported by: Splatterboy and Pants64
+		</description>
+		<bankreq>none</bankreq>
+	</object>
+
+	<object id='556'>
+		<category>1</category>
+		<name>Tox Box Flower</name>
+		<internalname>@CUSTOM%MG/086_toxBoxFlower.bmd</internalname>
+		<actorid>556</actorid>
+		<description>A custom power up that transforms you into a Tox Box.
+
+Created by: Josh65536
+Ported by: Splatterboy and Pants64
+		</description>
+		<bankreq>none</bankreq>
+	</object>-->
+
+</database>

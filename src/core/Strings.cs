@@ -135,6 +135,7 @@ namespace SM64DSe
         public static readonly string IMAGE_EXPORT_PNG_FILTER = "PNG Image (.png)|*.png";
 
         public static readonly string FILTER_XML = "XML Document (.xml)|*.xml";
+        public static readonly string FILTER_JSON = "JSON Document (.json)|*.json";
 
         public static string[] WHITESPACE = new string[] { " ", "\n", "\r\n", "\t" };
 

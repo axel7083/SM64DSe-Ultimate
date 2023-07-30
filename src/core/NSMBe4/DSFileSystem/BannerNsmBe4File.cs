@@ -22,7 +22,7 @@ namespace SM64DSe.core.NSMBe4.DSFileSystem
 	//Seriouisy, wtf.
     public class BannerNsmBe4File : PhysicalNsmBe4File
     {
-        public BannerNsmBe4File(Filesystem parent, Directory parentDir, NSMBe4File headerNsmBe4File)
+        public BannerNsmBe4File(Filesystem parent, NSMBe4Directory parentDir, NSMBe4File headerNsmBe4File)
             : base(parent, parentDir, -9, "banner.bin", headerNsmBe4File, 0x68, 0, true)
         {
             EndNsmBe4File = null;

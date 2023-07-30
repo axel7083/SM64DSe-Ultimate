@@ -25,7 +25,7 @@ namespace SM64DSe.core.NSMBe4.DSFileSystem
 
 		public NsmBe4FileWithLock() {}
 		
-		public NsmBe4FileWithLock(Filesystem parent, Directory parentDir, string name, int id)
+		public NsmBe4FileWithLock(Filesystem parent, NSMBe4Directory parentDir, string name, int id)
 			: base(parent, parentDir, name, id)
 		{
 			

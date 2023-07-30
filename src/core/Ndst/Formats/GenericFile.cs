@@ -1,4 +1,5 @@
 using System.IO;
+using Serilog;
 
 namespace Ndst.Formats {
 
@@ -19,6 +20,7 @@ namespace Ndst.Formats {
         }
 
         public void Extract(string path) {
+            Log.Information("Extracting to " + path);
             System.IO.File.WriteAllBytes(path, Data);
         }
 

@@ -90,9 +90,9 @@ namespace SM64DSe.core.NSMBe4.DSFileSystem
             loadNamelessFiles(mainDir);
         }
 
-        private void loadOvTable(String dirName, int id, Directory parent, NSMBe4File table)
+        private void loadOvTable(String dirName, int id, NSMBe4Directory parent, NSMBe4File table)
         {
-            Directory dir = new Directory(this, parent, true, dirName, id);
+            NSMBe4Directory dir = new NSMBe4Directory(this, parent, true, dirName, id);
             addDir(dir);
             parent.childrenDirs.Add(dir);
 

@@ -19,7 +19,7 @@ using System.Collections.Generic;
 
 namespace SM64DSe.core.NSMBe4.DSFileSystem
 {
-    public class Directory
+    public class NSMBe4Directory
     {
         private bool isSystemFolderP;
         public bool isSystemFolder { get { return isSystemFolderP; } }
@@ -30,15 +30,15 @@ namespace SM64DSe.core.NSMBe4.DSFileSystem
         private int idP;
         public int id { get { return idP; } }
 
-        private Directory parentDirP;
-        public Directory parentDir { get { return parentDirP; } }
+        private NSMBe4Directory parentDirP;
+        public NSMBe4Directory parentDir { get { return parentDirP; } }
 
         public List<NSMBe4File> childrenFiles = new List<NSMBe4File>();
-        public List<Directory> childrenDirs = new List<Directory>();
+        public List<NSMBe4Directory> childrenDirs = new List<NSMBe4Directory>();
 
         private Filesystem parent;
 
-        public Directory(Filesystem parent, Directory parentDir, bool system, string name, int id)
+        public NSMBe4Directory(Filesystem parent, NSMBe4Directory parentDir, bool system, string name, int id)
         {
             this.parent = parent;
             this.parentDirP = parentDir;

@@ -26,7 +26,7 @@ namespace SM64DSe.core.NSMBe4.DSFileSystem
         public NitroFilesystem(FilesystemSource s)
             : base(s)
         {
-            mainDir = new Directory(this, null, true, "FILESYSTEM ["+s.getDescription()+"]", -100);
+            mainDir = new NSMBe4Directory(this, null, true, "FILESYSTEM ["+s.getDescription()+"]", -100);
             load();
         }
 
@@ -49,7 +49,7 @@ namespace SM64DSe.core.NSMBe4.DSFileSystem
         }
 
 
-        private void loadDir(NSMBe4ByteArrayInputStream fnt, string dirName, int dirID, Directory parent)
+        private void loadDir(NSMBe4ByteArrayInputStream fnt, string dirName, int dirID, NSMBe4Directory parent)
         {
             fnt.savePos();
             fnt.seek(8 * (dirID & 0xFFF));
@@ -61,7 +61,7 @@ namespace SM64DSe.core.NSMBe4.DSFileSystem
             //Their main dir starting ID is 2, which is weird...
           //  if (parent == mainDir) fileID = 0; 
 
-            Directory thisDir = new Directory(this, parent, false, dirName, dirID);
+            NSMBe4Directory thisDir = new NSMBe4Directory(this, parent, false, dirName, dirID);
             addDir(thisDir);
             parent.childrenDirs.Add(thisDir);
 
@@ -89,7 +89,7 @@ namespace SM64DSe.core.NSMBe4.DSFileSystem
             fnt.loadPos();
         }
 
-        protected virtual void loadNamelessFiles(Directory parent)
+        protected virtual void loadNamelessFiles(NSMBe4Directory parent)
         {
             bool ok = true;
             for (int i = 0; i < FatNsmBe4File.fileSize / 8; i++)
@@ -100,7 +100,7 @@ namespace SM64DSe.core.NSMBe4.DSFileSystem
 
             if (ok) return;
 
-            Directory d = new Directory(this, parent, true, "Unnamed files", -94);
+            NSMBe4Directory d = new NSMBe4Directory(this, parent, true, "Unnamed files", -94);
             parent.childrenDirs.Add(d);
             allDirs.Add(d);
 
@@ -111,7 +111,7 @@ namespace SM64DSe.core.NSMBe4.DSFileSystem
             }
         }
 
-        protected NSMBe4File loadFile(string fileName, int fileID, Directory parent)
+        protected NSMBe4File loadFile(string fileName, int fileID, NSMBe4Directory parent)
         {
             int beginOffs = fileID * 8;
             int endOffs = fileID * 8 + 4;

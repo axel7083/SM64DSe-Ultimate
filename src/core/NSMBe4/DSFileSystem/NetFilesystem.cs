@@ -30,12 +30,12 @@ namespace SM64DSe.core.NSMBe4.DSFileSystem
             return host+":"+port;
         }
 
-        private Directory loadDir(NSMBe4ByteArrayInputStream s, Directory parent)
+        private NSMBe4Directory loadDir(NSMBe4ByteArrayInputStream s, NSMBe4Directory parent)
         {
             int id = s.readInt();
             string name = s.ReadString();
 
-            Directory d = new Directory(this, parent, false, name, id);
+            NSMBe4Directory d = new NSMBe4Directory(this, parent, false, name, id);
             addDir(d);
             if(parent != null) parent.childrenDirs.Add(d);
 

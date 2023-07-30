@@ -259,7 +259,7 @@
     <Compile Include="src\core\NitroRom\NitroROM_Utils.cs" />
     <Compile Include="src\core\NSMBe4\AlreadyEditingException.cs" />
     <Compile Include="src\core\NSMBe4\DSFileSystem\BannerNsmBe4File.cs" />
-    <Compile Include="src\core\NSMBe4\DSFileSystem\Directory.cs" />
+    <Compile Include="src\core\NSMBe4\DSFileSystem\NSMBe4Directory.cs" />
     <Compile Include="src\core\NSMBe4\DSFileSystem\ExternalFilesystemSource.cs" />
     <Compile Include="src\core\NSMBe4\DSFileSystem\FileFilesystemSource.cs" />
     <Compile Include="src\core\NSMBe4\DSFileSystem\Filesystem.cs" />

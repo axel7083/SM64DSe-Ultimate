@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
+using Serilog;
 using SM64DSe.core.Api;
 using SM64DSe.core.Editor.Managers;
 using SM64DSe.core.models;
@@ -93,13 +94,13 @@ namespace SM64DSe.ui.compiler
 
         private void AddTarget_Click(object sender, EventArgs e)
         {
-            string path = Utils.Systems.pickFolder("Choose a target");
+            string path = Utils.Systems.pickFile("Choose a target", ".json", Strings.FILTER_JSON);
             if (path == null)
                 return;
             
-            Program.romEditor.GetManager<CompilerManager>().addOverlayTarget(
-                new OverlayTarget(path, 155)
-                );
+            Log.Information("User picked " + path + " as configuration file.");
+            
+            Program.romEditor.GetManager<CompilerManager>().LoadConfig(path);
             updateData();
         }
 

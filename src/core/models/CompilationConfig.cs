@@ -9,6 +9,32 @@ namespace SM64DSe.core.models
         FAILED = 1,
         SUCCESS = 2,
     }
+
+    public class SM64DSObject
+    {
+        [JsonProperty]
+        public int id;
+        
+        [JsonProperty]
+        public int category;
+        
+        [JsonProperty]
+        public string name;
+        
+        [JsonProperty]
+        public string internalname;
+        
+        [JsonProperty]
+        public string actorid;
+        
+        [JsonProperty]
+        public string description;
+        
+        [JsonProperty]
+        public string icon = null;
+        
+        public SM64DSObject() { }
+    }
     
     public class CompilationTarget
     {
@@ -31,23 +57,29 @@ namespace SM64DSe.core.models
 
         [JsonProperty] public int RamAddress { get; set; } = -1;
         
-        public OverlayTarget(string path, int overlayId) : base(path)
+        [JsonProperty] public SM64DSObject[] Objects { get; set; }
+        
+        public OverlayTarget(string path, int overlayId, SM64DSObject[] objects = null) : base(path)
         {
             OverlayId = overlayId;
+            Objects = objects;
         }
         
-        public OverlayTarget(string path, int overlayId, int ramAddress) : base(path)
+        public OverlayTarget(string path, int overlayId, int ramAddress, SM64DSObject[] objects = null) : base(path)
         {
             OverlayId = overlayId;
             RamAddress = ramAddress;
+            Objects = objects;
         }
+
+        public OverlayTarget() { }
     }
     
     [JsonObject(MemberSerialization.OptIn)]
     public class CompilationConfig
     {
         [JsonProperty]
-        public List<OverlayTarget> overlays { get; set; }
+        public List<OverlayTarget> Overlays { get; set; }
 
         /*
          Not implemented yet
@@ -56,11 +88,11 @@ namespace SM64DSe.core.models
         */
 
         [JsonProperty]
-        public CompilationTarget patch { get; set; }
+        public CompilationTarget Patch { get; set; }
 
         public CompilationConfig()
         {
-            overlays = new List<OverlayTarget>();
+            Overlays = new List<OverlayTarget>();
         }
     }
 }

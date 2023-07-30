@@ -21,7 +21,7 @@ namespace SM64DSe.core.NSMBe4.DSFileSystem
 {
     public class HeaderNsmBe4File : PhysicalNsmBe4File
     {
-        public HeaderNsmBe4File(Filesystem parent, Directory parentDir)
+        public HeaderNsmBe4File(Filesystem parent, NSMBe4Directory parentDir)
             : base(parent, parentDir, -8, "header.bin", 0, 0x4000)
         {
 

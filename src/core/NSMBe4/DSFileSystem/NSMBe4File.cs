@@ -24,8 +24,8 @@ namespace SM64DSe.core.NSMBe4.DSFileSystem
         private Filesystem parentP;
         public Filesystem parent { get { return parentP; } }
 
-        private Directory parentDirP;
-        public Directory parentDir { get { return parentDirP; } }
+        private NSMBe4Directory parentDirP;
+        public NSMBe4Directory parentDir { get { return parentDirP; } }
 
         protected string nameP;
         public string name { get { return nameP; } }
@@ -39,7 +39,7 @@ namespace SM64DSe.core.NSMBe4.DSFileSystem
 		
 		public NSMBe4File() {}
 		
-		public NSMBe4File(Filesystem parent, Directory parentDir, string name, int id)
+		public NSMBe4File(Filesystem parent, NSMBe4Directory parentDir, string name, int id)
 		{
 			this.parentP = parent;
 			this.parentDirP = parentDir;

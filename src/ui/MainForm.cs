@@ -867,6 +867,8 @@ namespace SM64DSe
             }
             if (new FilesystemEditorForm(this).ShowDialog() != DialogResult.OK)
                 return;
+            
+            
             this.LoadROM(Program.m_ROMPath); //TODO: maybe replace with reload everything or something similar.
         }
 

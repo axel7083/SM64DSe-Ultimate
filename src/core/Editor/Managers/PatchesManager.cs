@@ -11,7 +11,10 @@ namespace SM64DSe.core.Api
         public bool NeedsPatch()
         {
             m_ROM.BeginRW();
-            return m_ROM.NeedsPatch();
+            var needPatch = m_ROM.NeedsPatch();
+            m_ROM.EndRW();
+            
+            return needPatch;
         }
 
         public void Patch()

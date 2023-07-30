@@ -3,7 +3,7 @@
     public class NetNsmBe4File : NsmBe4FileWithLock
     {
         NetFilesystem netfs;
-        public NetNsmBe4File(NetFilesystem parent, Directory parentDir, string name, int id, int ffileSize)
+        public NetNsmBe4File(NetFilesystem parent, NSMBe4Directory parentDir, string name, int id, int ffileSize)
             : base(parent, parentDir, name, id)
         {
             this.netfs = parent;

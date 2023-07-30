@@ -25,6 +25,7 @@ using System.Drawing;
 using System.ComponentModel;
 using System.Globalization;
 using System.Windows.Forms;
+using Newtonsoft.Json;
 using OpenTK;
 using OpenTK.Graphics.OpenGL;
 using SM64DSe.SM64DSFormats;
@@ -136,14 +137,20 @@ namespace SM64DSe
             MINIMAP_SCALE = 12, 
             STAR_CAMERAS = 14
         };
-
+        
+        [JsonProperty]
         public ushort ID;
+        
+        [JsonProperty]
         public Vector3 Position;
+        
+        [JsonProperty]
         public float YRotation;
 
         // object specific parameters
         // for standard objects: [0] = 16bit object param, [1] and [2] = what should be X and Z rotation
         // for simple objects: [0] = 7bit object param
+        [JsonProperty]
         public ushort[] Parameters;
         
         public int m_Layer;

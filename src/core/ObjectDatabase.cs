@@ -76,6 +76,14 @@ namespace SM64DSe
             m_WebClient = new WebClient();
         }
 
+        public static void AddObjects(ObjectInfo[] nObjects)
+        {
+            foreach (var nObject in nObjects)
+            {
+                m_ObjectInfo[nObject.m_ID] = nObject;
+            }
+        }
+
         public static void Load()
         {
             FileStream fs = null; XmlReader xr = null;

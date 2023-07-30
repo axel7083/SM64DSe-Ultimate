@@ -24,10 +24,10 @@ namespace SM64DSe.core.NSMBe4.DSFileSystem
     public abstract class Filesystem
     {
         public List<NSMBe4File> allFiles = new List<NSMBe4File>();
-        public List<Directory> allDirs = new List<Directory>();
+        public List<NSMBe4Directory> allDirs = new List<NSMBe4Directory>();
         protected Dictionary<int, NSMBe4File> filesById = new Dictionary<int, NSMBe4File>();
-        protected Dictionary<int, Directory> dirsById = new Dictionary<int, Directory>();
-        public Directory mainDir;
+        protected Dictionary<int, NSMBe4Directory> dirsById = new Dictionary<int, NSMBe4Directory>();
+        public NSMBe4Directory mainDir;
 
 //        public FilesystemBrowser viewer;
 
@@ -47,14 +47,14 @@ namespace SM64DSe.core.NSMBe4.DSFileSystem
             return null;
         }
 
-        public Directory getDirByPath(string path)
+        public NSMBe4Directory getDirByPath(string path)
         {
             string[] shit = path.Split(new char[] { '/' });
-            Directory dir = mainDir;
+            NSMBe4Directory dir = mainDir;
             for (int i = 0; i < shit.Length; i++)
             {
-                Directory newDir = null;
-                foreach(Directory d in dir.childrenDirs)
+                NSMBe4Directory newDir = null;
+                foreach(NSMBe4Directory d in dir.childrenDirs)
                     if(d.name == shit[i])
                     {
                         newDir = d;
@@ -78,7 +78,7 @@ namespace SM64DSe.core.NSMBe4.DSFileSystem
         }
 
 
-        protected void addDir(Directory d)
+        protected void addDir(NSMBe4Directory d)
         {
             allDirs.Add(d);
             if(dirsById.ContainsKey(d.id))

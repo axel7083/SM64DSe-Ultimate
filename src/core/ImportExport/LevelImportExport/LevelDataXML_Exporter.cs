@@ -12,7 +12,7 @@ namespace SM64DSe.ImportExport.LevelImportExport
     {
         private const int CURRENT_VERSION = 2;
         private static readonly LevelExporterV1 k_LevelExporterV1 = new LevelExporterV1();
-        private static readonly LevelExporterV1 k_LevelExporterV2 = new LevelExporterV2();
+        private static readonly LevelExporterV2 k_LevelExporterV2 = new LevelExporterV2();
 
         public static void ExportLevelDataToXML(Level level, string fileName, int version)
         {

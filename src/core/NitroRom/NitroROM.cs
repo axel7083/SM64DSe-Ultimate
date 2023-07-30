@@ -26,6 +26,7 @@ using System.Globalization;
 using Newtonsoft.Json;
 using System.Diagnostics;
 using System.Windows.Forms;
+using Serilog;
 
 namespace SM64DSe
 {
@@ -592,6 +593,8 @@ namespace SM64DSe
 
         public void BeginRW(bool buffered)
         {
+            Log.Information("BeginRW (" + buffered + ")");
+            
             if (Program.m_IsROMFolder) return;
             if (m_CanRW) return;
 
@@ -616,6 +619,8 @@ namespace SM64DSe
 
         public void EndRW(bool keep)
         {
+            Log.Information("EndRW (" + keep + ")");
+            
             if (Program.m_IsROMFolder) return;
             if (!m_CanRW) return;
 
@@ -630,7 +635,11 @@ namespace SM64DSe
             m_CanRW = false;
             m_FileStream.Close();
         }
-        public void EndRW() { EndRW(true); }
+
+        public void EndRW()
+        {
+            EndRW(true);
+        }
 
         public bool CanRW() {
             if (Program.m_IsROMFolder) return true;

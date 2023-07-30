@@ -111,6 +111,7 @@ namespace SM64DSe.core.Api
             m_ROM.FATSize = (uint)(0x8 * nFileId);
             m_ROM.RewriteSizeTables();
             m_ROM.SaveFilesystem();
+            m_ROM.EndRW();
             return nOvlId;
         }
     }

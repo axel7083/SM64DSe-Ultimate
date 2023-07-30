@@ -48,12 +48,12 @@ namespace SM64DSe.core.NSMBe4.DSFileSystem
         public Stream filesystemStream { get { return ((PhysicalFilesystem)parent).s; } }
         public int filesystemDataOffset { get { return ((PhysicalFilesystem)parent).fileDataOffset; } }
         
-        public PhysicalNsmBe4File(Filesystem parent, Directory parentDir, string name)
+        public PhysicalNsmBe4File(Filesystem parent, NSMBe4Directory parentDir, string name)
         	:base(parent, parentDir, name, -1)
         {
         }
     
-        public PhysicalNsmBe4File(Filesystem parent, Directory parentDir, int id, string name, NSMBe4File alNsmBe4File, int alBeg, int alEnd)
+        public PhysicalNsmBe4File(Filesystem parent, NSMBe4Directory parentDir, int id, string name, NSMBe4File alNsmBe4File, int alBeg, int alEnd)
         	:base(parent, parentDir, name, id)
         {
             this.BeginNsmBe4File = alNsmBe4File;
@@ -63,7 +63,7 @@ namespace SM64DSe.core.NSMBe4.DSFileSystem
             refreshOffsets();
         }
 
-        public PhysicalNsmBe4File(Filesystem parent, Directory parentDir, int id, string name, NSMBe4File alNsmBe4File, int alBeg, int alEnd, bool endsize)
+        public PhysicalNsmBe4File(Filesystem parent, NSMBe4Directory parentDir, int id, string name, NSMBe4File alNsmBe4File, int alBeg, int alEnd, bool endsize)
         	:base(parent, parentDir, name, id)
         {
             this.BeginNsmBe4File = alNsmBe4File;
@@ -74,7 +74,7 @@ namespace SM64DSe.core.NSMBe4.DSFileSystem
             refreshOffsets();
         }
 
-        public PhysicalNsmBe4File(Filesystem parent, Directory parentDir, int id, string name, int alBeg, int alSize)
+        public PhysicalNsmBe4File(Filesystem parent, NSMBe4Directory parentDir, int id, string name, int alBeg, int alSize)
         	:base(parent, parentDir, name, id)
         {
             this.fileBeginP = alBeg;

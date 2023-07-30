@@ -142,6 +142,7 @@ namespace SM64DSe.core.Api
                 ParentID = 0,
                 Size = 0x20
             };
+            m_ROM.m_FileEntries = entries;
             return nFileId;
         }
     }

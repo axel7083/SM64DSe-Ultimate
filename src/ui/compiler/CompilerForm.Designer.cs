@@ -54,7 +54,7 @@ namespace SM64DSe.ui.compiler
             this.addtarget.Name = "addtarget";
             this.addtarget.Size = new System.Drawing.Size(80, 28);
             this.addtarget.TabIndex = 2;
-            this.addtarget.Text = "Add target";
+            this.addtarget.Text = "Load config";
             this.addtarget.UseVisualStyleBackColor = true;
             this.addtarget.Click += new System.EventHandler(this.AddTarget_Click);
             // 
