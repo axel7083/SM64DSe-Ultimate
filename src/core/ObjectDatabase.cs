@@ -18,6 +18,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -27,11 +28,37 @@ using System.Xml;
 using System.Net;
 using System.Windows.Forms;
 using Newtonsoft.Json;
+using OpenTK;
 
 namespace SM64DSe
 {
     public static class ObjectDatabase
     {
+        public class RendererConfig
+        {
+            public string type;
+            public string[] files;
+            public float scale;
+            public Vector3[] offsets;
+            public string animation;
+            public string border;
+            public string fill;
+
+            public RendererConfig(string type = null, string[] files = null, float scale = 1f, Vector3[] offsets = null, string animation = null)
+            {
+                this.type = type;
+                this.files = files;
+                this.scale = scale;
+                this.offsets = offsets;
+                this.animation = animation;
+            }
+
+            public RendererConfig(string border, string fill, string animation = null) 
+            {
+                this.border = border;
+                this.fill = fill;
+            }
+        }
         public class ObjectInfo
         {
             public struct ParamInfo
@@ -46,9 +73,13 @@ namespace SM64DSe
             {
                 return (m_Name + "\n" + m_InternalName + "\n" + m_Description);
             }
-
-            public int m_Category;
             
+            [JsonProperty]
+            public string[] m_dlRequirements;
+            
+            [JsonProperty]
+            public RendererConfig m_Renderer;
+
             [JsonProperty]
             public ushort m_ID;
             [JsonProperty]
@@ -90,6 +121,21 @@ namespace SM64DSe
             }
         }
 
+        /**
+         * @str: example "9,7,6" 
+         */
+        [Pure]
+        public static Vector3 ParseVector3FromString(string str)
+        {
+            var arr = str.Split(',');
+            if (arr.Length != 3)
+                throw new FormatException($"The input {str} is incorrect.");
+            return new Vector3(
+                float.Parse(arr[0]),
+                float.Parse(arr[1]),
+                float.Parse(arr[2])
+            );
+        }
         public static void Load()
         {
             FileStream fs = null; XmlReader xr = null;
@@ -123,10 +169,6 @@ namespace SM64DSe
                 ObjectInfo oinfo = m_ObjectInfo[id];
                 oinfo.m_ID = (ushort)id;
 
-                xr.ReadToFollowing("category");
-                temp = xr.ReadElementContentAsString();
-                int.TryParse(temp, out oinfo.m_Category);
-
                 xr.ReadToFollowing("name");
                 oinfo.m_Name = xr.ReadElementContentAsString();
                 xr.ReadToFollowing("internalname");
@@ -156,6 +198,99 @@ namespace SM64DSe
                         oinfo.m_BankSetting = int.Parse(temp.Substring(temp.IndexOf('=') + 1));
                     }
                     catch { oinfo.m_BankRequirement = 2; }
+                }
+                
+                xr.ReadToFollowing("dlreq");
+                temp = xr.ReadElementContentAsString();
+                if (temp == "none")
+                    oinfo.m_dlRequirements = null;
+                else
+                    oinfo.m_dlRequirements = temp.Split(' ');
+                
+                xr.ReadToFollowing("renderer");
+                string type = xr.GetAttribute("type");
+                string scale = xr.GetAttribute("scale");
+                
+                switch (type)
+                {
+                    case "NormalBMD":
+                    case "NormalKCL":
+                        oinfo.m_Renderer = new RendererConfig(
+                            type,
+                            new string[] { xr.GetAttribute("file") },
+                            scale != null? float.Parse(scale) : 1f
+                            );
+                        break;
+                    case "DoubleBMD":
+                        Vector3[] offsets = null;
+                        string offset1 = xr.GetAttribute("offset1");
+                        if (!String.IsNullOrEmpty(offset1))
+                        {
+                            offsets = new []
+                            {
+                                ParseVector3FromString(offset1),
+                                ParseVector3FromString(xr.GetAttribute("offset2"))
+                            };
+                        }
+                        
+                        oinfo.m_Renderer = new RendererConfig(
+                            type,
+                            new string[] { xr.GetAttribute("file1"), xr.GetAttribute("file2") },
+                            scale != null? float.Parse(scale) : 1f,
+                            offsets
+                        );
+                        break;
+                    case "Kurumajiku":
+                        oinfo.m_Renderer = new RendererConfig(
+                            type: type,
+                            files: new string[]
+                            {
+                                xr.GetAttribute("file1"),
+                                xr.GetAttribute("file2")
+                            },
+                            scale != null? float.Parse(scale) : 1f
+                        );
+                        break;
+                    case "Pole":
+                    case "ColorCube":
+                        oinfo.m_Renderer = new RendererConfig(
+                            xr.GetAttribute("border"),
+                            xr.GetAttribute("fill")
+                        );
+                        break;
+                    case "Player":
+                        oinfo.m_Renderer = new RendererConfig(
+                            scale: scale != null? float.Parse(scale) : 1f,
+                            animation: xr.GetAttribute("animation")
+                        );
+                        break;
+                    case "Luigi":
+                        oinfo.m_Renderer = new RendererConfig(
+                            scale: scale != null? float.Parse(scale) : 1f
+                        );
+                        break;
+                    case "ChainedChomp":
+                    case "Goomboss":
+                    case "Tree":
+                    case "Painting":
+                    case "UnchainedChomp":
+                    case "Fish":
+                    case "Butterfly":
+                    case "Star":
+                    case "BowserSkyPlatform":
+                    case "BigSnowman":
+                    case "Toxbox":
+                    case "Pokey":
+                    case "FlPuzzle":
+                    case "FlameThrower":
+                    case "C1Trap":
+                    case "Wiggler":
+                    case "Koopa":
+                    case "KoopaShell":
+                        // no params
+                        break;
+                    default:
+                        throw new Exception("Unknown renderer for '" + oinfo.m_Name + "' (id = " + oinfo.m_ID + ").");
                 }
 
                 List<ObjectInfo.ParamInfo> paramlist = new List<ObjectInfo.ParamInfo>();
@@ -208,8 +343,7 @@ namespace SM64DSe
                 oinfo.m_Name = stuff.Groups[2].Value;
                 oinfo.m_InternalName = stuff.Groups[2].Value;
                 oinfo.m_ActorID = ushort.Parse(stuff.Groups[3].Value, NumberStyles.HexNumber);
-
-                oinfo.m_Category = 0;
+                
                 oinfo.m_Description = "";
                 oinfo.m_BankRequirement = 2;
                 oinfo.m_ParamInfo = new ObjectInfo.ParamInfo[0];
