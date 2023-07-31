@@ -19,6 +19,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -27,36 +28,84 @@ using System.IO;
 using System.Xml;
 using System.Net;
 using System.Windows.Forms;
+using Microsoft.VisualBasic.Logging;
 using Newtonsoft.Json;
 using OpenTK;
+using SM64DSe.core.Api;
+using Log = Serilog.Log;
 
 namespace SM64DSe
 {
     public static class ObjectDatabase
     {
+        public class FileDetails
+        {
+            [JsonProperty]
+            public readonly string file;
+            [JsonProperty]
+            public readonly ushort fileID;
+
+            public FileDetails(string file, ushort fileId)
+            {
+                this.file = file;
+                fileID = fileId;
+            }
+        }
         public class RendererConfig
         {
-            public string type;
-            public string[] files;
-            public float scale;
-            public Vector3[] offsets;
-            public string animation;
-            public string border;
-            public string fill;
+            [JsonProperty]
+            public readonly string type;
+            [JsonProperty]
+            private readonly FileDetails[] filesDetails;
+            [JsonProperty]
+            public readonly float scale;
+            [JsonProperty]
+            public readonly Vector3[] offsets;
+            [JsonProperty]
+            public readonly string animation;
+            [JsonProperty]
+            public readonly string border;
+            [JsonProperty]
+            public readonly string fill;
 
             public RendererConfig(string type = null, string[] files = null, float scale = 1f, Vector3[] offsets = null, string animation = null)
             {
                 this.type = type;
-                this.files = files;
                 this.scale = scale;
                 this.offsets = offsets;
                 this.animation = animation;
+
+                if (files != null)
+                {
+                    filesDetails = new FileDetails[files.Length];
+                    for (var i = 0; i < files.Length; i++)
+                    {
+                        filesDetails[i] = new FileDetails(
+                            files[i],
+                            Program.romEditor.GetManager<FileManager>().GetFileFromName(files[i]).m_ID
+                        );
+                    }
+                }
             }
 
             public RendererConfig(string border, string fill, string animation = null) 
             {
                 this.border = border;
                 this.fill = fill;
+            }
+
+            public string GetFirstFile()
+            {
+                if (filesDetails == null || filesDetails.Length == 0)
+                    throw new Exception("No file in RendererConfig");
+                return filesDetails[0].file;
+            }
+
+            public string GetSecondFile()
+            {
+                if (filesDetails == null || filesDetails.Length < 2)
+                    throw new Exception("No file in RendererConfig");
+                return filesDetails[1].file;
             }
         }
         public class ObjectInfo
@@ -99,10 +148,8 @@ namespace SM64DSe
             public ParamInfo[] m_ParamInfo;
         }
 
-        public static ObjectInfo[] m_ObjectInfo = null;
-        public static uint m_Timestamp;
+        public static ObjectInfo[] m_ObjectInfo = null; // TODO: replace with Dictionary<ushort, ObjectInfo>
         public static WebClient m_WebClient;
-
 
         public static void Initialize()
         {
@@ -112,6 +159,7 @@ namespace SM64DSe
 
             m_WebClient = new WebClient();
         }
+        
 
         public static void AddObjects(ObjectInfo[] nObjects)
         {
@@ -136,6 +184,7 @@ namespace SM64DSe
                 float.Parse(arr[2])
             );
         }
+
         public static void Load()
         {
             FileStream fs = null; XmlReader xr = null;
@@ -146,14 +195,12 @@ namespace SM64DSe
 
                 xr.ReadToFollowing("database");
                 xr.MoveToAttribute("timestamp");
-                m_Timestamp = uint.Parse(xr.Value);
             }
-            catch
+            catch (Exception ex)
             {
+                Log.Error(ex.Message);
                 if (xr != null) xr.Close();
                 if (fs != null) fs.Close();
-
-                m_Timestamp = 1;
                 throw new Exception("Failed to open objectdb.xml");
             }
 
@@ -168,6 +215,11 @@ namespace SM64DSe
 
                 ObjectInfo oinfo = m_ObjectInfo[id];
                 oinfo.m_ID = (ushort)id;
+
+                if (oinfo.m_ID == 50)
+                {
+                    Log.Information("50");
+                }
 
                 xr.ReadToFollowing("name");
                 oinfo.m_Name = xr.ReadElementContentAsString();
@@ -287,7 +339,7 @@ namespace SM64DSe
                     case "Wiggler":
                     case "Koopa":
                     case "KoopaShell":
-                        // no params
+                        oinfo.m_Renderer = new RendererConfig(type: type);
                         break;
                     default:
                         throw new Exception("Unknown renderer for '" + oinfo.m_Name + "' (id = " + oinfo.m_ID + ").");
@@ -350,12 +402,6 @@ namespace SM64DSe
             }
 
             sr.Close();
-        }
-
-        public static void Update(bool force)
-        {
-            string ts = force ? "" : "?ts=" + m_Timestamp.ToString();
-            m_WebClient.DownloadStringAsync(new Uri(Program.ServerURL + "download_objdb.php" + ts));
         }
     }
 }

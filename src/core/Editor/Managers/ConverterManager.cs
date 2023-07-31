@@ -1,5 +1,8 @@
 ﻿using System;
 using System.IO;
+using Nancy;
+using Nancy.Responses;
+using Serilog;
 using SM64DSe.ImportExport;
 
 namespace SM64DSe.core.Api
@@ -11,25 +14,25 @@ namespace SM64DSe.core.Api
             
         }
 
-        public string GetObjFileFromId(ushort id)
+        public ushort GetFileIDFromInternalId(ushort id)
         {
-            var root = Program.romEditor.CurrentTemp;
+            return m_ROM.GetFileIDFromInternalID(id);
+        }
 
-            var path = Path.Combine(root, $"{id}.obj");
-            if (File.Exists(path))
-                return path;
-
-            NitroFile file = Program.romEditor.GetManager<FileManager>().GetFileFromId(id);
-            if (file.m_Name.EndsWith(".bmd"))
+        public bool ConvertBMDToObj(ushort id, string path)
+        {
+            NitroFile file = Program.romEditor.GetManager<FileManager>().GetFileFromID(id);
+            
+            // Ensure it is a file that can be converted.
+            if (!file.m_Name.EndsWith(".bmd"))
             {
-                BMD_BCA_KCLExporter.ExportBMDModel(new BMD(file), path);
-            }
-            else
-            {
-                throw new Exception("Not an BMD file: " + file.m_Name);
+                Log.Warning("Not an BMD file: " + file.m_Name);
+                return false;
             }
 
-            return path;
+                // Export the model to temp path.
+            BMD_BCA_KCLExporter.ExportBMDModel(new BMD(file), path);
+            return true;
         }
     }
 }

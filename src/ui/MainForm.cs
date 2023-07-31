@@ -194,8 +194,14 @@ namespace SM64DSe
         private void MainForm_Shown(object sender, EventArgs e)
         {
             ObjectDatabase.LoadFallback();
-            try { ObjectDatabase.Load(); }
-            catch { }
+            try
+            {
+                ObjectDatabase.Load();
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex.Message);
+            }
 
             if (!Properties.Settings.Default.AutoUpdateODB)
                 return;
@@ -204,7 +210,8 @@ namespace SM64DSe
             //ObjectDatabase.m_WebClient.DownloadFileCompleted += new AsyncCompletedEventHandler(this.ODBDownloadDone);
             ObjectDatabase.m_WebClient.DownloadStringCompleted += new DownloadStringCompletedEventHandler(this.ODBDownloadDone);
 
-            ObjectDatabase.Update(false);
+            // Removed since useless
+            // ObjectDatabase.Update(false);
         }
 
         private void ODBDownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)

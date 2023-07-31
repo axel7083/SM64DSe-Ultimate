@@ -15,6 +15,11 @@ namespace SM64DSe.core.Api
             return m_ROM.GetFileEntries();
         }
 
+        public ushort InternalIdToFileId(ushort interalID)
+        {
+            return m_ROM.GetFileIDFromInternalID(interalID);
+        }
+
         public NitroROM.DirEntry[] GetDirEntries()
         {
             return m_ROM.GetDirEntries();
@@ -35,9 +40,19 @@ namespace SM64DSe.core.Api
             return m_ROM.GetFileFromName(name);
         }
 
-        public NitroFile GetFileFromId(ushort id)
+        public NitroFile GetFileFromInternalID(ushort id)
         {
             return m_ROM.GetFileFromInternalID(id);
+        }
+
+        public NitroFile GetFileFromID(ushort id)
+        {
+            return m_ROM.GetFileFromID(id);
+        }
+
+        public NitroROM.FileEntry GetFileEntry(ushort id)
+        {
+            return m_ROM.m_FileEntries[id];
         }
 
         public void DecompressLz77WithHeader(string filename)

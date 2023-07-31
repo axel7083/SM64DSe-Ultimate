@@ -159,7 +159,7 @@ namespace SM64DSe
             AlignPathNodes();
 
             m_LevelModel = null;
-            m_LevelCollMap = new KCL(m_ROM.GetFileFromInternalID(m_Level.m_LevelSettings.KCLFileID));
+            m_LevelCollMap = new KCL(m_ROM.GetFileFromInternalID(m_Level.m_LevelSettings.KCLFileInternalID));
 
             m_SkyboxModel = null;
         }
@@ -267,7 +267,7 @@ namespace SM64DSe
             if (m_LevelModel != null)
                 m_LevelModel.Release();
 
-            m_LevelModel = new BMD(m_ROM.GetFileFromInternalID(m_Level.m_LevelSettings.BMDFileID));
+            m_LevelModel = new BMD(m_ROM.GetFileFromInternalID(m_Level.m_LevelSettings.BMDFileInternalID));
             m_LevelModel.PrepareToRender();
             RenderLevelAreas(-1);
             m_areaCount = m_LevelModel.m_ModelChunks.Length;
@@ -1975,8 +1975,8 @@ namespace SM64DSe
 
         private void btnImportModel_Click(object sender, EventArgs e)
         {
-            string bmdName = Program.m_ROM.GetFileFromInternalID(m_Level.m_LevelSettings.BMDFileID).m_Name;
-            string kclName = Program.m_ROM.GetFileFromInternalID(m_Level.m_LevelSettings.KCLFileID).m_Name;
+            string bmdName = Program.m_ROM.GetFileFromInternalID(m_Level.m_LevelSettings.BMDFileInternalID).m_Name;
+            string kclName = Program.m_ROM.GetFileFromInternalID(m_Level.m_LevelSettings.KCLFileInternalID).m_Name;
             if (!Properties.Settings.Default.UseSimpleModelAndCollisionMapImporters)
             {
                 ModelAndCollisionMapEditor form =
@@ -2608,7 +2608,7 @@ namespace SM64DSe
 
         private void btnExportLevelModel_Click(object sender, EventArgs e)
         {
-            if (ExportModel(new BMD(m_ROM.GetFileFromInternalID(m_Level.m_LevelSettings.BMDFileID))))
+            if (ExportModel(new BMD(m_ROM.GetFileFromInternalID(m_Level.m_LevelSettings.BMDFileInternalID))))
             {
                 slStatusLabel.Text = "Finished exporting level model.";
             }

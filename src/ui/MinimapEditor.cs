@@ -502,8 +502,8 @@ namespace SM64DSe
         private void LoadMinimapFiles()
         {
 
-            m_PalFile = Program.m_ROM.GetFileFromInternalID(m_Level.m_LevelSettings.MinimapPalFileID);
-            m_TileSetFile = Program.m_ROM.GetFileFromInternalID(m_Level.m_LevelSettings.MinimapTsetFileID);
+            m_PalFile = Program.m_ROM.GetFileFromInternalID(m_Level.m_LevelSettings.MinimapPalFileInternalID);
+            m_TileSetFile = Program.m_ROM.GetFileFromInternalID(m_Level.m_LevelSettings.MinimapTsetFileInternalID);
             for (int j = 0; j < m_NumAreas; j++)
             {
                 try

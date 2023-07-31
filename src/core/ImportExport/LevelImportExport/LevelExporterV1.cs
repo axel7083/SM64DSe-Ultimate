@@ -56,15 +56,15 @@ namespace SM64DSe.ImportExport.LevelImportExport
             }
             writer.WriteEndElement();
 
-            WriteFilenameToXML(writer, exportPath, "LevelModel", level.m_LevelSettings.BMDFileID,
+            WriteFilenameToXML(writer, exportPath, "LevelModel", level.m_LevelSettings.BMDFileInternalID,
                 new Dictionary<string, string> { /*{ "overrideFileID", "FALSE" }*/ });
-            WriteFilenameToXML(writer, exportPath, "CollisionMap", level.m_LevelSettings.KCLFileID,
+            WriteFilenameToXML(writer, exportPath, "CollisionMap", level.m_LevelSettings.KCLFileInternalID,
                 new Dictionary<string, string> { /*{ "overrideFileID", "FALSE" }*/ });
 
             writer.WriteStartElement("MinimapSettings");
-            WriteFilenameToXML(writer, exportPath, "Tileset", level.m_LevelSettings.MinimapTsetFileID,
+            WriteFilenameToXML(writer, exportPath, "Tileset", level.m_LevelSettings.MinimapTsetFileInternalID,
                 new Dictionary<string, string> { /*{ "overrideFileID", "FALSE" }*/ });
-            WriteFilenameToXML(writer, exportPath, "Palette", level.m_LevelSettings.MinimapPalFileID,
+            WriteFilenameToXML(writer, exportPath, "Palette", level.m_LevelSettings.MinimapPalFileInternalID,
                 new Dictionary<string, string> { /*{ "overrideFileID", "FALSE" }*/ });
             writer.WriteElementString("CoordinateScale", level.m_LevelSettings.MinimapCoordinateScale.ToString());
             writer.WriteStartElement("MinimapTilemapIndices");

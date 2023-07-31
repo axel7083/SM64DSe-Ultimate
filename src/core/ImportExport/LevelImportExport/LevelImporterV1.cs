@@ -93,13 +93,13 @@ namespace SM64DSe.ImportExport.LevelImportExport
                     }
                     else if (reader.LocalName.Equals("LevelModel"))
                     {
-                        ReadFileFromXML(reader, "LevelModel", level.m_LevelSettings.BMDFileID);
-                        levelSettings.BMDFileID = level.m_LevelSettings.BMDFileID;
+                        ReadFileFromXML(reader, "LevelModel", level.m_LevelSettings.BMDFileInternalID);
+                        levelSettings.BMDFileInternalID = level.m_LevelSettings.BMDFileInternalID;
                     }
                     else if (reader.LocalName.Equals("CollisionMap"))
                     {
-                        ReadFileFromXML(reader, "CollisionMap", level.m_LevelSettings.KCLFileID);
-                        levelSettings.KCLFileID = level.m_LevelSettings.KCLFileID;
+                        ReadFileFromXML(reader, "CollisionMap", level.m_LevelSettings.KCLFileInternalID);
+                        levelSettings.KCLFileInternalID = level.m_LevelSettings.KCLFileInternalID;
                     }
                     else if (reader.LocalName.Equals("MinimapSettings"))
                     {
@@ -203,13 +203,13 @@ namespace SM64DSe.ImportExport.LevelImportExport
                 reader.MoveToContent();
                 if (reader.NodeType.Equals(XmlNodeType.Element) && reader.LocalName.Equals("Tileset"))
                 {
-                    ReadFileFromXML(reader, "Tileset", level.m_LevelSettings.MinimapTsetFileID);
-                    levelSettings.MinimapTsetFileID = level.m_LevelSettings.MinimapTsetFileID;
+                    ReadFileFromXML(reader, "Tileset", level.m_LevelSettings.MinimapTsetFileInternalID);
+                    levelSettings.MinimapTsetFileInternalID = level.m_LevelSettings.MinimapTsetFileInternalID;
                 }
                 else if (reader.NodeType.Equals(XmlNodeType.Element) && reader.LocalName.Equals("Palette"))
                 {
-                    ReadFileFromXML(reader, "Palette", level.m_LevelSettings.MinimapPalFileID);
-                    levelSettings.MinimapPalFileID = level.m_LevelSettings.MinimapPalFileID;
+                    ReadFileFromXML(reader, "Palette", level.m_LevelSettings.MinimapPalFileInternalID);
+                    levelSettings.MinimapPalFileInternalID = level.m_LevelSettings.MinimapPalFileInternalID;
                 }
                 else if (reader.NodeType.Equals(XmlNodeType.Element) && reader.LocalName.Equals("CoordinateScale"))
                 {

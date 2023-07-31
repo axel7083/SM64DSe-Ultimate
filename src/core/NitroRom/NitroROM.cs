@@ -726,6 +726,11 @@ namespace SM64DSe
             throw new Exception("NitroROM: cannot find file '" + name + "'");
         }
 
+        public NitroFile GetFileFromID(ushort id)
+        {
+            return new NitroFile(this, id);
+        }
+
         public NitroFile GetFileFromInternalID(ushort intid) // TODO!!!
         {
             if (intid >= 0x8000)
@@ -1287,7 +1292,7 @@ namespace SM64DSe
 
         private uint m_LevelOvlIDTableOffset;
         private uint m_FileTableOffset, m_FileTableLength;
-        private ushort[] m_FileTable;
+        private ushort[] m_FileTable; // internalID -> fileID
         private uint[] m_LevelOvlIDTable;
 
         private uint m_UsedSize;
@@ -1334,7 +1339,7 @@ namespace SM64DSe
         }
 
         private DirEntry[] m_DirEntries;
-        internal FileEntry[] m_FileEntries;
+        internal FileEntry[] m_FileEntries; // fileID ->  FileEntry
         internal OverlayEntry[] m_OverlayEntries;
     }
 

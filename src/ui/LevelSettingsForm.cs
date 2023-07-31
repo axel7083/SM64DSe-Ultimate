@@ -95,10 +95,10 @@ namespace SM64DSe
 
             chkFarCamera.Checked = m_LevelSettings.CameraStartZoomedOut == 1;
 
-            nudBMD.Value = m_LevelSettings.BMDFileID;
-            nudKCL.Value = m_LevelSettings.KCLFileID;
-            nudICG.Value = m_LevelSettings.MinimapTsetFileID;
-            nudICL.Value = m_LevelSettings.MinimapPalFileID;
+            nudBMD.Value = m_LevelSettings.BMDFileInternalID;
+            nudKCL.Value = m_LevelSettings.KCLFileInternalID;
+            nudICG.Value = m_LevelSettings.MinimapTsetFileInternalID;
+            nudICL.Value = m_LevelSettings.MinimapPalFileInternalID;
 
             if (Program.m_IsROMFolder) {
                 Program.m_ROM.arm9R.BaseStream.Position = Helper.GetActSelectorIDTableAddress() + ((LevelEditorForm)Owner).m_LevelID - Program.m_ROM.headerSize;
@@ -179,10 +179,10 @@ namespace SM64DSe
 
             m_LevelSettings.CameraStartZoomedOut = chkFarCamera.Checked ? (byte)1 : (byte)0;
 
-            m_LevelSettings.BMDFileID = (ushort)nudBMD.Value;
-            m_LevelSettings.KCLFileID = (ushort)nudKCL.Value;
-            m_LevelSettings.MinimapTsetFileID = (ushort)nudICG.Value;
-            m_LevelSettings.MinimapPalFileID = (ushort)nudICL.Value;
+            m_LevelSettings.BMDFileInternalID = (ushort)nudBMD.Value;
+            m_LevelSettings.KCLFileInternalID = (ushort)nudKCL.Value;
+            m_LevelSettings.MinimapTsetFileInternalID = (ushort)nudICG.Value;
+            m_LevelSettings.MinimapPalFileInternalID = (ushort)nudICL.Value;
 
             if (Program.m_IsROMFolder) {
                 Program.m_ROM.arm9W.BaseStream.Position = Helper.GetActSelectorIDTableAddress() + ((LevelEditorForm)Owner).m_LevelID - Program.m_ROM.headerSize;

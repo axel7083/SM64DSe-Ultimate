@@ -867,10 +867,10 @@ namespace SM64DSe
             ObjectBanks[6] = ovl.Read8(0x5A);
             ObjectBanks[7] = ovl.Read32(0x5C);
 
-            BMDFileID = ovl.Read16(0x68);
-            KCLFileID = ovl.Read16(0x6A);
-            MinimapTsetFileID = ovl.Read16(0x6C);
-            MinimapPalFileID = ovl.Read16(0x6E);
+            BMDFileInternalID = ovl.Read16(0x68);
+            KCLFileInternalID = ovl.Read16(0x6A);
+            MinimapTsetFileInternalID = ovl.Read16(0x6C);
+            MinimapPalFileInternalID = ovl.Read16(0x6E);
 
             MusicBytes = new byte[3];
             MusicBytes[0] = ovl.Read8(0x7C);
@@ -892,10 +892,10 @@ namespace SM64DSe
             binWriter.Write(ObjectBanks[7]); //0x5c
             binWriter.Write((long)0); //0x60-0x68
 
-            binWriter.Write(BMDFileID); //0x68
-            binWriter.Write(KCLFileID); //0x6a
-            binWriter.Write(MinimapTsetFileID); //0x6c
-            binWriter.Write(MinimapPalFileID); //0x6e
+            binWriter.Write(BMDFileInternalID); //0x68
+            binWriter.Write(KCLFileInternalID); //0x6a
+            binWriter.Write(MinimapTsetFileInternalID); //0x6c
+            binWriter.Write(MinimapPalFileInternalID); //0x6e
 
             binWriter.Write(new byte[5]); //0x70-0x75
             binWriter.Write(CameraStartZoomedOut); //0x75
@@ -913,7 +913,7 @@ namespace SM64DSe
         [JsonProperty]
         public uint[] ObjectBanks;
         [JsonProperty]
-        public ushort BMDFileID, KCLFileID, MinimapTsetFileID, MinimapPalFileID;
+        public ushort BMDFileInternalID, KCLFileInternalID, MinimapTsetFileInternalID, MinimapPalFileInternalID;
         [JsonProperty]
         public byte[] MusicBytes;
         [JsonProperty]
