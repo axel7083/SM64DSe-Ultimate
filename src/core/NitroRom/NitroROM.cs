@@ -26,6 +26,7 @@ using System.Globalization;
 using Newtonsoft.Json;
 using System.Diagnostics;
 using System.Windows.Forms;
+using Ndst.Formats;
 using Serilog;
 
 namespace SM64DSe
@@ -726,8 +727,11 @@ namespace SM64DSe
             throw new Exception("NitroROM: cannot find file '" + name + "'");
         }
 
-        public NitroFile GetFileFromID(ushort id)
+        public NitroFile GetFileFromID(ushort id, NARC narc = null)
         {
+            if (narc != null && id < 0xF000)
+                return new NARCFile(narc, id);
+            
             return new NitroFile(this, id);
         }
 
@@ -1324,6 +1328,11 @@ namespace SM64DSe
             public uint Offset;
             public uint Size;
             public byte[] Data;
+
+            public ObjectDatabase.FileDetails toFileDetails()
+            {
+                return new ObjectDatabase.FileDetails(FullName, ID);
+            }
         }
 
         public struct OverlayEntry

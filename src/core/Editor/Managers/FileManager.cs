@@ -50,6 +50,16 @@ namespace SM64DSe.core.Api
             return m_ROM.GetFileFromID(id);
         }
 
+        public NARCFile GetNARCFile(ushort fileId, NARC narc)
+        {
+            return new NARCFile(narc, fileId);
+        }
+        
+        public NARCFile GetNARCFile(ushort fileId, ushort narcId)
+        {
+            return GetNARCFile(fileId, new NARC(m_ROM, narcId));
+        }
+
         public NitroROM.FileEntry GetFileEntry(ushort id)
         {
             return m_ROM.m_FileEntries[id];

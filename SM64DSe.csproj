@@ -158,9 +158,11 @@
     <Compile Include="src\core\Api\BaseApi.cs" />
     <Compile Include="src\core\Api\FileApi.cs" />
     <Compile Include="src\core\Api\LevelApi.cs" />
+    <Compile Include="src\core\Api\MinimapsApi.cs" />
     <Compile Include="src\core\Api\ObjectsApi.cs" />
     <Compile Include="src\core\Api\OverlayApi.cs" />
     <Compile Include="src\core\Api\RomEditorBootstrapper.cs" />
+    <Compile Include="src\core\Api\utils\RequestInfo.cs" />
     <Compile Include="src\core\BasicBigFloat.cs" />
     <Compile Include="src\core\BiDictionaryOneToOne.cs" />
     <Compile Include="src\core\DataHelper.cs" />
@@ -169,6 +171,7 @@
     <Compile Include="src\core\Editor\Managers\FileManager.cs" />
     <Compile Include="src\core\Editor\Managers\LevelsManager.cs" />
     <Compile Include="src\core\Editor\Managers\Manager.cs" />
+    <Compile Include="src\core\Editor\Managers\MinimapManager.cs" />
     <Compile Include="src\core\Editor\Managers\ObjectsManager.cs" />
     <Compile Include="src\core\Editor\Managers\OverlaysManager.cs" />
     <Compile Include="src\core\Editor\Managers\PatchesManager.cs" />

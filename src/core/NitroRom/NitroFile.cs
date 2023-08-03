@@ -89,5 +89,10 @@ namespace SM64DSe
         public ushort m_ID;
         [JsonProperty]
         public string m_Name;
+
+        public virtual ObjectDatabase.FileDetails ToFileDetails()
+        {
+            return new ObjectDatabase.FileDetails(m_Name, m_ID);
+        }
     }
 }

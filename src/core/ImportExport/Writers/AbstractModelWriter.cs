@@ -43,6 +43,7 @@ namespace SM64DSe.ImportExport.Writers
             //Export the current texture to .PNG
             try
             {
+                lol.RotateFlip(RotateFlipType.RotateNoneFlipY);
                 lol.Save(destDir + "/" + destName + ".png", System.Drawing.Imaging.ImageFormat.Png);
             }
             catch (Exception e)

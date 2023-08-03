@@ -51,7 +51,6 @@ namespace SM64DSe.ImportExport.Writers.ExternalWriters
                             ModelBase.FaceListDef faceList = polyList.m_FaceLists[fl];
 
                             int f = 0;
-                            int count = faceList.m_Faces.Count;
                             while (f < faceList.m_Faces.Count)
                             {
                                 ModelBase.FaceDef face = faceList.m_Faces[f];

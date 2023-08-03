@@ -1,25 +1,12 @@
 ﻿using System;
-using System.Diagnostics.Contracts;
 using System.IO;
 using Nancy;
-using Nancy.Responses;
-using Serilog;
 
 namespace SM64DSe.core.Api
 {
     public class FileApi : NancyModule
     {
         private static readonly string[] ALLOWED_EXTENSION = new string[] { ".mtl", ".obj", ".png" };
-        
-        private static Response Serve(string path, string filename)
-        {
-            Log.Information($"Serving {path}");
-            var convertedFile = new FileStream(path, FileMode.Open);
-            string fileName = filename;
-
-            var response = new StreamResponse(() => convertedFile, MimeTypes.GetMimeType(path));
-            return response.AsAttachment(fileName);
-        }
 
         private static bool IsFileAllowed(string name)
         {
@@ -37,8 +24,8 @@ namespace SM64DSe.core.Api
         {
             Get("/", _ => Response.AsJson(Program.romEditor.GetManager<FileManager>().GetFileEntries()));
             Get("/directories", _ => Response.AsJson(Program.romEditor.GetManager<FileManager>().GetDirEntries()));
-            Get("/{fileId:int}/details",
-                args => Response.AsJson(Program.romEditor.GetManager<FileManager>().GetFileFromInternalID((ushort)args.fileId)));
+            /*Get("/{fileId:int}/details",
+                args => Response.AsJson(Program.romEditor.GetManager<FileManager>().GetFileFromInternalID((ushort)args.fileId)));*/
 
             Get("/{file}",
                 args =>
@@ -48,9 +35,15 @@ namespace SM64DSe.core.Api
                     int fileId = -1;
                     // Check if the file provided is a number
                     bool canConvert = int.TryParse(arr[0], out fileId);
-                    
+
                     // If the query parameter "internal-id" is provided, we need to convert the id provided to fileId
                     string isInternalIdQuery = Request.Query["internal-id"];
+                    string narcIdQuery = Request.Query["narc-id"];
+
+                    // internal-id and narc-id are mutually exclusive
+                    if (!string.IsNullOrEmpty(isInternalIdQuery) && !string.IsNullOrEmpty(narcIdQuery))
+                        throw new Exception("internal-id and narc-id cannot be both set.");
+                    
                     bool isInternalId = !string.IsNullOrEmpty(isInternalIdQuery) && bool.Parse(isInternalIdQuery);
 
                     // if not extension
@@ -58,14 +51,21 @@ namespace SM64DSe.core.Api
                     {
                         if (!canConvert)
                             throw new Exception("without extension, only fileId are supported.");
-                        
+
+                        if (!string.IsNullOrEmpty(narcIdQuery))
+                            return Response.AsJson(
+                                Program.romEditor.GetManager<FileManager>()
+                                    .GetNARCFile((ushort)fileId, ushort.Parse(narcIdQuery))
+                                    .ToFileDetails()
+                            );
+
                         return Response.AsJson(
                             Program.romEditor.GetManager<FileManager>().GetFileEntry(
-                                isInternalId?
-                                    Program.romEditor.GetManager<FileManager>().InternalIdToFileId((ushort)fileId) :
-                                    (ushort)fileId
-                                    )
-                            );
+                                isInternalId
+                                    ? Program.romEditor.GetManager<FileManager>().InternalIdToFileId((ushort)fileId)
+                                    : (ushort)fileId
+                            ).toFileDetails()
+                        );
                     }
 
                     // Ensure the file requested as an allowed extension
@@ -80,6 +80,10 @@ namespace SM64DSe.core.Api
                         expectedFilename =
                             $"{fileId}.{arr[1]}";
                     }
+                    else if(!string.IsNullOrEmpty(narcIdQuery))
+                    {
+                        expectedFilename = $"{narcIdQuery}-{args.file}";
+                    }
                     else
                     {
                         expectedFilename = args.file;
@@ -87,7 +91,7 @@ namespace SM64DSe.core.Api
                     
                     string path = Path.Combine(root, expectedFilename);
                     if (File.Exists(path))
-                        return Serve(path, expectedFilename);
+                        return BaseApi.Serve(path, expectedFilename);
                     
 
                     // Depending on the extension requested we have different behavior
@@ -97,68 +101,45 @@ namespace SM64DSe.core.Api
                         case "mtl":
                             if (!canConvert)
                                 throw new Exception("Only fileId can be converted to obj/mtl");
-                            
-                            bool success = Program.romEditor.GetManager<ConverterManager>().ConvertBMDToObj(
-                                (ushort)fileId, 
-                                Path.Combine(root, $"{fileId}.obj")
-                            );
+
+                            bool success;
+                            if (!string.IsNullOrEmpty(narcIdQuery))
+                            {
+                                success = Program.romEditor.GetManager<ConverterManager>().ConvertBMDToObj(
+                                    ushort.Parse(narcIdQuery),
+                                    (ushort)fileId, 
+                                    Path.Combine(root, $"{narcIdQuery}-{fileId}.obj")
+                                );
+                            }
+                            else
+                            {
+                               success = Program.romEditor.GetManager<ConverterManager>().ConvertBMDToObj(
+                                   (ushort)fileId, 
+                                   Path.Combine(root, $"{fileId}.obj")
+                               ); 
+                            }
 
                             if (success)
-                                return Serve(path, expectedFilename);
+                                return BaseApi.Serve(path, expectedFilename);
                             else
                                 return new NotFoundResponse();
                             break;
                             default:
                                 return new NotFoundResponse();
                     }
-                    
-                    
-                    /*string file = args.file;
-                    
-                    bool isInternalId = bool.Parse((internalId != null)?internalId:"false");
-
-                    var arr = file.Split('.');
-                    if (arr.Length != 2)
-                    {
-                        ushort id;
-                        ushort.TryParse(arr[0], out id);
-                        if (isInternalId)
-                        {
-                            id = Program.romEditor.GetManager<FileManager>().InternalIdToFileId(id);
-                            Log.Information($"Converting internalID to FileID: {arr[0]} -> {id}");
-                        }
-                        return Response.AsJson(Program.romEditor.GetManager<FileManager>().GetFileEntry(id));
-                    }
-
-                    if (!IsFileAllowed(file))
-                        throw new FormatException("The file request has not an acceptable extension.");
-
-                    var root = Program.romEditor.CurrentTemp;
-                    string path = Path.Combine(root, args.file);
-
-                    if (File.Exists(path))
-                        return Serve(path, file);
-                    
-                    switch (arr[1])
-                    {
-                        case "obj":
-                        case "mtl":
-                            ushort fileID = ushort.Parse(arr[0]);
-                            if (isInternalId)
-                            {
-                                fileID = Program.romEditor.GetManager<FileManager>().InternalIdToFileId(fileID);
-                                Log.Information($"Converting internalID to FileID: {arr[0]} -> {fileID}");
-                            }
-                            
-                            Program.romEditor.GetManager<ConverterManager>().ConvertBMDToObj(
-                                fileID, 
-                                Path.Combine(root, $"{fileID}.obj")
-                                );
-                            return Serve(path, $"{fileID}.{arr[1]}");
-                        default:
-                            return new NotFoundResponse();
-                    }*/
                 });
+            
+            
+            Get("/search",
+                args =>
+                {
+                    string path = this.Request.Query["path"];
+                    if (path != null)
+                        return Response.AsJson(Program.romEditor.GetManager<FileManager>().GetFileFromName(path).ToFileDetails());
+                    
+                    return new NotFoundResponse();
+                });
+
         }
     }
 }

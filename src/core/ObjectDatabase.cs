@@ -38,6 +38,19 @@ namespace SM64DSe
 {
     public static class ObjectDatabase
     {
+        public class NarcInfo
+        {
+            [JsonProperty]
+            public readonly string narc;
+            [JsonProperty]
+            public readonly ushort narcID;
+
+            public NarcInfo(string narc, ushort narcId)
+            {
+                this.narc = narc;
+                narcID = narcId;
+            }
+        }
         public class FileDetails
         {
             [JsonProperty]
@@ -45,10 +58,14 @@ namespace SM64DSe
             [JsonProperty]
             public readonly ushort fileID;
 
-            public FileDetails(string file, ushort fileId)
+            [JsonProperty]
+            public readonly NarcInfo narc;
+
+            public FileDetails(string file, ushort fileId, NarcInfo narc = null)
             {
                 this.file = file;
-                fileID = fileId;
+                this.fileID = fileId;
+                this.narc = narc;
             }
         }
         public class RendererConfig
@@ -339,7 +356,7 @@ namespace SM64DSe
                     case "Wiggler":
                     case "Koopa":
                     case "KoopaShell":
-                        oinfo.m_Renderer = new RendererConfig(type: type);
+                        oinfo.m_Renderer = new RendererConfig(type: type, scale: 0.008f);
                         break;
                     default:
                         throw new Exception("Unknown renderer for '" + oinfo.m_Name + "' (id = " + oinfo.m_ID + ").");

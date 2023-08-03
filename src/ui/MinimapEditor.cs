@@ -52,7 +52,6 @@ namespace SM64DSe
         public MinimapEditor(Level level)
         {
             m_Level = level;
-
             InitializeComponent();
         }
 
@@ -501,7 +500,6 @@ namespace SM64DSe
 
         private void LoadMinimapFiles()
         {
-
             m_PalFile = Program.m_ROM.GetFileFromInternalID(m_Level.m_LevelSettings.MinimapPalFileInternalID);
             m_TileSetFile = Program.m_ROM.GetFileFromInternalID(m_Level.m_LevelSettings.MinimapTsetFileInternalID);
             for (int j = 0; j < m_NumAreas; j++)
@@ -530,7 +528,8 @@ namespace SM64DSe
             m_SizeX = m_SizeY = (int)(Math.Sqrt(m_TileMapFile.m_Data.Length / 2) * 8);// Minimaps are squares
             m_BPP = 8;// Bits per pixel is always 8 for the minimaps
             dmnHeight.Text = dmnWidth.Text = "" + m_SizeX;
-            m_PaletteRow = 0; dmnPaletteRow.Text = "" + m_PaletteRow;
+            m_PaletteRow = 0; 
+            dmnPaletteRow.Text = "" + m_PaletteRow;
             cbxBPP.SelectedIndex = 1;
             if (m_SizeX == 128)
             {

@@ -2453,7 +2453,7 @@
         <description />
         <bankreq>none</bankreq>
         <dlreq>data/dynamic/rickshaw.dylb</dlreq>
-        <renderer type="Kurumajiku" file1="data/special_obj/km1_kuruma/km1_kuruma.bmd" file2="data/special_obj/km1_kuruma/km1_kurumajiku.bmd" scale="1" />
+        <renderer type="Kurumajiku" file1="data/special_obj/km1_kuruma/km1_kuruma.bmd" file2="data/special_obj/km1_kuruma/km1_kurumajiku.bmd" scale="0.008" />
     </object>
     <object id="178">
         <name>Sliding Platform (BDW)</name>
@@ -2906,7 +2906,7 @@
         <description />
         <bankreq>none</bankreq>
         <dlreq>data/dynamic/rickshaw.dylb</dlreq>
-        <renderer type="Kurumajiku" file1="data/special_obj/km3_kuruma/km3_kuruma.bmd" file2="data/special_obj/km3_kuruma/km3_kurumajiku.bmd" scale="1" />
+        <renderer type="Kurumajiku" file1="data/special_obj/km3_kuruma/km3_kuruma.bmd" file2="data/special_obj/km3_kuruma/km3_kurumajiku.bmd" scale="0.008" />
     </object>
     <object id="224">
         <name>Stairs (BS)</name>

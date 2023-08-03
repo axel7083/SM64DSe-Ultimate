@@ -18,10 +18,25 @@ namespace SM64DSe.core.Api
         {
             return m_ROM.GetFileIDFromInternalID(id);
         }
-
+        
         public bool ConvertBMDToObj(ushort id, string path)
         {
-            NitroFile file = Program.romEditor.GetManager<FileManager>().GetFileFromID(id);
+            return ConvertBMDToObj(null, id, path);
+        }
+
+        public bool ConvertBMDToObj(ushort narcId, ushort id, string path)
+        {
+            NARC narc = new NARC(m_ROM, narcId);
+            return ConvertBMDToObj(narc, id, path);
+        }
+
+        private bool ConvertBMDToObj(NARC narc, ushort id, string path)
+        {
+            NitroFile file;
+            if (narc == null)
+                file = Program.romEditor.GetManager<FileManager>().GetFileFromID(id);
+            else
+                file = Program.romEditor.GetManager<FileManager>().GetNARCFile(id, narc);
             
             // Ensure it is a file that can be converted.
             if (!file.m_Name.EndsWith(".bmd"))
@@ -30,7 +45,7 @@ namespace SM64DSe.core.Api
                 return false;
             }
 
-                // Export the model to temp path.
+            // Export the model to temp path.
             BMD_BCA_KCLExporter.ExportBMDModel(new BMD(file), path);
             return true;
         }

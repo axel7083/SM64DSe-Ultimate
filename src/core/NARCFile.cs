@@ -48,5 +48,14 @@ namespace SM64DSe
 
 
         public NARC m_Narc;
+
+        public override ObjectDatabase.FileDetails ToFileDetails()
+        {
+            return new ObjectDatabase.FileDetails(
+                m_Name,
+                m_ID,
+                new ObjectDatabase.NarcInfo(m_Narc.m_Name, m_Narc.m_ID)
+            );
+        }
     }
 }
