@@ -6,7 +6,7 @@ namespace SM64DSe.core.Api
 {
     public class FileApi : NancyModule
     {
-        private static readonly string[] ALLOWED_EXTENSION = new string[] { ".mtl", ".obj", ".png" };
+        private static readonly string[] ALLOWED_EXTENSION = new string[] { ".mtl", ".obj", ".png", ".dae"};
 
         private static bool IsFileAllowed(string name)
         {
@@ -92,30 +92,32 @@ namespace SM64DSe.core.Api
                     string path = Path.Combine(root, expectedFilename);
                     if (File.Exists(path))
                         return BaseApi.Serve(path, expectedFilename);
-                    
 
+                    string type = arr[1];
+                    if (type == "mtl")
+                        type = "obj";
                     // Depending on the extension requested we have different behavior
-                    switch (arr[1])
+                    switch (type)
                     {
                         case "obj":
-                        case "mtl":
+                        case "dae":
                             if (!canConvert)
                                 throw new Exception("Only fileId can be converted to obj/mtl");
 
                             bool success;
                             if (!string.IsNullOrEmpty(narcIdQuery))
                             {
-                                success = Program.romEditor.GetManager<ConverterManager>().ConvertBMDToObj(
+                                success = Program.romEditor.GetManager<ConverterManager>().ConvertBMD(
                                     ushort.Parse(narcIdQuery),
                                     (ushort)fileId, 
-                                    Path.Combine(root, $"{narcIdQuery}-{fileId}.obj")
+                                    Path.Combine(root, $"{narcIdQuery}-{fileId}.{type}")
                                 );
                             }
                             else
                             {
-                               success = Program.romEditor.GetManager<ConverterManager>().ConvertBMDToObj(
+                               success = Program.romEditor.GetManager<ConverterManager>().ConvertBMD(
                                    (ushort)fileId, 
-                                   Path.Combine(root, $"{fileId}.obj")
+                                   Path.Combine(root, $"{fileId}.{type}")
                                ); 
                             }
 

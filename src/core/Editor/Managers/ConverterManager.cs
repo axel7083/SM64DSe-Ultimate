@@ -19,18 +19,18 @@ namespace SM64DSe.core.Api
             return m_ROM.GetFileIDFromInternalID(id);
         }
         
-        public bool ConvertBMDToObj(ushort id, string path)
+        public bool ConvertBMD(ushort id, string path)
         {
-            return ConvertBMDToObj(null, id, path);
+            return ConvertBMD(null, id, path);
         }
 
-        public bool ConvertBMDToObj(ushort narcId, ushort id, string path)
+        public bool ConvertBMD(ushort narcId, ushort id, string path)
         {
             NARC narc = new NARC(m_ROM, narcId);
-            return ConvertBMDToObj(narc, id, path);
+            return ConvertBMD(narc, id, path);
         }
 
-        private bool ConvertBMDToObj(NARC narc, ushort id, string path)
+        private bool ConvertBMD(NARC narc, ushort id, string path)
         {
             NitroFile file;
             if (narc == null)
