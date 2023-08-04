@@ -97,10 +97,7 @@ namespace SM64DSe
                     filesDetails = new FileDetails[files.Length];
                     for (var i = 0; i < files.Length; i++)
                     {
-                        filesDetails[i] = new FileDetails(
-                            files[i],
-                            Program.romEditor.GetManager<FileManager>().GetFileFromName(files[i]).m_ID
-                        );
+                        filesDetails[i] = Program.romEditor.GetManager<FileManager>().GetFileFromName(files[i]).ToFileDetails();
                     }
                 }
             }
@@ -232,11 +229,6 @@ namespace SM64DSe
 
                 ObjectInfo oinfo = m_ObjectInfo[id];
                 oinfo.m_ID = (ushort)id;
-
-                if (oinfo.m_ID == 50)
-                {
-                    Log.Information("50");
-                }
 
                 xr.ReadToFollowing("name");
                 oinfo.m_Name = xr.ReadElementContentAsString();
