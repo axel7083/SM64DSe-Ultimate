@@ -28,11 +28,12 @@ using System.Windows.Forms;
 using Newtonsoft.Json;
 using OpenTK;
 using OpenTK.Graphics.OpenGL;
+using SM64DSe.core.models;
 using SM64DSe.SM64DSFormats;
 
 namespace SM64DSe
 {
-    public class LevelObject
+    public partial class LevelObject: LevelObjectModel
     {
         //public static int NUM_OBJ_TYPES = 326;
         public static int NUM_OBJ_TYPES = 65536;
@@ -119,53 +120,6 @@ namespace SM64DSe
             }
             return list;
         }
-
-        public enum Type
-        {
-            STANDARD = 0,
-            ENTRANCE = 1, 
-            PATH_NODE = 2, 
-            PATH = 3, 
-            VIEW = 4, 
-            SIMPLE = 5, 
-            TELEPORT_SOURCE = 6, 
-            TELEPORT_DESTINATION = 7, 
-            FOG = 8, 
-            DOOR = 9, 
-            EXIT = 10, 
-            MINIMAP_TILE_ID = 11, 
-            MINIMAP_SCALE = 12, 
-            STAR_CAMERAS = 14
-        };
-        
-        [JsonProperty]
-        public ushort ID;
-        
-        [JsonProperty]
-        public Vector3 Position;
-        
-        [JsonProperty]
-        public float YRotation;
-
-        // object specific parameters
-        // for standard objects: [0] = 16bit object param, [1] and [2] = what should be X and Z rotation
-        // for simple objects: [0] = 7bit object param
-        [JsonProperty]
-        public ushort[] Parameters;
-        
-        public int m_Layer;
-        public int m_Area;
-        public uint m_UniqueID;
-        
-        [JsonProperty]
-        public Type m_Type;
-        
-        [JsonIgnore]
-        public ObjectRenderer m_Renderer;
-        [JsonIgnore]
-        public PropertyTable m_Properties;
-        
-        public ParameterField[] m_ParameterFields = null;
 
         public string m_KCLName = null; // For blocks and whomp's towers only ;)
     }

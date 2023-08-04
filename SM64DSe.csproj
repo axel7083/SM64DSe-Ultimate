@@ -222,9 +222,12 @@
     <Compile Include="src\core\KuppaScript\NumberInterpreter.cs" />
     <Compile Include="src\core\Level.cs" />
     <Compile Include="src\core\LevelObject.cs" />
+    <Compile Include="src\core\LevelObject.Type.cs" />
     <Compile Include="src\core\ModelCache.cs" />
     <Compile Include="src\core\models\CompilationConfig.cs" />
+    <Compile Include="src\core\models\LevelObjectModel.cs" />
     <Compile Include="src\core\models\LevelObjects.cs" />
+    <Compile Include="src\core\models\LevelUpdate.cs" />
     <Compile Include="src\core\models\OverlayCount.cs" />
     <Compile Include="src\core\models\RomMetadata.cs" />
     <Compile Include="src\core\models\RomVersion.cs" />

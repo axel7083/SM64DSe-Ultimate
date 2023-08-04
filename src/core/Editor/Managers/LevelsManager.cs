@@ -20,7 +20,7 @@ namespace SM64DSe.core.Api
             return m_ROM.GetActSelectorIdByLevelID(id);
         }
 
-        public Level GetLevelDetails(int id)
+        public Level GetLevel(int id)
         {
             return new Level(id);
         }

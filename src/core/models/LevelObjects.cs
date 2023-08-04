@@ -5,9 +5,9 @@ namespace SM64DSe.core.models
     public class LevelObjects
     {
         [JsonProperty]
-        LevelObject[] objects;
+        public readonly LevelObjectModel[] objects;
 
-        public LevelObjects(LevelObject[] objects)
+        public LevelObjects(LevelObjectModel[] objects)
         {
             this.objects = objects;
         }
