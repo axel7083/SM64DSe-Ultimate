@@ -162,6 +162,7 @@
     <Compile Include="src\core\Api\ObjectsApi.cs" />
     <Compile Include="src\core\Api\OverlayApi.cs" />
     <Compile Include="src\core\Api\RomEditorBootstrapper.cs" />
+    <Compile Include="src\core\Api\utils\EnumExporter.cs" />
     <Compile Include="src\core\Api\utils\RequestInfo.cs" />
     <Compile Include="src\core\BasicBigFloat.cs" />
     <Compile Include="src\core\BiDictionaryOneToOne.cs" />

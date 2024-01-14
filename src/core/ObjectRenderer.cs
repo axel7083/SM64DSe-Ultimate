@@ -397,51 +397,26 @@ namespace SM64DSe
         public StarRenderer(LevelObject obj)
         {
             char startype = obj.Parameters[0].ToString("X4")[2];
-            if (obj.ID == 63)
+
+            m_showsStar = true; // Default value for m_showsStar
+
+            // Common values used in both cases
+            m_Filename = "data/normal_obj/star_box/star_box.bmd";
+            float scale = 0.008f;
+            m_ModelRenderer = new NormalBMDRenderer(m_Filename, scale);
+
+            if (obj.ID == 63 || (obj.ID == 61 && startype == '6'))
             {
-                switch (startype)
+                if (startype == '0')
                 {
-                    case '0':
-                        m_ModelRenderer = new NormalBMDRenderer("data/normal_obj/star/star_base.bmd", 0.008f);
-                        m_Filename = "data/normal_obj/star/star_base.bmd";
-                        break;
-                    case '1':
-                        m_ModelRenderer = new NormalBMDRenderer("data/normal_obj/star_box/star_box.bmd", 0.008f);
-                        m_Filename = "data/normal_obj/star_box/star_box.bmd";
-                        break;
-                    case '4':
-                        m_ModelRenderer = new NormalBMDRenderer("data/normal_obj/star_box/star_box.bmd", 0.008f);
-                        m_Filename = "data/normal_obj/star_box/star_box.bmd";
-                        break;
-                    case '6':
-                        m_ModelRenderer = new NormalBMDRenderer("data/normal_obj/star_box/star_box.bmd", 0.008f);
-                        m_Filename = "data/normal_obj/star_box/star_box.bmd";
-                        m_showsStar = true;
-                        break;
-                    default:
-                        m_showsStar = true;
-                        break;
+                    m_Filename = "data/normal_obj/star/star_base.bmd";
                 }
+
+                m_showsStar = startype == '6';
             }
             else if (obj.ID == 61)
             {
-                switch (startype)
-                {
-                    case '6':
-                        m_ModelRenderer = new NormalBMDRenderer("data/normal_obj/star_box/star_box.bmd", 0.008f);
-                        m_Filename = "data/normal_obj/star_box/star_box.bmd";
-                        m_showsStar = true;
-                        break;
-                    default:
-                        m_StarRenderer = new NormalBMDRenderer("data/normal_obj/star/obj_star.bmd", 0.008f);
-                        m_Filename = "data/normal_obj/star/obj_star.bmd";
-                        m_showsStar = true;
-                        break;
-                }
-            }
-            else
-            {
-                m_showsStar = true;
+                m_StarRenderer = new NormalBMDRenderer("data/normal_obj/star/obj_star.bmd", scale);
             }
         }
 

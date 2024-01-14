@@ -4,6 +4,7 @@ using System.Reflection;
 using Nancy;
 using Nancy.Bootstrapper;
 using Nancy.Configuration;
+using Nancy.Conventions;
 using Nancy.TinyIoc;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
@@ -51,6 +52,12 @@ namespace SM64DSe.core.Api
                 ctx.Response.Headers.Add("Access-Control-Expose-Headers", "Accept,Origin,Content-type,MY_HEADER");
             });
             base.ApplicationStartup(container, pipelines);
+        }
+        
+        protected override void ConfigureConventions(NancyConventions nancyConventions)
+        {
+            nancyConventions.StaticContentsConventions.Add(StaticContentConventionBuilder.AddDirectory("", @"static"));
+            base.ConfigureConventions(nancyConventions);
         }
 
         protected override void ConfigureApplicationContainer(TinyIoCContainer container)

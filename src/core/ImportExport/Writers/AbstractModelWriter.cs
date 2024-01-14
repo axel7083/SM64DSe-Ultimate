@@ -6,6 +6,8 @@ using System.IO;
 using System.Drawing;
 using System.Windows.Forms;
 using System.Globalization;
+using Microsoft.VisualBasic.Logging;
+using Log = Serilog.Log;
 
 namespace SM64DSe.ImportExport.Writers
 {
@@ -38,18 +40,24 @@ namespace SM64DSe.ImportExport.Writers
             }
         }
 
-        protected static void ExportTextureToPNG(string destDir, string destName, Bitmap lol)
+        protected static void ExportTextureToPNG(string destDir, string destName, Bitmap bitmap)
         {
             //Export the current texture to .PNG
             try
             {
-                lol.RotateFlip(RotateFlipType.RotateNoneFlipY);
-                lol.Save(destDir + "/" + destName + ".png", System.Drawing.Imaging.ImageFormat.Png);
+                bitmap.RotateFlip(RotateFlipType.RotateNoneFlipY);
+                var path = destDir + "/" + destName + ".png";
+                if (File.Exists(path))
+                {
+                    Log.Warning("The file already exist, overwriting it.");
+                }
+                bitmap.Save(path, System.Drawing.Imaging.ImageFormat.Png);
             }
             catch (Exception e)
             {
-                MessageBox.Show("An error occurred while trying to save texture " + destName + ".\n\n " +
-                    e.Message + "\n" + e.Data + "\n" + e.StackTrace + "\n" + e.Source);
+                Log.Error("Something went wrong while trying to ExportTextureToPNG: " + e.Message);
+                /*MessageBox.Show("An error occurred while trying to save texture " + destName + ".\n\n " +
+                    e.Message + "\n" + e.Data + "\n" + e.StackTrace + "\n" + e.Source);*/
             }
         }
     }

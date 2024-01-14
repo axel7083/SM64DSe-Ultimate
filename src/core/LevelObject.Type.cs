@@ -17,6 +17,7 @@
             EXIT = 10, 
             MINIMAP_TILE_ID = 11, 
             MINIMAP_SCALE = 12, 
+            UNKNOWN = 13, // to avoid having issues when converting enum to array. Should not be used
             STAR_CAMERAS = 14
         };
     }

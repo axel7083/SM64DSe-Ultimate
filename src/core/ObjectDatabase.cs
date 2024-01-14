@@ -71,6 +71,8 @@ namespace SM64DSe
         public class RendererConfig
         {
             [JsonProperty]
+            public readonly int objectId;
+            [JsonProperty]
             public readonly string type;
             [JsonProperty]
             private readonly FileDetails[] filesDetails;
@@ -85,8 +87,9 @@ namespace SM64DSe
             [JsonProperty]
             public readonly string fill;
 
-            public RendererConfig(string type = null, string[] files = null, float scale = 1f, Vector3[] offsets = null, string animation = null)
+            public RendererConfig(int objectId, string type = null, string[] files = null, float scale = 1f, Vector3[] offsets = null, string animation = null)
             {
+                this.objectId = objectId;
                 this.type = type;
                 this.scale = scale;
                 this.offsets = offsets;
@@ -277,6 +280,7 @@ namespace SM64DSe
                     case "NormalBMD":
                     case "NormalKCL":
                         oinfo.m_Renderer = new RendererConfig(
+                            oinfo.m_ID,
                             type,
                             new string[] { xr.GetAttribute("file") },
                             scale != null? float.Parse(scale) : 1f
@@ -295,6 +299,7 @@ namespace SM64DSe
                         }
                         
                         oinfo.m_Renderer = new RendererConfig(
+                            oinfo.m_ID,
                             type,
                             new string[] { xr.GetAttribute("file1"), xr.GetAttribute("file2") },
                             scale != null? float.Parse(scale) : 1f,
@@ -303,6 +308,7 @@ namespace SM64DSe
                         break;
                     case "Kurumajiku":
                         oinfo.m_Renderer = new RendererConfig(
+                            oinfo.m_ID,
                             type: type,
                             files: new string[]
                             {
@@ -321,12 +327,14 @@ namespace SM64DSe
                         break;
                     case "Player":
                         oinfo.m_Renderer = new RendererConfig(
+                            oinfo.m_ID,
                             scale: scale != null? float.Parse(scale) : 1f,
                             animation: xr.GetAttribute("animation")
                         );
                         break;
                     case "Luigi":
                         oinfo.m_Renderer = new RendererConfig(
+                            oinfo.m_ID,
                             scale: scale != null? float.Parse(scale) : 1f
                         );
                         break;
@@ -348,7 +356,7 @@ namespace SM64DSe
                     case "Wiggler":
                     case "Koopa":
                     case "KoopaShell":
-                        oinfo.m_Renderer = new RendererConfig(type: type, scale: 0.008f);
+                        oinfo.m_Renderer = new RendererConfig(oinfo.m_ID, type: type, scale: 0.008f);
                         break;
                     default:
                         throw new Exception("Unknown renderer for '" + oinfo.m_Name + "' (id = " + oinfo.m_ID + ").");
