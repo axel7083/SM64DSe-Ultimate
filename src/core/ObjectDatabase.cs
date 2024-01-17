@@ -18,6 +18,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -26,6 +27,7 @@ using System.IO;
 using System.Xml;
 using System.Net;
 using System.Windows.Forms;
+using Newtonsoft.Json;
 
 namespace SM64DSe
 {
@@ -35,9 +37,17 @@ namespace SM64DSe
         {
             public struct ParamInfo
             {
+                [JsonProperty("name")]
                 public string m_Name;
-                public int m_Offset, m_Length;
-                public string m_Type, m_Values;
+                [JsonProperty("offset")]
+                public int m_Offset;
+                [JsonProperty("length")]
+                public int m_Length;
+                [JsonProperty("length")]
+                public string m_Type;
+                [JsonProperty("values")]
+                public string m_Values;
+                [JsonProperty("description")]
                 public string m_Description;
             }
 
@@ -46,27 +56,47 @@ namespace SM64DSe
                 return (m_Name + "\n" + m_InternalName + "\n" + m_Description);
             }
 
+            [JsonProperty("category")]
             public int m_Category;
 
+            [JsonProperty("id")]
             public ushort m_ID;
+            
+            [JsonProperty("actorid")]
             public ushort m_ActorID;
+            
+            [JsonProperty("name")]
             public string m_Name;
+            
+            [JsonProperty("internalname")]
             public string m_InternalName;
+            
+            [JsonProperty("description")]
             public string m_Description;
-
+            
+            [JsonProperty("bankreq")]
             public int m_BankRequirement;
-            public int m_NumBank, m_BankSetting;
+            
+            [JsonProperty("dlreq")]
+            public string m_DynamicLibraryRequirement;
 
-            public string m_IsCustomModelPath;
-
+            [JsonProperty("params")]
             public ParamInfo[] m_ParamInfo;
+            
+            [JsonIgnore]
+            public int m_NumBank;
+            
+            [JsonIgnore]
+            public int m_BankSetting;
+
+            [JsonIgnore]
+            public string m_IsCustomModelPath;
         }
 
-        public static ObjectInfo[] m_ObjectInfo = null;
+        public static ObjectInfo[] m_ObjectInfo;
         public static uint m_Timestamp;
         public static WebClient m_WebClient;
-
-
+        
         public static void Initialize()
         {
             m_ObjectInfo = new ObjectInfo[65536];
@@ -74,6 +104,35 @@ namespace SM64DSe
                 m_ObjectInfo[i] = new ObjectInfo();
 
             m_WebClient = new WebClient();
+        }
+
+        public static void LoadProjectSpecific()
+        {
+            string parentDirectory = System.IO.Directory.GetParent(Program.m_ROM.m_Path).FullName;
+            string projectObjects = Path.Combine(parentDirectory, "objects.json");
+            if (!File.Exists(projectObjects))
+                return;
+            
+            Console.WriteLine("We found an objects.json aside the ROM, loading it as additonal objects");
+            using (StreamReader r = new StreamReader(projectObjects))
+            {
+                string json = r.ReadToEnd();
+                List<ObjectInfo> items = JsonConvert.DeserializeObject<List<ObjectInfo>>(json);
+                
+                // This would overwrite any previously defined objects
+                foreach (ObjectInfo objectInfo in items)
+                {
+                    if (objectInfo.m_InternalName.StartsWith("@CUSTOM%"))
+                    {
+                        objectInfo.m_IsCustomModelPath = objectInfo.m_InternalName.Substring(8);
+                    }
+                    if (objectInfo.m_DynamicLibraryRequirement.StartsWith("@CUSTOM%"))
+                    {
+                        objectInfo.m_DynamicLibraryRequirement = objectInfo.m_DynamicLibraryRequirement.Substring(8);
+                    }
+                    m_ObjectInfo[objectInfo.m_ID] = objectInfo;
+                }
+            }
         }
 
         public static void Load()
@@ -128,7 +187,7 @@ namespace SM64DSe
 
                 xr.ReadToFollowing("description");
                 oinfo.m_Description = xr.ReadElementContentAsString();
-
+                
                 xr.ReadToFollowing("bankreq");
                 temp = xr.ReadElementContentAsString();
                 if (temp == "none")
@@ -142,6 +201,17 @@ namespace SM64DSe
                         oinfo.m_BankSetting = int.Parse(temp.Substring(temp.IndexOf('=') + 1));
                     }
                     catch { oinfo.m_BankRequirement = 2; }
+                }
+                
+                xr.ReadToFollowing("dlreq");
+                temp = xr.ReadElementContentAsString();
+                if (temp != null && temp != "none")
+                {
+                    if (oinfo.m_DynamicLibraryRequirement.StartsWith("@CUSTOM%"))
+                    {
+                        temp = temp.Substring(8);
+                    }
+                    oinfo.m_DynamicLibraryRequirement = temp;
                 }
 
                 List<ObjectInfo.ParamInfo> paramlist = new List<ObjectInfo.ParamInfo>();
@@ -174,7 +244,18 @@ namespace SM64DSe
 
             xr.Close();
             fs.Close();
-        }
+
+            // Loading potential project specific objects from user defined file
+            try
+            {
+                LoadProjectSpecific();
+            }
+            catch (Exception e)
+            {
+                Console.Error.WriteLine(e.Message);
+                MessageBox.Show($"Cannot load objects from `objects.json` file: {e.Message}");
+            }
+        } 
 
         public static void LoadFallback()
         {
