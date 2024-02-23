@@ -13,10 +13,6 @@ namespace SM64DSe.core.cli.workers
     {
         public override int Execute(CompileOptions options)
         {
-            // Setup rom
-            this.SetupRom(options);
-            this.EnsurePatch(options.Force);
-            
             Log.Information($"Compile source {options.Source} to {options.Type} in rom {options.RomPath} in path {options.InternalPath}");
 
             // Ensure the source directory exists
@@ -101,6 +97,10 @@ namespace SM64DSe.core.cli.workers
 
         private int MakeDynamicLibrary(CompileOptions options)
         {
+            // Setup rom
+            this.SetupRom(options);
+            this.EnsurePatch(options.Force);
+            
             PatchMaker pm = new PatchMaker(
                 new DirectoryInfo(options.Source), 
                 0x02400000
