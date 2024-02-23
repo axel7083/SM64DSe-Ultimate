@@ -25,7 +25,11 @@ using System.Net;
 using System.Web;
 using SM64DSe.ImportExport.LevelImportExport;
 using System.Globalization;
+using Serilog;
+using SM64DSe.core.managers;
 using SM64DSe.core.utils.DynamicLibraries;
+using SM64DSe.core.utils.Github;
+using SM64DSe.dialogs;
 
 namespace SM64DSe
 {
@@ -182,28 +186,11 @@ namespace SM64DSe
             btnLZForceDecompression.Enabled = false;
         }
 
-        private void EnableOrDisableASMHackingCompilationAndGenerationFeatures()
-        {
-            if (Program.m_ROM.m_Version != NitroROM.Version.EUR)
-            {
-                btnASMHacking.DropDownItems.Remove(mnitASMHackingCompilation);
-                btnASMHacking.DropDownItems.Remove(mnitASMHackingGeneration);
-                btnASMHacking.DropDownItems.Remove(tssASMHacking001);
-            }
-            else
-            {
-                if (btnASMHacking.DropDownItems.IndexOf(mnitASMHackingCompilation) < 0)
-                {
-                    btnASMHacking.DropDownItems.Insert(0, mnitASMHackingCompilation);
-                    btnASMHacking.DropDownItems.Insert(1, mnitASMHackingGeneration);
-                    btnASMHacking.DropDownItems.Insert(2, tssASMHacking001);
-                }
-            }
-        }
-
         public MainForm(string romPath)
         {
             InitializeComponent();
+            SetupAddons();
+            
             Text = Program.AppTitle + " " + Program.AppVersion + " " + Program.AppDate;
             Program.m_ROMPath = "";
             Program.m_LevelEditors = new List<LevelEditorForm>();
@@ -1353,5 +1340,113 @@ namespace SM64DSe
 
             SoundHeaderGenerator.Generate(o.FileName);
         }
-	}
+
+        /**
+         * Method related to addons
+         */
+        private List<AddonObject> _addonObjects = null;
+        private void SetupAddons()
+        {
+            // clear any existing items
+            addons_list.Items.Clear();
+            
+            // init image list
+            addons_image_list.Images.Clear();
+            addons_image_list.Images.Add(Properties.Resources.brick);
+            addons_image_list.ImageSize = new Size(32, 32);
+            
+            this._addonObjects = AddonsManager.GetInstance().GetAddons();
+            Log.Debug($"Found {this._addonObjects.Count} addons.");
+            foreach (AddonObject addonObject in this._addonObjects)
+            {
+                ListViewItem item = new ListViewItem(addonObject.Name, 0);
+                item.SubItems.Add(addonObject.Description);
+
+                addons_list.Items.Add(item);
+            }
+
+            addons_list.TileSize = new Size(400, 50);
+        }
+        
+        private void addonsList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (this.addons_list.SelectedItems.Count == 1)
+            {
+                this.btn_open_github.Enabled = true;
+                this.btn_list_versions.Enabled = true;
+            }
+            else
+            {
+                this.btn_open_github.Enabled = false;
+                this.btn_list_versions.Enabled = false;
+            }
+        }
+
+        private void btn_list_versions_Click(object sender, EventArgs e)
+        {
+            AddonObject o = GetAddonObjectSelected();
+            if (o == null)
+                return;
+
+            List<GitHubRelease> releases = null;
+
+            try
+            {
+                spbStatusProgress.Visible = true;
+                releases = AddonsManager.GetInstance().GetGitHubRelease(o);
+            }
+            catch (Exception ex)
+            {
+                Log.Error($"Something went wrong while trying to get the releases of {o.Repository}", ex);
+            }
+            finally
+            {
+                spbStatusProgress.Visible = false;
+            }
+            
+            if (releases == null || releases.Count == 0)
+            {
+                MessageBox.Show($"No releases found for repository {o.Repository}.", "Error");
+                return;
+            }
+
+            List<string> versions = new List<string>();
+            foreach (var gitHubRelease in releases)
+            {
+                string name = gitHubRelease.Name;
+                if (gitHubRelease.Prerelease)
+                {
+                    name += " (prerelease)";
+                }
+                versions.Add(name);
+            }
+            
+            DropdownDialog dialog = new DropdownDialog($"Select a version for {o.Name} to install", versions.ToArray(), 0);
+            dialog.ShowDialog();
+            int selected = dialog.GetSelected();
+            Log.Debug($"User selected version index {selected}");
+        }
+
+        private AddonObject GetAddonObjectSelected()
+        {
+            if (this.addons_list.SelectedItems.Count != 1)
+                return null;
+            
+            int selected = this.addons_list.SelectedItems[0].Index;
+            if (this._addonObjects.Count < selected)
+            {
+                Log.Error("Index selected above addons count.");
+                return null;
+            }
+
+            return this._addonObjects[selected];
+        }
+
+        private void btn_open_github_Click(object sender, EventArgs e)
+        {
+            AddonObject o = GetAddonObjectSelected();
+            if (o != null)
+                System.Diagnostics.Process.Start(GetAddonObjectSelected().Repository);
+        }
+    }
 }
