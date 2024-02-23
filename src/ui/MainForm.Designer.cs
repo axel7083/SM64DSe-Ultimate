@@ -105,6 +105,8 @@
 	        this.btnExtractOverlay = new System.Windows.Forms.Button();
 	        this.btnDecompressOverlay = new System.Windows.Forms.Button();
 	        this.addons = new System.Windows.Forms.TabPage();
+	        this.btnInstall = new System.Windows.Forms.Button();
+	        this.addonsChoice = new System.Windows.Forms.ComboBox();
 	        this.btn_open_github = new System.Windows.Forms.Button();
 	        this.btn_list_versions = new System.Windows.Forms.Button();
 	        this.addons_list = new System.Windows.Forms.ListView();
@@ -139,7 +141,7 @@
 	        this.tsToolBar.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { this.btnOpenROM, this.btnHalp, this.btnOptions, this.btnMore, this.btnASMHacking, this.btnTools, this.btnOpenFilesystem, this.btnRunROM, this.btnBuildROM, this.extractROMButton });
 	        this.tsToolBar.Location = new System.Drawing.Point(0, 0);
 	        this.tsToolBar.Name = "tsToolBar";
-	        this.tsToolBar.Size = new System.Drawing.Size(591, 25);
+	        this.tsToolBar.Size = new System.Drawing.Size(576, 25);
 	        this.tsToolBar.TabIndex = 0;
 	        this.tsToolBar.Text = "toolStrip1";
 	        this.tsToolBar.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.tsToolBar_ItemClicked);
@@ -500,9 +502,9 @@
 	        // ssStatusBar
 	        // 
 	        this.ssStatusBar.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { this.slStatusLabel, this.spbStatusProgress });
-	        this.ssStatusBar.Location = new System.Drawing.Point(0, 456);
+	        this.ssStatusBar.Location = new System.Drawing.Point(0, 443);
 	        this.ssStatusBar.Name = "ssStatusBar";
-	        this.ssStatusBar.Size = new System.Drawing.Size(591, 22);
+	        this.ssStatusBar.Size = new System.Drawing.Size(576, 22);
 	        this.ssStatusBar.TabIndex = 2;
 	        this.ssStatusBar.Text = "statusStrip1";
 	        // 
@@ -530,7 +532,7 @@
 	        this.tbcMainFormTabControl.Location = new System.Drawing.Point(0, 25);
 	        this.tbcMainFormTabControl.Name = "tbcMainFormTabControl";
 	        this.tbcMainFormTabControl.SelectedIndex = 0;
-	        this.tbcMainFormTabControl.Size = new System.Drawing.Size(591, 431);
+	        this.tbcMainFormTabControl.Size = new System.Drawing.Size(576, 418);
 	        this.tbcMainFormTabControl.TabIndex = 3;
 	        // 
 	        // tbpLevels
@@ -539,7 +541,7 @@
 	        this.tbpLevels.Location = new System.Drawing.Point(4, 22);
 	        this.tbpLevels.Name = "tbpLevels";
 	        this.tbpLevels.Padding = new System.Windows.Forms.Padding(3);
-	        this.tbpLevels.Size = new System.Drawing.Size(583, 405);
+	        this.tbpLevels.Size = new System.Drawing.Size(568, 392);
 	        this.tbpLevels.TabIndex = 0;
 	        this.tbpLevels.Text = "Levels";
 	        this.tbpLevels.UseVisualStyleBackColor = true;
@@ -564,8 +566,8 @@
 	        this.splitContainerLevels.Panel2.Controls.Add(this.btnEditCollisionMap);
 	        this.splitContainerLevels.Panel2.Controls.Add(this.btnEditLevel);
 	        this.splitContainerLevels.Panel2.Controls.Add(this.btnEditLevelNames);
-	        this.splitContainerLevels.Size = new System.Drawing.Size(577, 399);
-	        this.splitContainerLevels.SplitterDistance = 370;
+	        this.splitContainerLevels.Size = new System.Drawing.Size(562, 386);
+	        this.splitContainerLevels.SplitterDistance = 357;
 	        this.splitContainerLevels.TabIndex = 0;
 	        // 
 	        // btnRefresh
@@ -573,7 +575,7 @@
 	        this.btnRefresh.AllowDrop = true;
 	        this.btnRefresh.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
 	        this.btnRefresh.Enabled = false;
-	        this.btnRefresh.Location = new System.Drawing.Point(286, 0);
+	        this.btnRefresh.Location = new System.Drawing.Point(271, 0);
 	        this.btnRefresh.Name = "btnRefresh";
 	        this.btnRefresh.Size = new System.Drawing.Size(75, 21);
 	        this.btnRefresh.TabIndex = 4;
@@ -587,8 +589,9 @@
 	        this.cbLevelListDisplay.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
 	        this.cbLevelListDisplay.Enabled = false;
 	        this.cbLevelListDisplay.FormattingEnabled = true;
+	        this.cbLevelListDisplay.ImeMode = System.Windows.Forms.ImeMode.NoControl;
 	        this.cbLevelListDisplay.Items.AddRange(new object[] { "Default", "Actual Name", "Id+Internal Name", "ShortActual+InternalString", "Optimized Internal String" });
-	        this.cbLevelListDisplay.Location = new System.Drawing.Point(367, 0);
+	        this.cbLevelListDisplay.Location = new System.Drawing.Point(352, 0);
 	        this.cbLevelListDisplay.Name = "cbLevelListDisplay";
 	        this.cbLevelListDisplay.Size = new System.Drawing.Size(205, 21);
 	        this.cbLevelListDisplay.TabIndex = 3;
@@ -603,7 +606,7 @@
 	        this.lbxLevels.Location = new System.Drawing.Point(0, 24);
 	        this.lbxLevels.Margin = new System.Windows.Forms.Padding(0);
 	        this.lbxLevels.Name = "lbxLevels";
-	        this.lbxLevels.Size = new System.Drawing.Size(572, 346);
+	        this.lbxLevels.Size = new System.Drawing.Size(557, 333);
 	        this.lbxLevels.TabIndex = 2;
 	        this.lbxLevels.SelectedIndexChanged += new System.EventHandler(this.lbxLevels_SelectedIndexChanged);
 	        this.lbxLevels.DoubleClick += new System.EventHandler(this.lbxLevels_DoubleClick);
@@ -647,7 +650,7 @@
 	        this.tbpFileSystem.Location = new System.Drawing.Point(4, 22);
 	        this.tbpFileSystem.Name = "tbpFileSystem";
 	        this.tbpFileSystem.Padding = new System.Windows.Forms.Padding(3);
-	        this.tbpFileSystem.Size = new System.Drawing.Size(583, 405);
+	        this.tbpFileSystem.Size = new System.Drawing.Size(568, 392);
 	        this.tbpFileSystem.TabIndex = 1;
 	        this.tbpFileSystem.Text = "File System";
 	        this.tbpFileSystem.UseVisualStyleBackColor = true;
@@ -668,8 +671,8 @@
 	        // spcFileSystemTab.Panel2
 	        // 
 	        this.spcFileSystemTab.Panel2.Controls.Add(this.pnlFileOptions);
-	        this.spcFileSystemTab.Size = new System.Drawing.Size(577, 399);
-	        this.spcFileSystemTab.SplitterDistance = 343;
+	        this.spcFileSystemTab.Size = new System.Drawing.Size(562, 386);
+	        this.spcFileSystemTab.SplitterDistance = 330;
 	        this.spcFileSystemTab.TabIndex = 2;
 	        // 
 	        // tvFileList
@@ -677,7 +680,7 @@
 	        this.tvFileList.Dock = System.Windows.Forms.DockStyle.Fill;
 	        this.tvFileList.Location = new System.Drawing.Point(0, 0);
 	        this.tvFileList.Name = "tvFileList";
-	        this.tvFileList.Size = new System.Drawing.Size(577, 343);
+	        this.tvFileList.Size = new System.Drawing.Size(562, 330);
 	        this.tvFileList.TabIndex = 0;
 	        this.tvFileList.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.tvFileList_AfterSelect);
 	        this.tvFileList.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.tvFileList_NodeMouseDoubleClick);
@@ -694,7 +697,7 @@
 	        this.pnlFileOptions.Dock = System.Windows.Forms.DockStyle.Fill;
 	        this.pnlFileOptions.Location = new System.Drawing.Point(0, 0);
 	        this.pnlFileOptions.Name = "pnlFileOptions";
-	        this.pnlFileOptions.Size = new System.Drawing.Size(577, 52);
+	        this.pnlFileOptions.Size = new System.Drawing.Size(562, 52);
 	        this.pnlFileOptions.TabIndex = 1;
 	        // 
 	        // btnLZForceCompression
@@ -774,7 +777,7 @@
 	        this.tbpARM9Overlays.Location = new System.Drawing.Point(4, 22);
 	        this.tbpARM9Overlays.Name = "tbpARM9Overlays";
 	        this.tbpARM9Overlays.Padding = new System.Windows.Forms.Padding(3);
-	        this.tbpARM9Overlays.Size = new System.Drawing.Size(583, 405);
+	        this.tbpARM9Overlays.Size = new System.Drawing.Size(568, 392);
 	        this.tbpARM9Overlays.TabIndex = 2;
 	        this.tbpARM9Overlays.Text = "ARM 9 Overlays";
 	        this.tbpARM9Overlays.UseVisualStyleBackColor = true;
@@ -797,8 +800,8 @@
 	        this.spcARM9Overlays.Panel2.Controls.Add(this.btnReplaceOverlay);
 	        this.spcARM9Overlays.Panel2.Controls.Add(this.btnExtractOverlay);
 	        this.spcARM9Overlays.Panel2.Controls.Add(this.btnDecompressOverlay);
-	        this.spcARM9Overlays.Size = new System.Drawing.Size(577, 399);
-	        this.spcARM9Overlays.SplitterDistance = 368;
+	        this.spcARM9Overlays.Size = new System.Drawing.Size(562, 386);
+	        this.spcARM9Overlays.SplitterDistance = 355;
 	        this.spcARM9Overlays.TabIndex = 0;
 	        // 
 	        // tvARM9Overlays
@@ -806,7 +809,7 @@
 	        this.tvARM9Overlays.Dock = System.Windows.Forms.DockStyle.Fill;
 	        this.tvARM9Overlays.Location = new System.Drawing.Point(0, 0);
 	        this.tvARM9Overlays.Name = "tvARM9Overlays";
-	        this.tvARM9Overlays.Size = new System.Drawing.Size(577, 368);
+	        this.tvARM9Overlays.Size = new System.Drawing.Size(562, 355);
 	        this.tvARM9Overlays.TabIndex = 0;
 	        this.tvARM9Overlays.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.tvARM9Overlays_AfterSelect);
 	        // 
@@ -841,6 +844,8 @@
 	        // 
 	        // addons
 	        // 
+	        this.addons.Controls.Add(this.btnInstall);
+	        this.addons.Controls.Add(this.addonsChoice);
 	        this.addons.Controls.Add(this.btn_open_github);
 	        this.addons.Controls.Add(this.btn_list_versions);
 	        this.addons.Controls.Add(this.addons_list);
@@ -848,10 +853,34 @@
 	        this.addons.Location = new System.Drawing.Point(4, 22);
 	        this.addons.Name = "addons";
 	        this.addons.Padding = new System.Windows.Forms.Padding(3);
-	        this.addons.Size = new System.Drawing.Size(583, 405);
+	        this.addons.Size = new System.Drawing.Size(568, 392);
 	        this.addons.TabIndex = 3;
 	        this.addons.Text = "🧩 addons";
 	        this.addons.UseVisualStyleBackColor = true;
+	        // 
+	        // btnInstall
+	        // 
+	        this.btnInstall.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+	        this.btnInstall.Enabled = false;
+	        this.btnInstall.Location = new System.Drawing.Point(482, 366);
+	        this.btnInstall.Name = "btnInstall";
+	        this.btnInstall.Size = new System.Drawing.Size(86, 23);
+	        this.btnInstall.TabIndex = 10;
+	        this.btnInstall.Text = "Install";
+	        this.btnInstall.UseVisualStyleBackColor = true;
+	        this.btnInstall.Click += new System.EventHandler(this.btnInstall_Click);
+	        // 
+	        // addonsChoice
+	        // 
+	        this.addonsChoice.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+	        this.addonsChoice.FormattingEnabled = true;
+	        this.addonsChoice.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+	        this.addonsChoice.Items.AddRange(new object[] { "Online", "Local" });
+	        this.addonsChoice.Location = new System.Drawing.Point(449, 3);
+	        this.addonsChoice.Name = "addonsChoice";
+	        this.addonsChoice.Size = new System.Drawing.Size(116, 21);
+	        this.addonsChoice.TabIndex = 9;
+	        this.addonsChoice.SelectionChangeCommitted += new System.EventHandler(this.AddonsChoice_SelectionChangeCommitted);
 	        // 
 	        // btn_open_github
 	        // 
@@ -859,7 +888,7 @@
 	        this.btn_open_github.Enabled = false;
 	        this.btn_open_github.Image = global::SM64DSe.Properties.Resources.github;
 	        this.btn_open_github.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-	        this.btn_open_github.Location = new System.Drawing.Point(92, 379);
+	        this.btn_open_github.Location = new System.Drawing.Point(92, 366);
 	        this.btn_open_github.Name = "btn_open_github";
 	        this.btn_open_github.Padding = new System.Windows.Forms.Padding(6, 0, 0, 0);
 	        this.btn_open_github.Size = new System.Drawing.Size(112, 23);
@@ -874,7 +903,7 @@
 	        // 
 	        this.btn_list_versions.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
 	        this.btn_list_versions.Enabled = false;
-	        this.btn_list_versions.Location = new System.Drawing.Point(0, 379);
+	        this.btn_list_versions.Location = new System.Drawing.Point(0, 366);
 	        this.btn_list_versions.Name = "btn_list_versions";
 	        this.btn_list_versions.Size = new System.Drawing.Size(86, 23);
 	        this.btn_list_versions.TabIndex = 7;
@@ -892,7 +921,7 @@
 	        this.addons_list.Margin = new System.Windows.Forms.Padding(0);
 	        this.addons_list.MultiSelect = false;
 	        this.addons_list.Name = "addons_list";
-	        this.addons_list.Size = new System.Drawing.Size(580, 349);
+	        this.addons_list.Size = new System.Drawing.Size(565, 336);
 	        this.addons_list.SmallImageList = this.addons_image_list;
 	        this.addons_list.TabIndex = 6;
 	        this.addons_list.UseCompatibleStateImageBehavior = false;
@@ -918,7 +947,7 @@
 	        this.refresh_addons.AllowDrop = true;
 	        this.refresh_addons.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
 	        this.refresh_addons.Enabled = false;
-	        this.refresh_addons.Location = new System.Drawing.Point(505, 3);
+	        this.refresh_addons.Location = new System.Drawing.Point(368, 3);
 	        this.refresh_addons.Name = "refresh_addons";
 	        this.refresh_addons.Size = new System.Drawing.Size(75, 21);
 	        this.refresh_addons.TabIndex = 5;
@@ -929,7 +958,7 @@
 	        // 
 	        this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 	        this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-	        this.ClientSize = new System.Drawing.Size(591, 478);
+	        this.ClientSize = new System.Drawing.Size(576, 465);
 	        this.Controls.Add(this.tbcMainFormTabControl);
 	        this.Controls.Add(this.ssStatusBar);
 	        this.Controls.Add(this.tsToolBar);
@@ -962,6 +991,10 @@
 	        this.ResumeLayout(false);
 	        this.PerformLayout();
         }
+
+        private System.Windows.Forms.Button btnInstall;
+
+        private System.Windows.Forms.ComboBox addonsChoice;
 
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.ColumnHeader columnHeader2;

@@ -1345,15 +1345,27 @@ namespace SM64DSe
          * Method related to addons
          */
         private List<AddonObject> _addonObjects = null;
+        private List<DownloadedAddon> _downloadedAddons = null;
         private void SetupAddons()
         {
-            // clear any existing items
-            addons_list.Items.Clear();
+            // Set online as default
+            this.addonsChoice.SelectedIndex = 0;
             
             // init image list
             addons_image_list.Images.Clear();
             addons_image_list.Images.Add(Properties.Resources.brick);
             addons_image_list.ImageSize = new Size(32, 32);
+
+            addons_list.TileSize = new Size(400, 50);
+
+            // Default to addons
+            ShowOnlineAddons();
+        }
+
+        private void ShowOnlineAddons()
+        {
+            // clear any existing items
+            addons_list.Items.Clear();
             
             this._addonObjects = AddonsManager.GetInstance().GetAddons();
             Log.Debug($"Found {this._addonObjects.Count} addons.");
@@ -1364,27 +1376,87 @@ namespace SM64DSe
 
                 addons_list.Items.Add(item);
             }
-
-            addons_list.TileSize = new Size(400, 50);
         }
+
+        private void ShowLocalAddons()
+        {
+            // clear any existing items
+            addons_list.Items.Clear();
+            
+            this._downloadedAddons = AddonsManager.GetInstance().GetDownloadedAddons();
+            Log.Debug($"Found {this._downloadedAddons.Count} local addons.");
+            foreach (DownloadedAddon addonObject in this._downloadedAddons)
+            {
+                ListViewItem item = new ListViewItem(addonObject.Name, 0);
+                item.SubItems.Add($"{addonObject.Versions.Length} versions on your system.");
+
+                addons_list.Items.Add(item);
+            }
+        }
+        
         
         private void addonsList_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (this.addons_list.SelectedItems.Count == 1)
+            RefreshAddonsButton();
+        }
+
+        private void AddonsChoice_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            this.addons_list.SelectedItems.Clear();
+            RefreshAddonsButton();
+            if (this.addonsChoice.SelectedIndex == 0)
             {
-                this.btn_open_github.Enabled = true;
-                this.btn_list_versions.Enabled = true;
+                this.ShowOnlineAddons();
             }
             else
             {
-                this.btn_open_github.Enabled = false;
-                this.btn_list_versions.Enabled = false;
+                this.ShowLocalAddons();
+            }
+        }
+
+        private void RefreshAddonsButton()
+        {
+            // online
+            if (this.addonsChoice.SelectedIndex == 0)
+            {
+                this.btn_list_versions.Visible = true;
+                this.btn_open_github.Visible = true;
+
+                this.btnInstall.Visible = false;
+                
+                if (this.addons_list.SelectedItems.Count == 1)
+                {
+                    this.btn_open_github.Enabled = true;
+                    this.btn_list_versions.Enabled = true;
+                }
+                else
+                {
+                    this.btn_open_github.Enabled = false;
+                    this.btn_list_versions.Enabled = false;
+                }
+            }
+            // local
+            else
+            {
+                this.btn_list_versions.Visible = false;
+                this.btn_open_github.Visible = false;
+
+                this.btnInstall.Visible = true;
+                
+                if (this.addons_list.SelectedItems.Count == 1)
+                {
+                    this.btnInstall.Enabled = true;
+                }
+                else
+                {
+                    this.btnInstall.Enabled = false;
+                }
             }
         }
 
         private void btn_list_versions_Click(object sender, EventArgs e)
         {
-            AddonObject o = GetAddonObjectSelected();
+            AddonObject o = GetAddonObjectSelected(this._addonObjects);
             if (o == null)
                 return;
 
@@ -1425,28 +1497,41 @@ namespace SM64DSe
             dialog.ShowDialog();
             int selected = dialog.GetSelected();
             Log.Debug($"User selected version index {selected}");
+            
+            AddonsManager.GetInstance().DownloadAndExtract(o, releases[selected]);
         }
 
-        private AddonObject GetAddonObjectSelected()
+        private T GetAddonObjectSelected<T>(List<T> objects)
         {
             if (this.addons_list.SelectedItems.Count != 1)
-                return null;
+                throw new Exception("SelectedItems not valid");
             
             int selected = this.addons_list.SelectedItems[0].Index;
-            if (this._addonObjects.Count < selected)
+            if (objects.Count < selected)
             {
                 Log.Error("Index selected above addons count.");
-                return null;
+                throw new Exception("Index selected above addons count.");
             }
 
-            return this._addonObjects[selected];
+            return objects[selected];
         }
 
         private void btn_open_github_Click(object sender, EventArgs e)
         {
-            AddonObject o = GetAddonObjectSelected();
+            AddonObject o = GetAddonObjectSelected(this._addonObjects);
             if (o != null)
-                System.Diagnostics.Process.Start(GetAddonObjectSelected().Repository);
+                System.Diagnostics.Process.Start(o.Repository);
+        }
+
+        private void btnInstall_Click(object sender, EventArgs e)
+        {
+            DownloadedAddon o = GetAddonObjectSelected(this._downloadedAddons);
+            AddonsManager.GetInstance().PerformInstall(o, 0);
+            Log.Information("Installation finished.");
+            
+            Log.Debug("Reloading filesystem.");
+            this.tvFileList.Nodes.Clear();
+            ROMFileSelect.LoadFileList(this.tvFileList);
         }
     }
 }
