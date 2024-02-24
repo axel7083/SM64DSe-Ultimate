@@ -590,9 +590,6 @@
     <EmbeddedResource Include="src\ui\CodeFixerForm.resx">
       <DependentUpon>CodeFixerForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="src\ui\dialogs\DropdownDialog.resx">
-      <DependentUpon>DropdownDialog.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="src\ui\dls\DL Editor.resx">
       <DependentUpon>DL Editor.cs</DependentUpon>
     </EmbeddedResource>
@@ -809,8 +806,6 @@
     <Content Include="Documentation\SM64DS Level Format Doc v2.1x.txt" />
     <Content Include="Documentation\SM64DS Text Editing.txt" />
     <Content Include="Documentation\SP2.md" />
-    <Content Include="Resources\github.png" />
-    <Content Include="Resources\github1.png" />
     <Content Include="src\utils\Templates\Enemy.cpp" />
     <Content Include="src\utils\Templates\Enemy.h" />
     <Content Include="src\utils\Templates\Platform.cpp" />
