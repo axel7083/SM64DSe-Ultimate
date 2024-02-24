@@ -29,7 +29,7 @@ using Serilog;
 using SM64DSe.core.managers;
 using SM64DSe.core.utils.DynamicLibraries;
 using SM64DSe.core.utils.Github;
-using SM64DSe.dialogs;
+using SM64DSe.ui.dialogs;
 
 namespace SM64DSe
 {
@@ -1345,7 +1345,7 @@ namespace SM64DSe
          * Method related to addons
          */
         private List<AddonObject> _addonObjects = null;
-        private List<DownloadedAddon> _downloadedAddons = null;
+        private List<LocalAddon> _localAddons = null;
         private void SetupAddons()
         {
             // Set online as default
@@ -1353,13 +1353,21 @@ namespace SM64DSe
             
             // init image list
             addons_image_list.Images.Clear();
+            addons_image_list.Images.Add(Properties.Resources.cloud);
             addons_image_list.Images.Add(Properties.Resources.brick);
+            addons_image_list.Images.Add(Properties.Resources.question);
             addons_image_list.ImageSize = new Size(32, 32);
-
-            addons_list.TileSize = new Size(400, 50);
-
+            
             // Default to addons
             ShowOnlineAddons();
+            addonsList_Resize(null, null);
+        }
+
+        private void addonsList_Resize(object sender,  EventArgs e)
+        {
+            if (this.addons_list.Width < 5)
+                return;
+            addons_list.TileSize = new Size(this.addons_list.Width - 5, 50);
         }
 
         private void ShowOnlineAddons()
@@ -1383,13 +1391,22 @@ namespace SM64DSe
             // clear any existing items
             addons_list.Items.Clear();
             
-            this._downloadedAddons = AddonsManager.GetInstance().GetDownloadedAddons();
-            Log.Debug($"Found {this._downloadedAddons.Count} local addons.");
-            foreach (DownloadedAddon addonObject in this._downloadedAddons)
+            this._localAddons = AddonsManager.GetInstance().GetLocalAddons();
+            Log.Debug($"Found {this._localAddons.Count} local addons.");
+            foreach (LocalAddon addonObject in this._localAddons)
             {
-                ListViewItem item = new ListViewItem(addonObject.Name, 0);
+                ListViewItem item;
+                if (addonObject.Parent != null)
+                {
+                    item = new ListViewItem(addonObject.Parent.Name, 1);
+                }
+                else
+                {
+                    // unknown addon
+                    item = new ListViewItem(addonObject.Path, 2);
+                }
+                
                 item.SubItems.Add($"{addonObject.Versions.Length} versions on your system.");
-
                 addons_list.Items.Add(item);
             }
         }
@@ -1419,6 +1436,7 @@ namespace SM64DSe
             // online
             if (this.addonsChoice.SelectedIndex == 0)
             {
+                this.btnOpenAddonFolder.Visible = false;
                 this.btn_list_versions.Visible = true;
                 this.btn_open_github.Visible = true;
 
@@ -1438,6 +1456,7 @@ namespace SM64DSe
             // local
             else
             {
+                this.btnOpenAddonFolder.Visible = true;
                 this.btn_list_versions.Visible = false;
                 this.btn_open_github.Visible = false;
 
@@ -1493,9 +1512,12 @@ namespace SM64DSe
                 versions.Add(name);
             }
             
-            DropdownDialog dialog = new DropdownDialog($"Select a version for {o.Name} to install", versions.ToArray(), 0);
+            DropdownDialog dialog = new DropdownDialog($"Select a version for {o.Name} to download", versions.ToArray(), 0);
             dialog.ShowDialog();
             int selected = dialog.GetSelected();
+            if (selected == -1)
+                return; // cancel
+            
             Log.Debug($"User selected version index {selected}");
             
             AddonsManager.GetInstance().DownloadAndExtract(o, releases[selected]);
@@ -1525,13 +1547,52 @@ namespace SM64DSe
 
         private void btnInstall_Click(object sender, EventArgs e)
         {
-            DownloadedAddon o = GetAddonObjectSelected(this._downloadedAddons);
-            AddonsManager.GetInstance().PerformInstall(o, 0);
+            LocalAddon o = GetAddonObjectSelected(this._localAddons);
+            if (o.Versions.Length == 0)
+            {
+                Log.Error("Trying to perform install on an empty addon folder.");
+                return;
+            }
+
+            int selected = 0;
+            string name = (o.Parent != null)?o.Parent.Name:o.Path;
+            // If we have more than one version we should ask the user which one he wants to install
+            if (o.Versions.Length > 1)
+            {
+                DropdownDialog dialog = new DropdownDialog($"Select a version for {name} to install", o.Versions, 0);
+                dialog.ShowDialog();
+                selected = dialog.GetSelected();
+                if (selected == -1)
+                    return; // cancel
+                Log.Debug($"User selected version index {selected}");
+            }
+            
+            DialogResult res = MessageBox.Show(
+                $"Are you sure you want to install the addon {name}, this could corrupt your ROM, act carefully.",
+                "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+            if (res != DialogResult.Yes)
+            {
+                Log.Debug("Addon installation cancelled.");
+                return;
+            }
+            
+            AddonsManager.GetInstance().PerformInstall(o, selected);
             Log.Information("Installation finished.");
             
             Log.Debug("Reloading filesystem.");
             this.tvFileList.Nodes.Clear();
             ROMFileSelect.LoadFileList(this.tvFileList);
+        }
+
+        private void btnOpenAddonFolder_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start("explorer.exe",AddonsManager.GetInstance().GetAddonsFolder());
+        }
+
+        private void btnRefreshAddons_Click(object sender, EventArgs e)
+        {
+            AddonsChoice_SelectionChangeCommitted(null, null);
         }
     }
 }

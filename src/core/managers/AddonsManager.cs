@@ -23,8 +23,14 @@ namespace SM64DSe.core.managers
         public string Description;
     }
 
-    public class DownloadedAddon: AddonObject
+    public class LocalAddon
     {
+        [JsonProperty("Parent")]
+        public AddonObject Parent;
+        
+        [JsonProperty("path")]
+        public string Path;
+        
         [JsonProperty("versions")]
         public string[] Versions;
     }
@@ -63,36 +69,54 @@ namespace SM64DSe.core.managers
             }
         }
 
-        public List<DownloadedAddon> GetDownloadedAddons()
+        /**
+         * This method will check inside the `addons` folder for valid version
+         *
+         * (1) It will iterate over all directories
+         * (2) It will check if those directories match to a corresponding addon in the `addons.json`
+         * (3) It will iterate in those folder to check for versions (a version is valid if it contains a `commands.sm64ds` file
+         */
+        public List<LocalAddon> GetLocalAddons()
         {
-            List<DownloadedAddon> output = new List<DownloadedAddon>();
+            List<LocalAddon> output = new List<LocalAddon>();
             string addonsFolder = GetAddonsFolder();
             if (!Directory.Exists(addonsFolder))
                 return output;
 
             List<AddonObject> addons = GetAddons();
+            Dictionary<string, AddonObject> dict = new Dictionary<string, AddonObject>();
             foreach (AddonObject addonObject in addons)
             {
-                string target = Path.Combine(addonsFolder, Sanitize(addonObject.Name));
-                if(!Directory.Exists(target))
-                    continue;
-
-                DownloadedAddon dwDownloadedAddon = new DownloadedAddon();
-                dwDownloadedAddon.Name = addonObject.Name;
-                dwDownloadedAddon.Repository = addonObject.Repository;
-                dwDownloadedAddon.Description = addonObject.Description;
-
-                List<string> paths = new List<string>();
-                string[] dirs = Directory.GetDirectories(target);
-                foreach (string dir in dirs)
+                dict.Add(Sanitize(addonObject.Name), addonObject);
+            }
+            
+            string[] dirs = Directory.GetDirectories(addonsFolder);
+            foreach (string dir in dirs)
+            {
+                LocalAddon localAddon = new LocalAddon();
+                localAddon.Path = dir;
+                
+                string name = new DirectoryInfo(dir).Name;
+                if (dict.ContainsKey(name)) // we have a corresponding addon
                 {
-                    if(!File.Exists(Path.Combine(dir, CommandFile)))
+                    localAddon.Parent = dict[name];
+                }
+                
+                // Let's iterate over all subfolder to detect if they are valid version
+                List<string> paths = new List<string>();
+                string[] versions = Directory.GetDirectories(dir);
+                foreach (string version in versions)
+                {
+                    if(!File.Exists(Path.Combine(version, CommandFile)))
+                    {
+                        Log.Warning($"subfolder {version} does not contain {CommandFile} file - ignoring.");
                         continue;
-                    paths.Add(dir);
+                    }
+                    paths.Add(version);
                 }
 
-                dwDownloadedAddon.Versions = paths.ToArray();
-                output.Add(dwDownloadedAddon);
+                localAddon.Versions = paths.ToArray();
+                output.Add(localAddon);
             }
 
             return output;
@@ -131,7 +155,7 @@ namespace SM64DSe.core.managers
             }
         }
 
-        private string GetAddonsFolder()
+        public string GetAddonsFolder()
         {
             if (Program.m_ROM == null || Program.m_ROM.m_Path == null)
                 throw new Exception("m_ROM need to be not null.");
@@ -172,7 +196,7 @@ namespace SM64DSe.core.managers
             Log.Information("Download and extract finish.");
         }
 
-        public void PerformInstall(DownloadedAddon addon, int versionSelected)
+        public void PerformInstall(LocalAddon addon, int versionSelected)
         {
             if (addon.Versions.Length < versionSelected || versionSelected < 0)
                 throw new Exception("Invalid version selected.");
@@ -185,15 +209,83 @@ namespace SM64DSe.core.managers
             CLIService.Run(new[] {"batches", command, "--force", "--with-progress-bar"});
             
             Log.Debug("batches finished.");
+            
 
             string objects = Path.Combine(path, "objects.json");
             if (File.Exists(objects))
             {
+                Log.Warning("The addon installed own an objects.json - it will be copied.");
                 ObjectDatabase.LoadFromFile(objects);
-                File.Copy(
-                    objects, 
-                    Path.Combine(Directory.GetParent(Program.m_ROM.m_Path).FullName, "objects.json")
+                UpdateObjects(
+                    Path.Combine(Directory.GetParent(Program.m_ROM.m_Path).FullName, "objects.json"),
+                    objects
                     );
+            }
+        }
+        
+        private static void UpdateObjects(string firstFilePath, string secondFilePath) 
+        {
+            try
+            {
+                // Check if the first file exists
+                bool firstFileExists = File.Exists(firstFilePath);
+
+                List<ObjectDatabase.ObjectInfo> firstObjects;
+                List<ObjectDatabase.ObjectInfo> secondObjects;
+
+                // Read content of the second file
+                using (StreamReader file = File.OpenText(secondFilePath))
+                {
+                    JsonSerializer serializer = new JsonSerializer();
+                    secondObjects = (List<ObjectDatabase.ObjectInfo>)serializer.Deserialize(file, typeof(List<ObjectDatabase.ObjectInfo>));
+                }
+
+                // If the first file exists, read its content and merge with the second file
+                if (firstFileExists)
+                {
+                    using (StreamReader file = File.OpenText(firstFilePath))
+                    {
+                        JsonSerializer serializer = new JsonSerializer();
+                        firstObjects = (List<ObjectDatabase.ObjectInfo>)serializer.Deserialize(file, typeof(List<ObjectDatabase.ObjectInfo>));
+                    }
+
+                    // HashSet to store unique IDs encountered
+                    HashSet<ushort> uniqueIDs = new HashSet<ushort>();
+
+                    // Add IDs from firstObjects to HashSet
+                    foreach (var obj in firstObjects)
+                    {
+                        uniqueIDs.Add(obj.m_ID);
+                    }
+
+                    // Merge the contents of the second file while avoiding duplicates
+                    foreach (var obj in secondObjects)
+                    {
+                        if (!uniqueIDs.Contains(obj.m_ID))
+                        {
+                            firstObjects.Add(obj);
+                            uniqueIDs.Add(obj.m_ID);
+                        }
+                    }
+                }
+                else
+                {
+                    // If the first file doesn't exist, simply copy the second file
+                    firstObjects = secondObjects;
+                }
+
+                // Write the merged or copied content back to the first file
+                using (StreamWriter file = File.CreateText(firstFilePath))
+                {
+                    JsonSerializer serializer = new JsonSerializer();
+                    serializer.Serialize(file, firstObjects);
+                }
+
+                Console.WriteLine("Objects updated successfully.");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"An error occurred: {ex.Message}");
             }
         }
 

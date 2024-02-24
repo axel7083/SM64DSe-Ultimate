@@ -787,9 +787,12 @@
     </Content>
     <Content Include="assets\external-tools\ninja.exe" />
     <Content Include="assets\Images\brick.png" />
+    <Content Include="assets\Images\cloud.png" />
     <Content Include="assets\Images\DummyTex.png" />
-    <Content Include="assets\Images\github.png" />
     <Content Include="assets\Images\KuppaScript.ico" />
+    <Content Include="assets\Images\question.png" />
+    <Content Include="assets\Images\Small\folder.png" />
+    <Content Include="assets\Images\Small\github.png" />
     <Content Include="assets\jap_chars.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

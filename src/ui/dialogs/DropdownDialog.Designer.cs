@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace SM64DSe.dialogs
+namespace SM64DSe.ui.dialogs
 {
     partial class DropdownDialog
     {
@@ -87,7 +87,6 @@ namespace SM64DSe.dialogs
             this.Controls.Add(this.cancel);
             this.Controls.Add(this.dropdown);
             this.Controls.Add(this.message);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(300, 175);
             this.Name = "DropdownDialog";
             this.Text = "Information";

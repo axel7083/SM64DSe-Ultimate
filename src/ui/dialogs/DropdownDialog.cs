@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 
-namespace SM64DSe.dialogs
+namespace SM64DSe.ui.dialogs
 {
     public partial class DropdownDialog : Form
     {
@@ -23,6 +23,7 @@ namespace SM64DSe.dialogs
 
         private void cancel_Click(object sender, EventArgs e)
         {
+            this.dropdown.SelectedIndex = -1;
             this.Close();
         }
 

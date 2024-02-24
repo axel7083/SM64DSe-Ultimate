@@ -105,6 +105,7 @@
 	        this.btnExtractOverlay = new System.Windows.Forms.Button();
 	        this.btnDecompressOverlay = new System.Windows.Forms.Button();
 	        this.addons = new System.Windows.Forms.TabPage();
+	        this.btnOpenAddonFolder = new System.Windows.Forms.Button();
 	        this.btnInstall = new System.Windows.Forms.Button();
 	        this.addonsChoice = new System.Windows.Forms.ComboBox();
 	        this.btn_open_github = new System.Windows.Forms.Button();
@@ -113,7 +114,7 @@
 	        this.columnHeader1 = new System.Windows.Forms.ColumnHeader();
 	        this.columnHeader2 = new System.Windows.Forms.ColumnHeader();
 	        this.addons_image_list = new System.Windows.Forms.ImageList(this.components);
-	        this.refresh_addons = new System.Windows.Forms.Button();
+	        this.btnRefreshAddons = new System.Windows.Forms.Button();
 	        this.tsToolBar.SuspendLayout();
 	        this.ssStatusBar.SuspendLayout();
 	        this.tbcMainFormTabControl.SuspendLayout();
@@ -844,12 +845,13 @@
 	        // 
 	        // addons
 	        // 
+	        this.addons.Controls.Add(this.btnOpenAddonFolder);
 	        this.addons.Controls.Add(this.btnInstall);
 	        this.addons.Controls.Add(this.addonsChoice);
 	        this.addons.Controls.Add(this.btn_open_github);
 	        this.addons.Controls.Add(this.btn_list_versions);
 	        this.addons.Controls.Add(this.addons_list);
-	        this.addons.Controls.Add(this.refresh_addons);
+	        this.addons.Controls.Add(this.btnRefreshAddons);
 	        this.addons.Location = new System.Drawing.Point(4, 22);
 	        this.addons.Name = "addons";
 	        this.addons.Padding = new System.Windows.Forms.Padding(3);
@@ -857,6 +859,25 @@
 	        this.addons.TabIndex = 3;
 	        this.addons.Text = "🧩 addons";
 	        this.addons.UseVisualStyleBackColor = true;
+	        // 
+	        // btnOpenAddonFolder
+	        // 
+	        this.btnOpenAddonFolder.AllowDrop = true;
+	        this.btnOpenAddonFolder.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+	        this.btnOpenAddonFolder.Image = global::SM64DSe.Properties.Resources.folder;
+	        this.btnOpenAddonFolder.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+	        this.btnOpenAddonFolder.Location = new System.Drawing.Point(225, 3);
+	        this.btnOpenAddonFolder.Name = "btnOpenAddonFolder";
+	        this.btnOpenAddonFolder.Padding = new System.Windows.Forms.Padding(6, 0, 0, 0);
+	        this.btnOpenAddonFolder.RightToLeft = System.Windows.Forms.RightToLeft.No;
+	        this.btnOpenAddonFolder.Size = new System.Drawing.Size(137, 21);
+	        this.btnOpenAddonFolder.TabIndex = 11;
+	        this.btnOpenAddonFolder.Text = "Open addons folder";
+	        this.btnOpenAddonFolder.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+	        this.btnOpenAddonFolder.UseMnemonic = false;
+	        this.btnOpenAddonFolder.UseVisualStyleBackColor = false;
+	        this.btnOpenAddonFolder.Visible = false;
+	        this.btnOpenAddonFolder.Click += new System.EventHandler(this.btnOpenAddonFolder_Click);
 	        // 
 	        // btnInstall
 	        // 
@@ -927,6 +948,7 @@
 	        this.addons_list.UseCompatibleStateImageBehavior = false;
 	        this.addons_list.View = System.Windows.Forms.View.Tile;
 	        this.addons_list.SelectedIndexChanged += new System.EventHandler(this.addonsList_SelectedIndexChanged);
+	        this.addons_list.Resize += new System.EventHandler(this.addonsList_Resize);
 	        // 
 	        // columnHeader1
 	        // 
@@ -942,17 +964,17 @@
 	        this.addons_image_list.ImageSize = new System.Drawing.Size(16, 16);
 	        this.addons_image_list.TransparentColor = System.Drawing.Color.Transparent;
 	        // 
-	        // refresh_addons
+	        // btnRefreshAddons
 	        // 
-	        this.refresh_addons.AllowDrop = true;
-	        this.refresh_addons.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-	        this.refresh_addons.Enabled = false;
-	        this.refresh_addons.Location = new System.Drawing.Point(368, 3);
-	        this.refresh_addons.Name = "refresh_addons";
-	        this.refresh_addons.Size = new System.Drawing.Size(75, 21);
-	        this.refresh_addons.TabIndex = 5;
-	        this.refresh_addons.Text = "Refresh";
-	        this.refresh_addons.UseVisualStyleBackColor = true;
+	        this.btnRefreshAddons.AllowDrop = true;
+	        this.btnRefreshAddons.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+	        this.btnRefreshAddons.Location = new System.Drawing.Point(368, 3);
+	        this.btnRefreshAddons.Name = "btnRefreshAddons";
+	        this.btnRefreshAddons.Size = new System.Drawing.Size(75, 21);
+	        this.btnRefreshAddons.TabIndex = 5;
+	        this.btnRefreshAddons.Text = "Refresh";
+	        this.btnRefreshAddons.UseVisualStyleBackColor = true;
+	        this.btnRefreshAddons.Click += new System.EventHandler(this.btnRefreshAddons_Click);
 	        // 
 	        // MainForm
 	        // 
@@ -992,6 +1014,8 @@
 	        this.PerformLayout();
         }
 
+        private System.Windows.Forms.Button btnOpenAddonFolder;
+
         private System.Windows.Forms.Button btnInstall;
 
         private System.Windows.Forms.ComboBox addonsChoice;
@@ -1007,7 +1031,7 @@
 
         private System.Windows.Forms.ListView addons_list;
 
-        private System.Windows.Forms.Button refresh_addons;
+        private System.Windows.Forms.Button btnRefreshAddons;
 
         private System.Windows.Forms.TabPage addons;
 
