@@ -5,6 +5,7 @@ namespace SM64DSe.ui.dialogs
 {
     public partial class DropdownDialog : Form
     {
+        private int selected = -1;
         public DropdownDialog(string message, string[] items, int selectedIndex = -1)
         {
             InitializeComponent();
@@ -15,20 +16,21 @@ namespace SM64DSe.ui.dialogs
                 this.dropdown.SelectedIndex = selectedIndex;
             }
         }
+        
 
         public int GetSelected()
         {
-            return this.dropdown.SelectedIndex;
+            return selected;
         }
 
         private void cancel_Click(object sender, EventArgs e)
         {
-            this.dropdown.SelectedIndex = -1;
             this.Close();
         }
 
         private void ok_Click(object sender, EventArgs e)
         {
+            this.selected = this.dropdown.SelectedIndex;
             this.Close();
         }
     }
