@@ -25,8 +25,10 @@ using System.Net;
 using System.Web;
 using SM64DSe.ImportExport.LevelImportExport;
 using System.Globalization;
+using System.Threading.Tasks;
 using Serilog;
 using SM64DSe.core.managers;
+using SM64DSe.core.updater;
 using SM64DSe.core.utils.DynamicLibraries;
 using SM64DSe.core.utils.Github;
 using SM64DSe.ui.dialogs;
@@ -186,6 +188,8 @@ namespace SM64DSe
             btnLZForceDecompression.Enabled = false;
         }
 
+        private GitHubRelease nextRelease = null;
+
         public MainForm(string romPath)
         {
             InitializeComponent();
@@ -199,6 +203,17 @@ namespace SM64DSe
 
             slStatusLabel.Text = "Ready";
             ObjectDatabase.Initialize();
+            
+            Task.Run(() =>
+            {
+                nextRelease = Updater.CheckUpdate();
+            }).ContinueWith((Task task) =>
+            {
+                if (nextRelease != null)
+                {
+                    this.updateLabel.Visible = true;
+                }   
+            });
 
             if (romPath != null)
             {
@@ -1609,6 +1624,20 @@ namespace SM64DSe
         private void btnRefreshAddons_Click(object sender, EventArgs e)
         {
             AddonsChoice_SelectionChangeCommitted(null, null);
+        }
+
+        private void updateLabel_Click(object sender, EventArgs e)
+        {
+            if (nextRelease == null)
+                return;
+
+            DialogResult result = MessageBox.Show("A new release of the editor is availabe. Do you want to open the GitHub release page ?",
+                "New Update", MessageBoxButtons.OKCancel);
+
+            if (result != DialogResult.OK)
+                return;
+            
+            System.Diagnostics.Process.Start(nextRelease.HtmlUrl);
         }
     }
 }
