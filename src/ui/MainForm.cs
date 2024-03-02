@@ -206,8 +206,15 @@ namespace SM64DSe
             
             Task.Run(() =>
             {
-                nextRelease = Updater.CheckUpdate();
-            }).ContinueWith((Task task) =>
+                try
+                {
+                    nextRelease = Updater.CheckUpdate();
+                }
+                catch (Exception e)
+                {
+                    Log.Warning("Something went wrong while trying to check for updates.", e);
+                }
+            }).ContinueWith(task =>
             {
                 if (nextRelease != null)
                 {
@@ -1631,8 +1638,8 @@ namespace SM64DSe
             if (nextRelease == null)
                 return;
 
-            DialogResult result = MessageBox.Show("A new release of the editor is availabe. Do you want to open the GitHub release page ?",
-                "New Update", MessageBoxButtons.OKCancel);
+            DialogResult result = MessageBox.Show($"A new release of the editor is availabe: {nextRelease.Name}. Do you want to open the GitHub release page ?",
+                "New Update", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
 
             if (result != DialogResult.OK)
                 return;

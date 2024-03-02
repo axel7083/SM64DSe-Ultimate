@@ -34,6 +34,6 @@ using SM64DSe.Properties;
 // [assembly: AssemblyVersion("1.0.*")]
 [assembly: AssemblyVersion("3.3.*")]
 [assembly: AssemblyFileVersion("3.3.*")]
-[assembly: AssemblyInformationalVersion("3.2.2-cli-rc-1")] // Do not update manually - it is updated by the github action on release
-[assembly: AssemblyCodeSource("axel7083/SM64DSe-Ultimate")] 
+[assembly: AssemblyInformationalVersion("dev@next")] // Do not update manually - it is updated by the github action on release
+[assembly: AssemblyCodeSource("Gota7/SM64DSe-Ultimate")] 
 
